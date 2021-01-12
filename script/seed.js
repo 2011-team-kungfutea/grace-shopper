@@ -19,6 +19,7 @@ async function seed() {
     Product.create({name: 'Edamame', price: 0.01, quantity: 47})
   ])
 
+  console.log(`seeded ${products.length} products`)
   console.log(`seeded successfully`)
 }
 
