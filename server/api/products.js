@@ -11,19 +11,34 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// NEED to change userId to session id
 router.post('/:productId', async (req, res, next) => {
   try {
     console.log(req.session)
+    let userId
+    if (req.session.userId) {
+      userId = req.session.userId
+    } else {
+      userId = 1
+    }
     const allOrders = await Order.findOrCreate({
       where: {
-        userId: req.session.userId,
+        userId: userId,
         isOrdered: false
       },
-      include: [{model: Order_Detail}],
-      defaults: {userId: req.session.userId, isOrdered: false}
+      include: [
+        {
+          model: Order_Detail
+        }
+      ],
+      defaults: {
+        userId: userId,
+        isOrdered: false,
+        orderDetails: []
+      }
     })
-    //console.log(allOrders)
-    res.send(allOrders)
+    console.log(allOrders)
+    res.send(allOrders[0])
   } catch (error) {
     next(error)
   }
