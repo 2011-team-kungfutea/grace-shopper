@@ -2,9 +2,9 @@ import React from 'react'
 import {connect} from 'react-redux'
 
 export class AllProducts extends React.Component {
-  //   componentDidMount() {
-  //     this.props.fetchProducts()
-  //   }
+  componentDidMount() {
+    this.props.fetchProducts()
+  }
   render() {
     let products = [
       {
@@ -42,15 +42,15 @@ export class AllProducts extends React.Component {
   }
 }
 
-// const mapState = (state) => ({
-//   products: state.products,
-// })
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchProducts: () => {
-//       dispatch(fetchProducts())
-//     },
-//   }
-// }
+const mapState = state => ({
+  products: state.products
+})
+const mapDispatch = dispatch => {
+  return {
+    fetchProducts: () => {
+      dispatch(fetchProducts())
+    }
+  }
+}
 
-// export default connect(mapState, mapDispatch)(AllProducts)
+export default connect(mapState, mapDispatch)(AllProducts)
