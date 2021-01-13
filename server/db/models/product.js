@@ -32,14 +32,14 @@ const Product = db.define('product', {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg',
-    set(val) {
-      if (val === null)
-        this.setDataValue(
-          'imageUrl',
-          'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
-        )
-    }
+      'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
+    // set(val) {
+    //   if (val === null)
+    //     this.setDataValue(
+    //       'imageUrl',
+    //       'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
+    //     )
+    // }
   }
 })
 
