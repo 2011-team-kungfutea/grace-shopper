@@ -34,7 +34,7 @@ class AllProducts extends React.Component {
             return (
               <div key={product.id}>
                 <h1>{product.name}</h1>
-                <img src={product.imageUrl} />
+                <img src={product.imageUrl} width="270" height="270" />
               </div>
             )
           })}
