@@ -17,7 +17,13 @@ async function seed() {
 
   const products = await Promise.all([
     Product.create({name: 'Tofu', price: 2000000.27, quantity: 1}),
-    Product.create({name: 'Edamame', price: 0.01, quantity: 47})
+    Product.create({
+      name: 'Edamame',
+      price: 0.01,
+      quantity: 47,
+      imageUrl:
+        'https://i.pinimg.com/originals/48/ff/49/48ff49ec8efcd32837cde9b177b5d6ca.jpg'
+    })
   ])
 
   console.log(`seeded ${products.length} products`)
