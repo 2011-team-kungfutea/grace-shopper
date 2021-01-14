@@ -19,3 +19,19 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+.spacepurple {
+  color: #7943e7;
+}
+
+.spacegreen {
+  color: #296666;
+}
+
+.spacepink {
+  color: #ff02ff;
+}
+
+.spaceblue {
+  color: #28ffff;
+}

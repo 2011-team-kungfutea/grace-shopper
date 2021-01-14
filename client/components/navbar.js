@@ -11,9 +11,13 @@ const Navbar = ({handleClick, isLoggedIn}) => (
         <li>
           <Link to="/home">Home</Link>
         </li>
+        {/* <li className="shopping cart icon">test</li> */}
         <li>
           <Link to="/products">Adopt</Link>
         </li>
+        {/* <li>
+          <i className="shopping cart violet icon"></i>
+        </li> */}
         <li style={{float: 'right'}}>
           {isLoggedIn ? (
             <div>
@@ -21,18 +25,26 @@ const Navbar = ({handleClick, isLoggedIn}) => (
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
+              <i className="shopping cart purple icon spacepurple" />
+              <a>number</a>
             </div>
           ) : (
             <div>
               {/* The navbar will show these links before you log in */}
               <Link to="/login">Login</Link>
               <Link to="/signup">Sign Up</Link>
+              <i
+                className="shopping cart purple icon spacepurple"
+                padding="14px"
+              />
+              <a>number</a>
             </div>
           )}
         </li>
       </ul>
     </nav>
     <h1>UFO Tofu</h1>
+    {/* <i className="shopping cart icon " ></i> */}
     <hr />
   </div>
 )
