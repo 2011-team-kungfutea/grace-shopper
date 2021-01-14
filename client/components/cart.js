@@ -38,7 +38,7 @@ export class Cart extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cartItems,
+    cart: state.cart,
     user: state.user
   }
 }
