@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-// import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
 
 class SingleProduct extends React.Component {
@@ -19,6 +19,12 @@ class SingleProduct extends React.Component {
         <img src={product.imageUrl} />
         <p>{description}</p>
         <p>Quantity: {quantity}</p>
+        <Link to="/products">
+          <div className="ui two bottom attached buttons">
+            <div className="ui violet button">Back to All Pets</div>
+            <div className="ui purple button">Adopt</div>
+          </div>
+        </Link>
       </div>
     )
   }
