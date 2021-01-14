@@ -14,7 +14,6 @@ router.get('/', async (req, res, next) => {
 //NEED to change userId to session id
 router.post('/:productId', async (req, res, next) => {
   try {
-    //console.log(req.session)
     let userId
     if (req.session.userId) {
       userId = req.session.userId
@@ -32,16 +31,12 @@ router.post('/:productId', async (req, res, next) => {
         }
       ]
     })
-    //console.log(allOrders)
-
-    console.log('HERE IT IS!!!!!! => ', req.body)
     const newOrderDetail = await Order_Detail.create({
       orderId: currentOrder.id,
       productId: req.params.productId,
       quantity: 1,
       price: req.body.price
     })
-
     res.send(newOrderDetail)
   } catch (error) {
     next(error)
