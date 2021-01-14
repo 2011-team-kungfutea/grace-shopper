@@ -10,10 +10,10 @@ export const getCartItems = cartItems => ({
 })
 
 //thunk
-export const fetchCart = () => {
+export const fetchCart = userId => {
   return async dispatch => {
     try {
-      const {data} = await axios.get('/api/cart')
+      const {data} = await axios.get(`/api/orders/${userId}`)
       dispatch(getCartItems(data))
     } catch (error) {
       console.log(error)

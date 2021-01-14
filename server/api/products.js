@@ -52,3 +52,5 @@ router.post('/:productId', async (req, res, next) => {
     res.send(newOrderDetail)
   } catch (error) {
     next(error)
+  }
+})
