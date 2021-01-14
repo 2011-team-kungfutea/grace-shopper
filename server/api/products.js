@@ -43,7 +43,3 @@ router.post('/:productId', async (req, res, next) => {
     next(error)
   }
 })
-
-// var cart = req.body;
-//  req.session.cart = cart;
-//  req.session.save(function(err)
