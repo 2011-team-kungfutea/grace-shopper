@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store/all-products-reducer'
+import {Link} from 'react-router-dom'
 
 class AllProducts extends React.Component {
   componentDidMount() {
@@ -34,7 +35,9 @@ class AllProducts extends React.Component {
             return (
               <div key={product.id}>
                 <h1>{product.name}</h1>
-                <img src={product.imageUrl} width="270" height="270" />
+                <Link to={`/products/${product.id}`}>
+                  <img src={product.imageUrl} />
+                </Link>
               </div>
             )
           })}

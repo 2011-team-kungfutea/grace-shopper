@@ -16,31 +16,31 @@ async function seed() {
   console.log(`seeded ${users.length} users`)
 
   const products = await Promise.all([
-    Product.create({name: 'Tofu', price: 2000000.27, quantity: 1}),
+    Product.create({name: 'Tofu', price: 2000000, quantity: 1}),
     Product.create({
       name: 'Edamame',
-      price: 0.01,
+      price: 2,
       quantity: 47,
       imageUrl:
         'https://i.pinimg.com/originals/48/ff/49/48ff49ec8efcd32837cde9b177b5d6ca.jpg'
     }),
     Product.create({
       name: 'Peadar',
-      price: 22867461.24,
+      price: 22867461,
       quantity: 92,
       imageUrl:
         'https://i.pinimg.com/originals/ab/60/1b/ab601b463643d39d2546261e280168b8.jpg'
     }),
     Product.create({
       name: 'Lesli',
-      price: 73719277.27,
+      price: 73719277,
       quantity: 66,
       imageUrl:
         'https://i.pinimg.com/736x/67/fd/bb/67fdbbf7755a39f875ff7adaa51a57c0.jpg'
     }),
     Product.create({
       name: 'Becky',
-      price: 683292.63,
+      price: 683292,
       quantity: 14,
       imageUrl:
         'https://i.pinimg.com/originals/fc/a3/49/fca349944fe6daa3ddaa80ac6cce5065.jpg'
@@ -146,15 +146,25 @@ async function seed() {
   console.log(`seeded ${products.length} products`)
 
   const orders = await Promise.all([
-    Order.create({}),
+    Order.create({userId: users[0].id}),
     Order.create({isOrdered: true})
   ])
 
   console.log(`seeded ${orders.length} orders`)
 
   const orderDetails = await Promise.all([
-    Order_Detail.create({productId: products[0].id, orderId: orders[0].id}),
-    Order_Detail.create({productId: products[1].id, orderId: orders[1].id})
+    Order_Detail.create({
+      productId: products[0].id,
+      orderId: orders[0].id,
+      quantity: 1,
+      price: products[0].price
+    }),
+    Order_Detail.create({
+      productId: products[1].id,
+      orderId: orders[1].id,
+      quantity: 1,
+      price: products[1].price
+    })
   ])
 
   console.log(`seeded ${orderDetails.length} order-details`)
