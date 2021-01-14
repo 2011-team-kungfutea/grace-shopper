@@ -11,14 +11,12 @@ export class AddProduct extends React.Component {
   }
   handleSubmit = () => {}
   handleChange = event => {
-    console.log('event', event.target.value)
     this.setState({
       imageUrl: event.target.value
     })
   }
 
   render() {
-    console.log(this.props.imageUrl)
     return (
       <div>
         <h1>ADD PRODUCT</h1>
@@ -36,8 +34,8 @@ export class AddProduct extends React.Component {
             />
           </Form.Field>
           <Form.Field>
-            <label>Product Name</label>
-            <Input placeholder="Product Name" onChange={this.handleChange} />
+            <label>Quantity</label>
+            <Input type="number" placeholder="Quantity" min="0" />
           </Form.Field>
         </Form>
         <Image src={this.state.imageUrl} size="small" />
