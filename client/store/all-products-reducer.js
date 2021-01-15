@@ -14,7 +14,7 @@ export const setProducts = products => {
 
 export const deleteProduct = productId => {
   return {
-    type: ADD_SINGLE_PRODUCT,
+    type: DELETE_PRODUCT,
     productId
   }
 }
@@ -35,7 +35,7 @@ export const removeProduct = productId => {
   return async dispatch => {
     try {
       const {data} = await axios.delete(`/api/products/${productId}`)
-      dispatch(deleteSingleProduct(data))
+      dispatch(deleteProduct(productId))
     } catch (err) {
       console.log(err)
     }
@@ -49,7 +49,7 @@ export default function productsReducer(state = initialState, action) {
     case SET_PRODUCTS:
       return action.products
     case DELETE_PRODUCT:
-      return state.filter(product => product !== action.productId)
+      return state.filter(product => product.id !== action.productId)
     default:
       return state
   }

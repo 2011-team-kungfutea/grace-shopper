@@ -23,7 +23,6 @@ class AllProducts extends React.Component {
 
   render() {
     const {user, products} = this.props
-    console.log(user)
     return (
       <div>
         <h1>Products</h1>

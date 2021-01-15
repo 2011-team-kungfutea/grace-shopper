@@ -24,7 +24,6 @@ router.post('/', async (req, res, next) => {
       category,
       description
     })
-    console.log(newProduct)
     res.send(newProduct)
   } catch (error) {
     next(error)
@@ -69,6 +68,18 @@ router.post('/:productId', async (req, res, next) => {
       price: req.body.price
     })
     res.send(newOrderDetail)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//DELETE one product by Id
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    await Product.destroy({
+      where: {id: req.params.productId}
+    })
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }
