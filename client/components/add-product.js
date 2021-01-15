@@ -10,6 +10,7 @@ import {
   TextArea
 } from 'semantic-ui-react'
 import {thunkCreateSingleProduct} from '../store/single-product-reducer'
+import {ProductForm} from './product-form'
 
 class AddProduct extends React.Component {
   constructor() {
@@ -50,49 +51,11 @@ class AddProduct extends React.Component {
         <Container textAlign="center">
           <Header as="h1">Add Product</Header>
         </Container>
-        <div className="add-product">
-          <Form className="add-product-form" onSubmit={this.handleSubmit}>
-            <Form.Field>
-              <label>Product Name</label>
-              <Input type="text" name="name" />
-            </Form.Field>
-            <Form.Field>
-              <label>Image URL</label>
-              <Input
-                name="imageUrl"
-                value={this.state.imageUrl}
-                onChange={this.handleChange}
-              />
-            </Form.Field>
-            <Form.Field>
-              <label>Category</label>
-              <Input type="text" name="category" />
-            </Form.Field>
-            <Form.Field>
-              <label>Quantity</label>
-              <Input type="number" min="0" name="quantity" />
-            </Form.Field>
-            <Form.Field>
-              <label>Price</label>
-              <Input type="number" name="price" min="0.01" step="0.01" />
-              <Form.Field>
-                <label>Description</label>
-                <TextArea name="description" />
-              </Form.Field>
-            </Form.Field>
-            <Button className="spacepurple" type="submit">
-              Submit
-            </Button>
-          </Form>
-          <div className="image-preview">
-            <label>Image Preview</label>
-            <Image
-              className="add-product-image-preview"
-              src={this.state.imageUrl}
-              size="large"
-            />
-          </div>
-        </div>
+        <ProductForm
+          imageUrl={this.state.imageUrl}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     )
   }
