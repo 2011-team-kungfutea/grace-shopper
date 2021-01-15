@@ -73,6 +73,31 @@ router.post('/:productId', async (req, res, next) => {
   }
 })
 
+//PUT one product
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const {name, imageUrl, category, quantity, price, description} = req.body
+    const updatedProduct = await Product.update(
+      {
+        name,
+        imageUrl,
+        category,
+        quantity,
+        price,
+        description
+      },
+      {
+        where: {id: req.params.productId},
+        returning: true,
+        plain: true
+      }
+    )
+    if (updatedProduct[1]) res.send(updatedProduct[1])
+  } catch (error) {
+    next(error)
+  }
+})
+
 //DELETE one product by Id
 router.delete('/:productId', async (req, res, next) => {
   try {

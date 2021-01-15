@@ -53,7 +53,9 @@ export const thunkCreateSingleProduct = product => {
 export const thunkUpdateSingleProduct = product => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/products/${id}`, product)
+      console.log('inside thuinkupdate')
+      const {data} = await axios.put(`/api/products/${product.id}`, product)
+      console.log('got data')
       dispatch(getSingleProduct(data))
     } catch (err) {
       console.log(err)

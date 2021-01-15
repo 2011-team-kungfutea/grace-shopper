@@ -5,6 +5,7 @@ import {
   thunkfetchSingleProduct,
   thunkUpdateSingleProduct
 } from '../store/single-product-reducer'
+import {Container, Header} from 'semantic-ui-react'
 
 class EditProduct extends React.Component {
   constructor() {
@@ -44,6 +45,7 @@ class EditProduct extends React.Component {
       //   quantity: target.quantity.value,
       //   price: target.price.value * 100
       // }
+      console.log(this.state)
       this.props.updateProduct({...this.state, price: this.state.price * 100})
     } catch (error) {
       console.log('Unable to create new product', error)
@@ -58,10 +60,11 @@ class EditProduct extends React.Component {
 
   render() {
     const {product} = this.props
-    console.log(this.state)
     return (
       <div>
-        <h1>EDIT PRODUCT PAGE</h1>
+        <Container textAlign="center">
+          <Header as="h1">Edit Product</Header>
+        </Container>
         <ProductForm
           {...this.state}
           handleChange={this.handleChange}
