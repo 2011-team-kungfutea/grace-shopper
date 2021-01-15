@@ -19,18 +19,24 @@ export class Cart extends React.Component {
     console.log('products: ', products)
     return (
       <div>
-        {products.map(product => {
-          const cartItem = product.order_detail
-          return (
-            <CartProducts
-              key={product.id}
-              name={product.name}
-              price={product.price}
-              imageUrl={product.imageUrl}
-              quantityOrdered={cartItem.quantity}
-            />
-          )
-        })}
+        {products.length === 0 ? (
+          <div> Cart is Empty</div>
+        ) : (
+          <div>
+            {products.map(product => {
+              const cartItem = product.order_detail
+              return (
+                <CartProducts
+                  key={product.id}
+                  name={product.name}
+                  price={product.price}
+                  imageUrl={product.imageUrl}
+                  quantityOrdered={cartItem.quantity}
+                />
+              )
+            })}
+          </div>
+        )}
       </div>
     )
   }
