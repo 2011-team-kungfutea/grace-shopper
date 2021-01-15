@@ -25,8 +25,14 @@ class Routes extends Component {
     // this.props.loadInitialData().then(() =>
     //   this.props.fetchCart(this.props.user.id)
     // )
-    if (this.props.user !== prevProps.user) {
-      this.props.fetchCart(this.props.user.id)
+    try {
+      if (this.props.user !== prevProps.user) {
+        this.props.fetchCart(this.props.user.id)
+      } else {
+        console.log('no cart')
+      }
+    } catch (error) {
+      console.log(error)
     }
   }
 
