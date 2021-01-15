@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
 import {AddToCart} from './add-to-cart'
+import {addToCart} from '../store/cart-reducer'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -23,7 +24,13 @@ class SingleProduct extends React.Component {
         <Link to="/products">
           <div className="ui two bottom attached buttons">
             <div className="ui violet button">Back to All Pets</div>
-            <AddToCart />
+            {/* <AddToCart /> */}
+            <div
+              onClick={() => this.props.addToCart(product)}
+              className="ui purple button"
+            >
+              Add to Cart
+            </div>
           </div>
         </Link>
       </div>
@@ -33,13 +40,15 @@ class SingleProduct extends React.Component {
 
 const mapStateToProps = state => {
   return {
-    product: state.singleProduct
+    product: state.singleProduct,
+    cartItems: state.cartItems
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchSingleProduct: id => dispatch(thunkfetchSingleProduct(id))
+    fetchSingleProduct: id => dispatch(thunkfetchSingleProduct(id)),
+    addToCart: id => dispatch(addToCart(id))
   }
 }
 
