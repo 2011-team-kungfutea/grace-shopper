@@ -12,6 +12,25 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//POST one product
+router.post('/', async (req, res, next) => {
+  try {
+    const {name, imageUrl, category, description, price, quantity} = req.body
+    const newProduct = await Product.create({
+      name,
+      imageUrl,
+      price,
+      quantity,
+      category,
+      description
+    })
+    console.log(newProduct)
+    res.send(newProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //GET one product by Id
 router.get('/:productId', async (req, res, next) => {
   try {

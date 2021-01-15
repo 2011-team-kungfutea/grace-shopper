@@ -3,24 +3,44 @@ import {connect} from 'react-redux'
 import {
   Form,
   Button,
-  Checkbox,
   Input,
   Image,
   Container,
-  Header
+  Header,
+  TextArea
 } from 'semantic-ui-react'
+import {thunkCreateSingleProduct} from '../store/single-product-reducer'
 
-export class AddProduct extends React.Component {
+class AddProduct extends React.Component {
   constructor() {
     super()
     this.state = {
       imageUrl: ''
     }
   }
-  handleSubmit = () => {}
+
+  handleSubmit = event => {
+    event.preventDefault()
+    try {
+      const target = event.target
+      console.log(target)
+      const newProduct = {
+        name: target.name.value,
+        imageUrl: this.state.imageUrl,
+        category: target.category.value,
+        description: target.description.value,
+        quantity: target.quantity.value,
+        price: target.price.value * 100
+      }
+      this.props.addProduct(newProduct)
+    } catch (error) {
+      console.log('Unable to create new product', error)
+    }
+  }
+
   handleChange = event => {
     this.setState({
-      imageUrl: event.target.value
+      [event.target.name]: event.target.value
     })
   }
 
@@ -31,10 +51,10 @@ export class AddProduct extends React.Component {
           <Header as="h1">Add Product</Header>
         </Container>
         <div className="add-product">
-          <Form className="add-product-form">
+          <Form className="add-product-form" onSubmit={this.handleSubmit}>
             <Form.Field>
               <label>Product Name</label>
-              <Input type="text" name="name" placeholder="Product Name" />
+              <Input type="text" name="name" />
             </Form.Field>
             <Form.Field>
               <label>Image URL</label>
@@ -46,20 +66,19 @@ export class AddProduct extends React.Component {
             </Form.Field>
             <Form.Field>
               <label>Category</label>
-              <Input type="text" name="category" placeholder="Category" />
+              <Input type="text" name="category" />
             </Form.Field>
             <Form.Field>
               <label>Quantity</label>
-              <Input type="number" placeholder="Quantity" min="0" />
+              <Input type="number" min="0" name="quantity" />
             </Form.Field>
             <Form.Field>
               <label>Price</label>
-              <Input
-                type="number"
-                placeholder="Quantity"
-                min="0.01"
-                step="0.01"
-              />
+              <Input type="number" name="price" min="0.01" step="0.01" />
+              <Form.Field>
+                <label>Description</label>
+                <TextArea name="description" />
+              </Form.Field>
             </Form.Field>
             <Button className="spacepurple" type="submit">
               Submit
@@ -79,12 +98,10 @@ export class AddProduct extends React.Component {
   }
 }
 
-// const mapState = (state) => ({
+const mapState = state => ({})
 
-// })
+const mapDispatch = dispatch => ({
+  addProduct: product => dispatch(thunkCreateSingleProduct(product))
+})
 
-// const mapDispatch = (dispatch) => ({
-
-// })
-
-// export default connect(mapState,mapDispatch)(AddProduct);
+export default connect(mapState, mapDispatch)(AddProduct)
