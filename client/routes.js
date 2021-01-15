@@ -30,6 +30,15 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        {this.props.user.isAdministrator && (
+          // <Switch>
+          <Route
+            exact
+            path="/products/:productId/edit"
+            component={EditProduct}
+          />
+          // </Switch>
+        )}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
         {isLoggedIn && (
@@ -37,16 +46,7 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/add-product" component={AddProduct} />
-            <Route path="/cart" component={Cart} />cartItems
-            {this.props.user.isAdministrator && (
-              <Switch>
-                <Route
-                  exact
-                  path="/products/:productId?edit_product=1"
-                  component={EditProduct}
-                />
-              </Switch>
-            )}
+            <Route path="/cart" component={Cart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

@@ -2,33 +2,73 @@ import React from 'react'
 import {Form, Input, Image, Button, TextArea} from 'semantic-ui-react'
 
 export const ProductForm = props => {
-  const {handleChange, handleSubmit, imageUrl} = props
+  const {
+    handleChange,
+    handleSubmit,
+    imageUrl,
+    name,
+    category,
+    quantity,
+    price,
+    description
+  } = props
   return (
     <div className="add-product">
       <Form className="add-product-form" onSubmit={handleSubmit}>
         <Form.Field>
           <label>Product Name</label>
-          <Input type="text" name="name" />
+          <Input
+            type="text"
+            name="name"
+            value={name || ''}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Form.Field>
           <label>Image URL</label>
-          <Input name="imageUrl" value={imageUrl} onChange={handleChange} />
+          <Input
+            name="imageUrl"
+            value={imageUrl || ''}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Form.Field>
           <label>Category</label>
-          <Input type="text" name="category" />
+          <Input
+            type="text"
+            name="category"
+            value={category || ''}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Form.Field>
           <label>Quantity</label>
-          <Input type="number" min="0" name="quantity" />
+          <Input
+            type="number"
+            min="0"
+            name="quantity"
+            value={quantity || 0}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Form.Field>
           <label>Price</label>
-          <Input type="number" name="price" min="0.01" step="0.01" />
+          <Input
+            type="number"
+            name="price"
+            min="0.01"
+            step="0.01"
+            value={price || 0.01}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Form.Field>
           <label>Description</label>
-          <TextArea name="description" />
+          <TextArea
+            name="description"
+            value={description || ''}
+            onChange={handleChange}
+          />
         </Form.Field>
         <Button className="spacepurple" type="submit">
           Submit

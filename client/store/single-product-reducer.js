@@ -3,6 +3,7 @@ import axios from 'axios'
 //action type constants
 export const GET_SINGLE_PRODUCT = 'GET_SINGLE_PRODUCT'
 export const ADD_SINGLE_PRODUCT = 'ADD_SINGLE_PRODUCT'
+export const UPDATE_SINGLE_PRODUCT = 'UPDATE_SINGLE_PRODUCT'
 
 //action creators
 export const getSingleProduct = product => {
@@ -15,6 +16,13 @@ export const getSingleProduct = product => {
 export const addSingleProduct = product => {
   return {
     type: ADD_SINGLE_PRODUCT,
+    product
+  }
+}
+
+export const updateSingleProduct = product => {
+  return {
+    type: UPDATE_SINGLE_PRODUCT,
     product
   }
 }
@@ -42,6 +50,17 @@ export const thunkCreateSingleProduct = product => {
   }
 }
 
+export const thunkUpdateSingleProduct = product => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/products/${id}`, product)
+      dispatch(getSingleProduct(data))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 //reducer
 const initialState = {}
 
@@ -50,6 +69,8 @@ export default (state = initialState, action) => {
     case GET_SINGLE_PRODUCT:
       return action.product
     case ADD_SINGLE_PRODUCT:
+      return action.product
+    case UPDATE_SINGLE_PRODUCT:
       return action.product
     default:
       return state

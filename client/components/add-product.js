@@ -1,14 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  Form,
-  Button,
-  Input,
-  Image,
-  Container,
-  Header,
-  TextArea
-} from 'semantic-ui-react'
+import {Container, Header} from 'semantic-ui-react'
 import {thunkCreateSingleProduct} from '../store/single-product-reducer'
 import {ProductForm} from './product-form'
 
@@ -16,7 +8,12 @@ class AddProduct extends React.Component {
   constructor() {
     super()
     this.state = {
-      imageUrl: ''
+      name: '',
+      imageUrl: '',
+      category: '',
+      quantity: 0,
+      price: 0.01,
+      description: ''
     }
   }
 
@@ -52,7 +49,7 @@ class AddProduct extends React.Component {
           <Header as="h1">Add Product</Header>
         </Container>
         <ProductForm
-          imageUrl={this.state.imageUrl}
+          {...this.state}
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
