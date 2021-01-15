@@ -18,6 +18,7 @@ export const addSingleProduct = product => {
     product
   }
 }
+
 //thunk
 export const thunkfetchSingleProduct = id => {
   return async dispatch => {
