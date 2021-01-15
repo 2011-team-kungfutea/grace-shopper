@@ -12,6 +12,5 @@ export const TotalItems = cart => {
     )
     console.log('test', mine)
     return mine
-    // [0].quantity
   }
 }
