@@ -9,7 +9,8 @@ import {
   AllProducts,
   SingleProduct,
   AddProduct,
-  Cart
+  Cart,
+  EditProduct
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/cart-reducer'
@@ -44,14 +45,23 @@ class Routes extends Component {
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
+        {this.props.user.isAdministrator && (
+          <Switch>
+            <Route
+              exact
+              path="/products/:productId/edit"
+              component={EditProduct}
+            />
+            <Route path="/add-product" component={AddProduct} />
+          </Switch>
+        )}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route path="/add-product" component={AddProduct} />
-            <Route path="/cart" component={Cart} />cartItems
+            <Route path="/cart" component={Cart} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
