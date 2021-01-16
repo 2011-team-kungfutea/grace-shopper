@@ -56,3 +56,21 @@ nav a {
 .spaceblue {
   color: #28ffff;
 }
+
+.all-products-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.spacepink-background-color {
+  background-color: #ff02ff !important;
+  color: white !important;
+}
+
+.spacepink-background-color:hover {
+  opacity: 60%;
+}
+
+.spacepink-background-color:active {
+  opacity: 40%;
+}

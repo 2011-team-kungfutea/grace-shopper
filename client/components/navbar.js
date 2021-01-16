@@ -29,6 +29,9 @@ class Navbar extends React.Component {
             <li style={{float: 'right'}}>
               {this.props.isLoggedIn ? (
                 <div>
+                  {this.props.user.isAdministrator && (
+                    <Link to="/users">Users </Link>
+                  )}
                   {/* The navbar will show these links after you log in */}
                   <a href="#" onClick={this.props.handleClick}>
                     Logout

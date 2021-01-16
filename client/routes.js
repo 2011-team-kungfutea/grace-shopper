@@ -10,7 +10,8 @@ import {
   SingleProduct,
   AddProduct,
   Cart,
-  EditProduct
+  EditProduct,
+  AllUsers
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/cart-reducer'
@@ -23,12 +24,10 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
   componentDidUpdate(prevProps) {
-    // this.props.loadInitialData().then(() =>
-    //   this.props.fetchCart(this.props.user.id)
-    // )
+    const {user, fetchCart} = this.props
     try {
-      if (this.props.user !== prevProps.user) {
-        this.props.fetchCart(this.props.user.id)
+      if (user !== prevProps.user && user.id) {
+        fetchCart(this.props.user.id)
       } else {
         console.log('no cart')
       }
@@ -38,23 +37,13 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, user} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {this.props.user.isAdministrator && (
-          <Switch>
-            <Route
-              exact
-              path="/products/:productId/edit"
-              component={EditProduct}
-            />
-            <Route path="/add-product" component={AddProduct} />
-          </Switch>
-        )}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
         {isLoggedIn && (
@@ -62,6 +51,21 @@ class Routes extends Component {
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/cart" component={Cart} />
+            {user.isAdministrator && (
+              <Switch>
+                <Route
+                  exact
+                  path="/products/:productId/edit"
+                  component={EditProduct}
+                />
+                <Route
+                  exact
+                  path="/products/add-product"
+                  component={AddProduct}
+                />
+                <Route exact path="/users" component={AllUsers} />
+              </Switch>
+            )}
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
