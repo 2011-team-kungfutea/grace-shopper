@@ -4,8 +4,15 @@ import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
 import {addToCart} from '../store/cart-reducer'
 import {fetchCart} from '../store/cart-reducer'
+import {thunkAddToCart} from '../store/cart-reducer'
 
 class SingleProduct extends React.Component {
+  // constructor() {
+  //   super()
+  //   // this.state = {
+
+  //   // }
+  // }
   componentDidMount() {
     this.props
       .fetchSingleProduct(this.props.match.params.productId)
@@ -17,7 +24,9 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
-    //console.log(product)
+    // console.log('single product props', this.props)
+    // console.log('single product cart', this.props.cart)
+    // console.log('single product order_details', this.props.cart.order_details)
 
     return (
       <div>
@@ -29,8 +38,15 @@ class SingleProduct extends React.Component {
           <div className="ui two bottom attached buttons">
             <div className="ui violet button">Back to All Pets</div>
             {/* <AddToCart /> */}
-            <div
+            {/* <div
               onClick={() => this.props.addToCart(product)}
+              className="ui purple button"
+            >
+              Add to Cart
+            </div>
+          */}
+            <div
+              onClick={() => this.props.addToCart(product, this.props.user.id)}
               className="ui purple button"
             >
               Add to Cart
@@ -54,8 +70,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchSingleProduct: id => dispatch(thunkfetchSingleProduct(id)),
-    addToCart: id => dispatch(addToCart(id)),
-    fetchCart: userId => dispatch(fetchCart(userId))
+    // addToCart: id => dispatch(addToCart(id)),
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    addToCart: (product, userId) => dispatch(thunkAddToCart(product, userId))
   }
 }
 

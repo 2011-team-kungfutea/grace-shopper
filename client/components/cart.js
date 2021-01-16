@@ -16,6 +16,8 @@ export class Cart extends React.Component {
 
   render() {
     const products = this.props.cart.products || []
+    console.log('props', this.props)
+    console.log('cart cart', this.props.cart)
     console.log('we checking!!!!!!!', this.props.user.id)
     console.log('products: ', products)
     return (

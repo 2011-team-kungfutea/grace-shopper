@@ -22,6 +22,19 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// router.put('/:userId', async (req, res, next) => {
+//   try {
+//     const newOrderDetail = await Order_Detail.create({
+//       orderId: 7,
+//       productId: 8,
+//       quantity: 1,
+//       price: 2,
+//     })
+//     res.send(newOrderDetail)
+//   } catch (error) {
+//     next(error)
+//   }
+// })
 router.put('/:userId', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -31,11 +44,14 @@ router.put('/:userId', async (req, res, next) => {
       },
       include: [{model: Order_Detail}, {model: Product}]
     })
-    await order.update(localStorage)
+    const newOrderDetail = await Order_Detail.create({
+      orderId: order.id,
+      productId: 8,
+      quantity: 1,
+      price: 2
+    })
 
-    await order.save()
-    await order.reload()
-    res.send(order)
+    res.send(newOrderDetail)
   } catch (error) {
     next(error)
   }

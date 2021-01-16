@@ -14,12 +14,12 @@
 //     let alreadyInCart = false
 //     cartItems.forEach(item => {
 //       if (item.id === product.id) {
-//         item.quantity++
+//         item.count++
 //         alreadyInCart = true
 //       }
 //     })
 //     if (!alreadyInCart) {
-//       cartItems.push({...product, quantity: 1})
+//       cartItems.push({...product, count: 1})
 //     }
 //   }
 //   handleSubmit = () => {}
