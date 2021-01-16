@@ -23,12 +23,10 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
   componentDidUpdate(prevProps) {
-    // this.props.loadInitialData().then(() =>
-    //   this.props.fetchCart(this.props.user.id)
-    // )
+    const {user, fetchCart} = this.props
     try {
-      if (this.props.user !== prevProps.user) {
-        this.props.fetchCart(this.props.user.id)
+      if (user !== prevProps.user && user.id) {
+        fetchCart(this.props.user.id)
       } else {
         console.log('no cart')
       }
@@ -38,14 +36,14 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, user} = this.props
 
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
-        {this.props.user.isAdministrator && (
+        {user.isAdministrator && (
           <Switch>
             <Route
               exact
