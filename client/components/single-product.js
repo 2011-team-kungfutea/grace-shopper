@@ -2,17 +2,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
-import {addToCart} from '../store/cart-reducer'
 import {fetchCart} from '../store/cart-reducer'
 import {thunkAddToCart} from '../store/cart-reducer'
 
 class SingleProduct extends React.Component {
-  // constructor() {
-  //   super()
-  //   // this.state = {
-
-  //   // }
-  // }
   componentDidMount() {
     this.props
       .fetchSingleProduct(this.props.match.params.productId)
@@ -24,10 +17,6 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
-    // console.log('single product props', this.props)
-    // console.log('single product props.order', this.props.cart.id)
-    // console.log('single product cart', this.props.cart)
-    // console.log('single product order_details', this.props.cart.order_details)
 
     return (
       <div>

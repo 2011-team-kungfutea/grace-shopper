@@ -1,5 +1,4 @@
 import axios from 'axios'
-import {session} from 'passport'
 
 //action constant
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -23,6 +22,7 @@ export const thunkAddToCart = (product, orderId) => {
   return async dispatch => {
     try {
       console.log('inside thunk add to cart')
+      console.log('inside thunk', product, orderId)
       const {data} = await axios.put(
         `/api/orders/${orderId}/add/${product.id}`,
         product
@@ -54,7 +54,15 @@ export default function getCartReducer(state = initialState, action) {
     case GET_CART_ITEMS:
       return action.cartItems
     case ADD_TO_CART:
-      return action.newItem
+      const newArrayFilter = state.order_details.filter(
+        item => item.productId !== action.newItem.productId
+      )
+      console.log('FILTERED ARRAY', newArrayFilter)
+      newArrayFilter.push(action.newItem)
+      return {
+        ...state,
+        order_details: newArrayFilter
+      }
     default:
       return state
   }

@@ -2,10 +2,6 @@ const router = require('express').Router()
 const {Product, Order, Order_Detail} = require('../db/models')
 module.exports = router
 
-// GET '/'
-router.get('/', () => {})
-
-// GET '/:userId'
 router.get('/:userId', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -22,7 +18,6 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-//do I need/add in the url? need to find order_details by orderId
 router.put('/:orderId/add/:productId', async (req, res, next) => {
   console.log('IM OUT THE POSt TRY')
   try {
@@ -31,18 +26,20 @@ router.put('/:orderId/add/:productId', async (req, res, next) => {
         orderId: req.params.orderId,
         productId: req.params.productId
       },
+
       defaults: {
         orderId: req.params.orderId,
         productId: req.params.productId,
-        quantity: req.body.quantity, //logic if orderId already exists
+        quantity: 1,
         price: req.body.price
       }
     })
     console.log('NEW ITEM', newItem)
     if (!newItem[1]) {
-      newItem[0].quantity = req.body.quantity + newItem[0].quantity
+      newItem[0].quantity = 1 + newItem[0].quantity
     }
     const addedItem = await newItem[0].save()
+    console.log(addedItem)
     res.send(addedItem)
   } catch (err) {
     next(err)
