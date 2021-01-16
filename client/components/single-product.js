@@ -25,6 +25,7 @@ class SingleProduct extends React.Component {
     const description = product.description || ''
     const quantity = product.quantity || 0
     // console.log('single product props', this.props)
+    // console.log('single product props.order', this.props.cart.id)
     // console.log('single product cart', this.props.cart)
     // console.log('single product order_details', this.props.cart.order_details)
 
@@ -37,16 +38,9 @@ class SingleProduct extends React.Component {
         <Link to="/products">
           <div className="ui two bottom attached buttons">
             <div className="ui violet button">Back to All Pets</div>
-            {/* <AddToCart /> */}
-            {/* <div
-              onClick={() => this.props.addToCart(product)}
-              className="ui purple button"
-            >
-              Add to Cart
-            </div>
-          */}
+
             <div
-              onClick={() => this.props.addToCart(product, this.props.user.id)}
+              onClick={() => this.props.addToCart(product, this.props.cart.id)}
               className="ui purple button"
             >
               Add to Cart
@@ -70,9 +64,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchSingleProduct: id => dispatch(thunkfetchSingleProduct(id)),
-    // addToCart: id => dispatch(addToCart(id)),
     fetchCart: userId => dispatch(fetchCart(userId)),
-    addToCart: (product, userId) => dispatch(thunkAddToCart(product, userId))
+    addToCart: (product, orderId) => dispatch(thunkAddToCart(product, orderId))
   }
 }
 

@@ -22,37 +22,29 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// router.put('/:userId', async (req, res, next) => {
-//   try {
-//     const newOrderDetail = await Order_Detail.create({
-//       orderId: 7,
-//       productId: 8,
-//       quantity: 1,
-//       price: 2,
-//     })
-//     res.send(newOrderDetail)
-//   } catch (error) {
-//     next(error)
-//   }
-// })
-router.put('/:userId', async (req, res, next) => {
+//do I need/add in the url? need to find order_details by orderId
+router.put('/:orderId/add/:productId', async (req, res, next) => {
+  console.log('IM OUT THE POSt TRY')
   try {
-    const order = await Order.findOne({
+    let newItem = await Order_Detail.findOrCreate({
       where: {
-        userId: req.session.passport.user,
-        isOrdered: false
+        orderId: req.params.orderId,
+        productId: req.params.productId
       },
-      include: [{model: Order_Detail}, {model: Product}]
+      defaults: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+        quantity: req.body.quantity, //logic if orderId already exists
+        price: req.body.price
+      }
     })
-    const newOrderDetail = await Order_Detail.create({
-      orderId: order.id,
-      productId: 8,
-      quantity: 1,
-      price: 2
-    })
-
-    res.send(newOrderDetail)
-  } catch (error) {
-    next(error)
+    console.log('NEW ITEM', newItem)
+    if (!newItem[1]) {
+      newItem[0].quantity = req.body.quantity + newItem[0].quantity
+    }
+    const addedItem = await newItem[0].save()
+    res.send(addedItem)
+  } catch (err) {
+    next(err)
   }
 })
