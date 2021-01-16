@@ -31,13 +31,14 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         {this.props.user.isAdministrator && (
-          // <Switch>
-          <Route
-            exact
-            path="/products/:productId/edit"
-            component={EditProduct}
-          />
-          // </Switch>
+          <Switch>
+            <Route
+              exact
+              path="/products/:productId/edit"
+              component={EditProduct}
+            />
+            <Route path="/add-product" component={AddProduct} />
+          </Switch>
         )}
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
@@ -45,7 +46,6 @@ class Routes extends Component {
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
-            <Route path="/add-product" component={AddProduct} />
             <Route path="/cart" component={Cart} />
           </Switch>
         )}
