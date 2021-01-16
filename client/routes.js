@@ -60,7 +60,7 @@ class Routes extends Component {
                 />
                 <Route
                   exact
-                  path="/products/add-product"
+                  path="/products/add"
                   component={AddProduct}
                 />
                 <Route exact path="/users" component={AllUsers} />
