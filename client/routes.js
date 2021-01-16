@@ -10,7 +10,8 @@ import {
   SingleProduct,
   AddProduct,
   Cart,
-  EditProduct
+  EditProduct,
+  AllUsers
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/cart-reducer'
@@ -57,7 +58,12 @@ class Routes extends Component {
                   path="/products/:productId/edit"
                   component={EditProduct}
                 />
-                <Route path="/add-product" component={AddProduct} />
+                <Route
+                  exact
+                  path="/products/add-product"
+                  component={AddProduct}
+                />
+                <Route exact path="/users" component={AllUsers} />
               </Switch>
             )}
           </Switch>
