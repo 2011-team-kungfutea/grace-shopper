@@ -1,25 +1,18 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, removeProduct} from '../store/all-products-reducer'
-import {Link, Redirect} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Button} from 'semantic-ui-react'
-import {EditProduct} from './edit-product'
 
 class AllProducts extends React.Component {
   constructor() {
     super()
     this.handleDelete = this.handleDelete.bind(this)
-    //this.handleEdit = this.handleEdit.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchProducts()
   }
-
-  // handleEdit(productId) {
-  //   <Redirect to={{ pathname: `/products/${productId}/edit`} />
-  //   return;
-  // }
 
   handleDelete(productId) {
     this.props.deleteProduct(productId)
@@ -29,7 +22,12 @@ class AllProducts extends React.Component {
     const {user, products} = this.props
     return (
       <div>
-        <h1>Products</h1>
+        <div className="all-products-header">
+          <h1>Products</h1>
+          <Link to="/add-product">
+            <Button className="spacepink-background-color">Add Product</Button>
+          </Link>
+        </div>
         <div>
           {products.map(product => {
             return (

@@ -15,28 +15,23 @@ class AddProduct extends React.Component {
       price: 0.01,
       description: ''
     }
+    this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
     event.preventDefault()
     try {
-      const target = event.target
-      console.log(target)
-      const newProduct = {
-        name: target.name.value,
-        imageUrl: this.state.imageUrl,
-        category: target.category.value,
-        description: target.description.value,
-        quantity: target.quantity.value,
-        price: target.price.value * 100
-      }
-      this.props.addProduct(newProduct)
+      this.props.addProduct({
+        ...this.state,
+        price: Math.floor(this.state.price * 100)
+      })
     } catch (error) {
       console.log('Unable to create new product', error)
     }
   }
 
-  handleChange = event => {
+  handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
     })
