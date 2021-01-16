@@ -22,6 +22,7 @@ export const CartProducts = props => {
       <h4>{price}</h4>
       <img src={imageUrl} />
       <h4>{quantityOrdered}</h4>
+      {/* <button>{RemoveButton}</button> */}
     </div>
   )
 }
