@@ -1,55 +1,67 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Form, Button, Checkbox, Input, Image} from 'semantic-ui-react'
+import {Container, Header} from 'semantic-ui-react'
+import {thunkCreateSingleProduct} from '../store/single-product-reducer'
+import {ProductForm} from './product-form'
 
-export class AddProduct extends React.Component {
+class AddProduct extends React.Component {
   constructor() {
     super()
     this.state = {
-      imageUrl: ''
+      name: '',
+      imageUrl: '',
+      category: '',
+      quantity: 0,
+      price: 0.01,
+      description: ''
     }
   }
-  handleSubmit = () => {}
+
+  handleSubmit = event => {
+    event.preventDefault()
+    try {
+      const target = event.target
+      console.log(target)
+      const newProduct = {
+        name: target.name.value,
+        imageUrl: this.state.imageUrl,
+        category: target.category.value,
+        description: target.description.value,
+        quantity: target.quantity.value,
+        price: target.price.value * 100
+      }
+      this.props.addProduct(newProduct)
+    } catch (error) {
+      console.log('Unable to create new product', error)
+    }
+  }
+
   handleChange = event => {
     this.setState({
-      imageUrl: event.target.value
+      [event.target.name]: event.target.value
     })
   }
 
   render() {
     return (
       <div>
-        <h1>ADD PRODUCT</h1>
-        <Form>
-          <Form.Field>
-            <label>Product Name</label>
-            <Input name="name" placeholder="Product Name" />
-          </Form.Field>
-          <Form.Field>
-            <label>Image URL</label>
-            <Input
-              name="imageUrl"
-              value={this.state.imageUrl}
-              onChange={this.handleChange}
-            />
-          </Form.Field>
-          <Form.Field>
-            <label>Quantity</label>
-            <Input type="number" placeholder="Quantity" min="0" />
-          </Form.Field>
-        </Form>
-        <Image src={this.state.imageUrl} size="small" />
+        <Container textAlign="center">
+          <Header as="h1">Add Product</Header>
+        </Container>
+        <ProductForm
+          {...this.state}
+          handleChange={this.handleChange}
+          handleSubmit={this.handleSubmit}
+        />
       </div>
     )
   }
 }
 
-// const mapState = (state) => ({
+const mapState = state => ({})
 
-// })
+const mapDispatch = dispatch => ({
+  addProduct: product => dispatch(thunkCreateSingleProduct(product))
+})
 
-// const mapDispatch = (dispatch) => ({
-
-// })
-
-// export default connect(mapState,mapDispatch)(AddProduct);
+export default connect(mapState, mapDispatch)(AddProduct)

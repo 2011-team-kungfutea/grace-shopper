@@ -164,6 +164,12 @@ async function seed() {
       orderId: orders[1].id,
       quantity: 1,
       price: products[1].price
+    }),
+    Order_Detail.create({
+      productId: products[1].id,
+      orderId: orders[0].id,
+      quantity: 1,
+      price: products[1].price
     })
   ])
 

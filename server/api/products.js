@@ -12,6 +12,24 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+//POST one product
+router.post('/', async (req, res, next) => {
+  try {
+    const {name, imageUrl, category, description, price, quantity} = req.body
+    const newProduct = await Product.create({
+      name,
+      imageUrl,
+      price,
+      quantity,
+      category,
+      description
+    })
+    res.send(newProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //GET one product by Id
 router.get('/:productId', async (req, res, next) => {
   try {
@@ -50,6 +68,43 @@ router.post('/:productId', async (req, res, next) => {
       price: req.body.price
     })
     res.send(newOrderDetail)
+  } catch (error) {
+    next(error)
+  }
+})
+
+//PUT one product
+router.put('/:productId', async (req, res, next) => {
+  try {
+    const {name, imageUrl, category, quantity, price, description} = req.body
+    const updatedProduct = await Product.update(
+      {
+        name,
+        imageUrl,
+        category,
+        quantity,
+        price,
+        description
+      },
+      {
+        where: {id: req.params.productId},
+        returning: true,
+        plain: true
+      }
+    )
+    if (updatedProduct[1]) res.send(updatedProduct[1])
+  } catch (error) {
+    next(error)
+  }
+})
+
+//DELETE one product by Id
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    await Product.destroy({
+      where: {id: req.params.productId}
+    })
+    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

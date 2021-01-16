@@ -15,7 +15,44 @@ nav a {
   margin: 1em;
 }
 
-form div {
+/* form div {
   margin: 1em;
   display: inline-block;
+} */
+
+.add-product {
+  display: flex;
+  justify-content: center;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  margin: 2%;
+}
+
+.image-preview {
+  font-weight: bold;
+  text-align: center;
+  margin: 2%;
+}
+
+.add-product-image-preview {
+  margin: 1em;
+}
+
+.spacepurple {
+  color: #7943e7;
+}
+
+.spacegreen {
+  color: #296666;
+}
+
+.spacepink {
+  color: #ff02ff;
+}
+
+.spaceblue {
+  color: #28ffff;
 }
