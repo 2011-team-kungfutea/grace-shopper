@@ -1,10 +1,13 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Container, Header} from 'semantic-ui-react'
-import {thunkCreateSingleProduct} from '../store/single-product-reducer'
 import {ProductForm} from './product-form'
+import {
+  thunkfetchSingleProduct,
+  thunkUpdateSingleProduct
+} from '../store/single-product-reducer'
+import {Container, Header} from 'semantic-ui-react'
 
-class AddProduct extends React.Component {
+class EditProduct extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -19,15 +22,26 @@ class AddProduct extends React.Component {
     this.handleChange = this.handleChange.bind(this)
   }
 
+  componentDidMount() {
+    const productId = this.props.match.params.productId
+    this.props.getProduct(productId)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.product !== this.props.product) {
+      this.setState({...this.props.product})
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     try {
-      this.props.addProduct({
+      this.props.updateProduct({
         ...this.state,
         price: Math.floor(this.state.price * 100)
       })
     } catch (error) {
-      console.log('Unable to create new product', error)
+      console.log('Unable to edit product', error)
     }
   }
 
@@ -38,10 +52,11 @@ class AddProduct extends React.Component {
   }
 
   render() {
+    const {product} = this.props
     return (
       <div>
         <Container textAlign="center">
-          <Header as="h1">Add Product</Header>
+          <Header as="h1">Edit Product</Header>
         </Container>
         <ProductForm
           {...this.state}
@@ -53,10 +68,13 @@ class AddProduct extends React.Component {
   }
 }
 
-const mapState = state => ({})
-
-const mapDispatch = dispatch => ({
-  addProduct: product => dispatch(thunkCreateSingleProduct(product))
+const mapState = state => ({
+  product: state.singleProduct
 })
 
-export default connect(mapState, mapDispatch)(AddProduct)
+const mapDispatch = dispatch => ({
+  getProduct: productId => dispatch(thunkfetchSingleProduct(productId)),
+  updateProduct: product => dispatch(thunkUpdateSingleProduct(product))
+})
+
+export default connect(mapState, mapDispatch)(EditProduct)

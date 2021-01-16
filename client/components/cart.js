@@ -25,8 +25,7 @@ export class Cart extends React.Component {
 
   render() {
     const products = this.props.cart.products || []
-    console.log('products: ', this.props.cart.products)
-    console.log('users equal to ', this.props.user)
+
     return (
       <div>
         {products.length === 0 ? (
@@ -88,8 +87,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart()),
     removeCartThunk: productId => dispatch(removeCartThunk(productId))
+    fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 

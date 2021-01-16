@@ -15,6 +15,7 @@ import React from 'react'
 // }
 
 export const CartProducts = props => {
+  console.log('asdfasdf', props)
   const {name, price, imageUrl, quantityOrdered} = props
   return (
     <div>

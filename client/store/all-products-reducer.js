@@ -2,12 +2,20 @@ import axios from 'axios'
 
 //action constants
 const SET_PRODUCTS = 'SET_PRODUCTS'
+const DELETE_PRODUCT = 'DELETE_PRODUCT'
 
 //action creators
 export const setProducts = products => {
   return {
     type: SET_PRODUCTS,
     products
+  }
+}
+
+export const deleteProduct = productId => {
+  return {
+    type: DELETE_PRODUCT,
+    productId
   }
 }
 
@@ -23,12 +31,25 @@ export const fetchProducts = () => {
   }
 }
 
+export const removeProduct = productId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/products/${productId}`)
+      dispatch(deleteProduct(productId))
+    } catch (err) {
+      console.log(err)
+    }
+  }
+}
+
 //reducer
 const initialState = []
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
     case SET_PRODUCTS:
       return action.products
+    case DELETE_PRODUCT:
+      return state.filter(product => product.id !== action.productId)
     default:
       return state
   }
