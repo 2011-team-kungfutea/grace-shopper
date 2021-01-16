@@ -24,7 +24,7 @@ class AllProducts extends React.Component {
       <div>
         <div className="all-products-header">
           <h1>Products</h1>
-          <Link to="/add-product">
+          <Link to="/products/add">
             <Button className="spacepink-background-color">Add Product</Button>
           </Link>
         </div>
