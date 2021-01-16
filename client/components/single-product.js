@@ -16,7 +16,7 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
-    console.log(product)
+    //console.log(product)
 
     return (
       <div>

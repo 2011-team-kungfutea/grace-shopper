@@ -16,6 +16,7 @@ export class Cart extends React.Component {
 
   render() {
     const products = this.props.cart.products || []
+    console.log('we checking!!!!!!!', this.props.user.id)
     console.log('products: ', products)
     return (
       <div>
@@ -45,7 +46,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCart: () => dispatch(fetchCart())
+    fetchCart: userId => dispatch(fetchCart(userId))
   }
 }
 
