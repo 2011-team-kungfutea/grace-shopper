@@ -38,7 +38,7 @@ class AllProducts extends React.Component {
               <div key={product.id}>
                 <h1>{product.name}</h1>
                 <Link to={`/products/${product.id}`}>
-                  <img src={product.imageUrl} />
+                  <img className="ui medium image" src={product.imageUrl} />
                 </Link>
                 {user.isAdministrator && (
                   <div className="admin-buttons">
