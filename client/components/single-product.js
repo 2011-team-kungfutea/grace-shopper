@@ -6,17 +6,12 @@ import {fetchCart} from '../store/cart-reducer'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
-    this.props
-      .fetchSingleProduct(this.props.match.params.productId)
-      .then(() => {
-        this.props.fetchCart(this.props.user.id)
-      })
+    this.props.fetchSingleProduct(this.props.match.params.productId)
   }
   render() {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
-    //console.log(product)
 
     return (
       <div>
