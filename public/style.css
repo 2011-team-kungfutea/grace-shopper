@@ -20,12 +20,12 @@ nav a {
   display: inline-block;
 } */
 
-.add-product {
+.product {
   display: flex;
   justify-content: center;
 }
 
-.add-product-form {
+.product-form {
   display: flex;
   flex-direction: column;
   margin: 2%;
@@ -37,7 +37,7 @@ nav a {
   margin: 2%;
 }
 
-.add-product-image-preview {
+.product-image-preview {
   margin: 1em;
 }
 
@@ -73,4 +73,19 @@ nav a {
 
 .spacepink-background-color:active {
   opacity: 40%;
+}
+
+.product-message {
+  max-width: 60%;
+}
+
+.list,
+.content {
+  background-color: transparent !important;
+}
+
+.product-form-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
