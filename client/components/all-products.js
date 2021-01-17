@@ -24,9 +24,13 @@ class AllProducts extends React.Component {
       <div>
         <div className="all-products-header">
           <h1>Products</h1>
-          <Link to="/products/add">
-            <Button className="spacepink-background-color">Add Product</Button>
-          </Link>
+          {user.isAdministrator && (
+            <Link to="/admin/products/add">
+              <Button className="spacepink-background-color">
+                Add Product
+              </Button>
+            </Link>
+          )}
         </div>
         <div>
           {products.map(product => {
@@ -38,13 +42,8 @@ class AllProducts extends React.Component {
                 </Link>
                 {user.isAdministrator && (
                   <div className="admin-buttons">
-                    <Link
-                      to={{
-                        pathname: `/products/${product.id}/edit`,
-                        product1: product
-                      }}
-                    >
-                      <Button> Edit </Button>
+                    <Link to={`/admin/products/${product.id}/edit`}>
+                      <Button>Edit</Button>
                     </Link>
                     <Button onClick={() => this.handleDelete(product.id)}>
                       Delete

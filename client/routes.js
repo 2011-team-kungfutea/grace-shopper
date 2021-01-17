@@ -28,8 +28,6 @@ class Routes extends Component {
     try {
       if (user !== prevProps.user && user.id) {
         fetchCart(this.props.user.id)
-      } else {
-        console.log('no cart')
       }
     } catch (error) {
       console.log(error)
@@ -41,34 +39,31 @@ class Routes extends Component {
 
     return (
       <Switch>
-        {/* Routes placed here are available to all visitors */}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
         {isLoggedIn && (
           <Switch>
-            {/* Routes placed here are only available after logging in */}
             <Route path="/home" component={UserHome} />
             <Route path="/cart" component={Cart} />
             {user.isAdministrator && (
               <Switch>
                 <Route
                   exact
-                  path="/products/:productId/edit"
-                  component={EditProduct}
+                  path="/admin/products/add"
+                  component={AddProduct}
                 />
                 <Route
                   exact
-                  path="/products/add"
-                  component={AddProduct}
+                  path="/admin/products/:productId/edit"
+                  component={EditProduct}
                 />
-                <Route exact path="/users" component={AllUsers} />
+                <Route exact path="/admin/users" component={AllUsers} />
               </Switch>
             )}
           </Switch>
         )}
-        {/* Displays our Login component as a fallback */}
         <Route component={Login} />
       </Switch>
     )
