@@ -11,22 +11,20 @@ router.get('/:userId', async (req, res, next) => {
       },
       include: [{model: Order_Detail}, {model: Product}]
     })
-
     res.send(order)
   } catch (error) {
     next(error)
   }
 })
 
+//PUT /:orderId/add/:productId
 router.put('/:orderId/add/:productId', async (req, res, next) => {
-  console.log('IM OUT THE POSt TRY')
   try {
     let newItem = await Order_Detail.findOrCreate({
       where: {
         orderId: req.params.orderId,
         productId: req.params.productId
       },
-
       defaults: {
         orderId: req.params.orderId,
         productId: req.params.productId,
@@ -34,14 +32,36 @@ router.put('/:orderId/add/:productId', async (req, res, next) => {
         price: req.body.price
       }
     })
-    console.log('NEW ITEM', newItem)
     if (!newItem[1]) {
       newItem[0].quantity = 1 + newItem[0].quantity
     }
     const addedItem = await newItem[0].save()
-    console.log(addedItem)
     res.send(addedItem)
   } catch (err) {
     next(err)
+  }
+})
+  
+//DELETE /:orderId/delete/:productId
+router.delete('/:productId', async (req, res, next) => {
+  try {
+    if (req.user) {
+      const order = await Order.findOne({
+        where: {
+          userId: req.session.passport.user,
+          isOrdered: false
+        }
+      })
+      const orderDetail = await Order_Detail.findOne({
+        where: {
+          orderId: order.id,
+          productId: req.params.productId
+        }
+      })
+      await orderDetail.destroy()
+      res.sendStatus(204)
+    }
+  } catch (error) {
+    next(error)
   }
 })

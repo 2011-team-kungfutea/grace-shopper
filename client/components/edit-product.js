@@ -21,6 +21,7 @@ class EditProduct extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
   }
+
   componentDidMount() {
     const productId = this.props.match.params.productId
     this.props.getProduct(productId)
@@ -35,20 +36,12 @@ class EditProduct extends React.Component {
   handleSubmit(event) {
     event.preventDefault()
     try {
-      // const target = event.target
-      // console.log(target)
-      // const newProduct = {
-      //   name: target.name.value,
-      //   imageUrl: this.state.imageUrl,
-      //   category: target.category.value,
-      //   description: target.description.value,
-      //   quantity: target.quantity.value,
-      //   price: target.price.value * 100
-      // }
-      console.log(this.state)
-      this.props.updateProduct({...this.state, price: this.state.price * 100})
+      this.props.updateProduct({
+        ...this.state,
+        price: Math.floor(this.state.price * 100)
+      })
     } catch (error) {
-      console.log('Unable to create new product', error)
+      console.log('Unable to edit product', error)
     }
   }
 

@@ -1,19 +1,25 @@
 import axios from 'axios'
+import history from '../history'
 
-//action constant
+//action constants
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
 export const ADD_TO_CART = 'ADD_TO_CART'
+export const DELETE_CART_ITEMS = 'DELETE_CART_ITEMS'
 
-//action creator
-export const getCartItems = cartItems => ({
+//action creators
+export const getCartItems = cart => ({
   type: GET_CART_ITEMS,
-  cartItems
+  cart
 })
 
-//action creator
 export const addToCart = newItem => ({
   type: ADD_TO_CART,
   newItem
+})
+
+export const deleteCartItems = productId => ({
+  type: DELETE_CART_ITEMS,
+  productId
 })
 
 //thunks
@@ -47,6 +53,19 @@ export const fetchCart = userId => {
   }
 }
 
+export const removeCartThunk = productId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.delete(`/api/orders/${productId}`)
+      dispatch(deleteCartItems(productId))
+      history.push('/cart')
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+//reducer
 const initialState = {}
 
 export default function getCartReducer(state = initialState, action) {
@@ -57,11 +76,18 @@ export default function getCartReducer(state = initialState, action) {
       const newArrayFilter = state.order_details.filter(
         item => item.productId !== action.newItem.productId
       )
-      console.log('FILTERED ARRAY', newArrayFilter)
       newArrayFilter.push(action.newItem)
       return {
         ...state,
         order_details: newArrayFilter
+      }
+    case DELETE_CART_ITEMS:
+      return {
+        ...state,
+        order_details: state.order_details.filter(
+          item => item.productId !== action.productId
+        ),
+        products: state.products.filter(item => item.id !== action.productId)
       }
     default:
       return state

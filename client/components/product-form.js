@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, Input, Image, Button, TextArea} from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 
 export const ProductForm = props => {
   const {
