@@ -2,10 +2,6 @@ const router = require('express').Router()
 const {Product, Order, Order_Detail} = require('../db/models')
 module.exports = router
 
-// GET '/'
-router.get('/', () => {})
-
-// GET '/:userId'
 router.get('/:userId', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -21,8 +17,33 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+//PUT /:orderId/add/:productId
+router.put('/:orderId/add/:productId', async (req, res, next) => {
+  try {
+    let newItem = await Order_Detail.findOrCreate({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      },
+      defaults: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+        quantity: 1,
+        price: req.body.price
+      }
+    })
+    if (!newItem[1]) {
+      newItem[0].quantity = 1 + newItem[0].quantity
+    }
+    const addedItem = await newItem[0].save()
+    res.send(addedItem)
+  } catch (err) {
+    next(err)
+  }
+})
+  
+//DELETE /:orderId/delete/:productId
 router.delete('/:productId', async (req, res, next) => {
-  //console.log('this is the delete items')
   try {
     if (req.user) {
       const order = await Order.findOne({
@@ -36,21 +57,8 @@ router.delete('/:productId', async (req, res, next) => {
           orderId: order.id,
           productId: req.params.productId
         }
-        //include: {model: Order_Detail},
       })
-      //console.log('this is it', deleteCartItems)
-      // const product = await Product.findByPk({
-      // })
-      // if (!deleteCartItems || !product) {
-      //   res.send(404)
-      // }
       await orderDetail.destroy()
-      // .findOne({
-      //   where: {
-      //     id: req.params.id,
-      //   },
-      // })
-      //console.log('i am deleting')
       res.sendStatus(204)
     }
   } catch (error) {

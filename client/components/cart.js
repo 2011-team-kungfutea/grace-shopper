@@ -25,7 +25,6 @@ export class Cart extends React.Component {
 
   render() {
     const products = this.props.cart.products || []
-
     return (
       <div>
         {products.length === 0 ? (
