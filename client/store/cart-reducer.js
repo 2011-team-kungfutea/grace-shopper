@@ -71,7 +71,7 @@ const initialState = {}
 export default function getCartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      return action.cartItems
+      return action.cart
     case ADD_TO_CART:
       const newArrayFilter = state.order_details.filter(
         item => item.productId !== action.newItem.productId
