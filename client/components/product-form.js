@@ -59,7 +59,7 @@ export const ProductForm = props => {
             name="price"
             min="0.01"
             step="0.01"
-            value={price || 0.01}
+            value={price}
             onChange={handleChange}
           />
         </Form.Field>
