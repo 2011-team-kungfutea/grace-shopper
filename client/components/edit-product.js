@@ -15,11 +15,14 @@ class EditProduct extends React.Component {
       imageUrl: '',
       category: '',
       quantity: 0,
-      price: 0.01,
-      description: ''
+      price: 0.0,
+      description: '',
+      submittedForm: 0,
+      errors: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.validateForm = this.validateForm.bind(this)
   }
 
   componentDidMount() {
@@ -27,19 +30,35 @@ class EditProduct extends React.Component {
     this.props.getProduct(productId)
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.product !== this.props.product) {
-      this.setState({...this.props.product})
+      this.setState({
+        ...this.props.product,
+        price: this.props.product.price / 100
+      })
     }
   }
 
   handleSubmit(event) {
     event.preventDefault()
     try {
-      this.props.updateProduct({
-        ...this.state,
-        price: Math.floor(this.state.price * 100)
-      })
+      const errors = this.validateForm()
+      if (!errors.length) {
+        this.props.updateProduct({
+          ...this.state,
+          price: Math.floor(this.state.price * 100)
+        })
+        this.setState({
+          errors: [],
+          submittedForm: 1
+        })
+      } else {
+        console.log('in else statement')
+        this.setState({
+          errors: [...errors],
+          submittedForm: 1
+        })
+      }
     } catch (error) {
       console.log('Unable to edit product', error)
     }
@@ -51,8 +70,22 @@ class EditProduct extends React.Component {
     })
   }
 
+  validateForm() {
+    const errors = []
+    const {name, price, quantity} = this.state
+    if (name === '' || name === null) {
+      errors.push('You must include a product name.')
+    }
+    if (price < 0.01 || price > 21474836.47 || !price) {
+      errors.push('Price must be between $0.01 and $21,474,836.47.')
+    }
+    if (quantity < 0 || !quantity) {
+      errors.push('Quantity must be greater than 0.')
+    }
+    return errors
+  }
+
   render() {
-    const {product} = this.props
     return (
       <div>
         <Container textAlign="center">
