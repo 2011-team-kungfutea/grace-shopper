@@ -15,7 +15,7 @@ class EditProduct extends React.Component {
       imageUrl: '',
       category: '',
       quantity: 0,
-      price: 0.01,
+      price: 0.0,
       description: '',
       submittedForm: 0,
       errors: []
@@ -72,7 +72,6 @@ class EditProduct extends React.Component {
 
   validateForm() {
     const errors = []
-    console.log('invalidate')
     const {name, price, quantity} = this.state
     if (name === '' || name === null) {
       errors.push('You must include a product name.')
@@ -81,7 +80,6 @@ class EditProduct extends React.Component {
       errors.push('Price must be between $0.01 and $21,474,836.47.')
     }
     if (quantity < 0 || !quantity) {
-      console.log('quantity', quantity)
       errors.push('Quantity must be greater than 0.')
     }
     return errors

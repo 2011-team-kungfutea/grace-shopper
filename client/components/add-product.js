@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Container, Header, Modal, Button, Message} from 'semantic-ui-react'
+import {Container, Header} from 'semantic-ui-react'
 import {thunkCreateSingleProduct} from '../store/single-product-reducer'
 import {ProductForm} from './product-form'
 
@@ -12,7 +12,7 @@ class AddProduct extends React.Component {
       imageUrl: '',
       category: '',
       quantity: 0,
-      price: 0.01,
+      price: 0.0,
       description: '',
       submittedForm: 0,
       errors: []
@@ -36,7 +36,7 @@ class AddProduct extends React.Component {
           imageUrl: '',
           category: '',
           quantity: 0,
-          price: 0.01,
+          price: 0.0,
           description: '',
           submittedForm: 1,
           errors: []

@@ -89,3 +89,27 @@ nav a {
   flex-direction: column;
   align-items: center;
 }
+
+.edit-cart-button-row {
+  display: flex;
+  max-height: min-content;
+}
+
+.edit-cart-button p {
+  padding: 0;
+  margin: 0;
+}
+
+/* .edit-cart-button-row button {
+  max-width: fit-content;
+  height: fit-content;
+} */
+
+.edit-cart-button-row button {
+  width: min-content;
+  height: min-content;
+}
+
+/* .edit-cart-button-row p {
+  font-size: 2em;
+} */

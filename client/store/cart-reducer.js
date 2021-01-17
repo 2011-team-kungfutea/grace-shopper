@@ -50,7 +50,6 @@ export default function getCartReducer(state = initialState, action) {
     case GET_CART_ITEMS:
       return action.cart
     case DELETE_CART_ITEMS:
-      console.log('this is the state', state)
       return {
         ...state,
         order_details: state.order_details.filter(

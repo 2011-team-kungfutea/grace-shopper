@@ -59,7 +59,7 @@ export const ProductForm = props => {
               type="number"
               min="0"
               name="quantity"
-              value={quantity}
+              value={quantity === null ? 0 : quantity}
               onChange={handleChange}
             />
           </Form.Field>
@@ -71,7 +71,7 @@ export const ProductForm = props => {
               min="0.01"
               max="21474836.47"
               step="0.01"
-              value={price}
+              value={price === null ? 0.0 : price}
               onChange={handleChange}
             />
           </Form.Field>

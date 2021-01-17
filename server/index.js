@@ -13,7 +13,7 @@ const socketio = require('socket.io')
 module.exports = app
 
 if (process.env.NODE_ENV !== 'production') {
-  require('./secrets')
+  require('../secrets')
 }
 
 // This is a global Mocha hook, used for resource cleanup.
