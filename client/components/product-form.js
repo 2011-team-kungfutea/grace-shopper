@@ -71,11 +71,9 @@ export const ProductForm = props => {
             onChange={handleChange}
           />
         </Form.Field>
-        <Redirect to="/products">
-          <Button className="spacepurple" type="button">
-            Submit
-          </Button>
-        </Redirect>
+        <Button className="spacepurple" type="submit">
+          Submit
+        </Button>
       </Form>
       <div className="image-preview">
         <label>Image Preview</label>
