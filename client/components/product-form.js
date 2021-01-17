@@ -48,7 +48,7 @@ export const ProductForm = props => {
             type="number"
             min="0"
             name="quantity"
-            value={quantity || 0}
+            value={quantity}
             onChange={handleChange}
           />
         </Form.Field>
