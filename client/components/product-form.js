@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, Input, Image, Button, TextArea} from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 
 export const ProductForm = props => {
   const {
@@ -70,9 +71,11 @@ export const ProductForm = props => {
             onChange={handleChange}
           />
         </Form.Field>
-        <Button className="spacepurple" type="submit">
-          Submit
-        </Button>
+        <Redirect to="/products">
+          <Button className="spacepurple" type="button">
+            Submit
+          </Button>
+        </Redirect>
       </Form>
       <div className="image-preview">
         <label>Image Preview</label>
