@@ -80,10 +80,12 @@ export const fetchCart = userId => {
   }
 }
 
-export const removeCartThunk = productId => {
+export const removeCartThunk = (productId, orderId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/orders/${productId}`)
+      if (orderId) {
+        await axios.delete(`/api/orders/${productId}`)
+      }
       dispatch(deleteCartItems(productId))
     } catch (error) {
       console.log(error)
