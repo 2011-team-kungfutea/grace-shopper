@@ -12,7 +12,7 @@ export const CartProducts = props => {
   return (
     <div>
       <h1>{name}</h1>
-      <h4>{price}</h4>
+      <h4>{price / 100}</h4>
       <img src={imageUrl} />
       <div className="edit-cart-button-row">
         <button onClick={handleIncreaseQuantity}>+</button>

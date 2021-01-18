@@ -13,6 +13,7 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
+    const price = product.price || 0
 
     return (
       <div>
@@ -20,6 +21,7 @@ class SingleProduct extends React.Component {
         <img src={product.imageUrl} />
         <p>{description}</p>
         <p>Quantity: {quantity}</p>
+        <p>${price / 100}</p>
         <Link to="/products">
           <div className="ui two bottom attached buttons">
             <div className="ui violet button">Back to All Pets</div>
