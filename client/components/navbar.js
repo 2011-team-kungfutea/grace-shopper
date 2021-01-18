@@ -7,10 +7,6 @@ import {TotalItems} from './total-items'
 import {fetchCart} from '../store/cart-reducer'
 
 class Navbar extends React.Component {
-  // constructor(){
-  //   super()
-  // }
-  // ({handleClick, isLoggedIn, cart})
   render() {
     return (
       <div>
@@ -19,13 +15,9 @@ class Navbar extends React.Component {
             <li>
               <Link to="/home">Home</Link>
             </li>
-            {/* <li className="shopping cart icon">test</li> */}
             <li>
               <Link to="/products">Adopt</Link>
             </li>
-            {/* <li>
-          <i className="shopping cart violet icon"></i>
-        </li> */}
             <li style={{float: 'right'}}>
               {this.props.isLoggedIn ? (
                 <div>
@@ -46,10 +38,7 @@ class Navbar extends React.Component {
                   {/* The navbar will show these links before you log in */}
                   <Link to="/login">Login</Link>
                   <Link to="/signup">Sign Up</Link>
-                  <i
-                    className="shopping cart purple icon spacepurple"
-                    // padding="14px"
-                  />
+                  <i className="shopping cart purple icon spacepurple" />
                   <a>number</a>
                 </div>
               )}
@@ -57,7 +46,6 @@ class Navbar extends React.Component {
           </ul>
         </nav>
         <h1>UFO Tofu</h1>
-        {/* <i className="shopping cart icon " ></i> */}
         <hr />
       </div>
     )
@@ -90,7 +78,7 @@ export default connect(mapState, mapDispatch)(Navbar)
 /**
  * PROP TYPES
  */
-// Navbar.propTypes = {
-//   handleClick: PropTypes.func.isRequired,
-//   isLoggedIn: PropTypes.bool.isRequired
-// }
+Navbar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
+}

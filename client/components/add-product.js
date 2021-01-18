@@ -12,20 +12,41 @@ class AddProduct extends React.Component {
       imageUrl: '',
       category: '',
       quantity: 0,
-      price: 0.01,
-      description: ''
+      price: 0.0,
+      description: '',
+      submittedForm: 0,
+      errors: []
     }
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
+    this.validateForm = this.validateForm.bind(this)
   }
 
   handleSubmit(event) {
     event.preventDefault()
     try {
-      this.props.addProduct({
-        ...this.state,
-        price: Math.floor(this.state.price * 100)
-      })
+      const errors = this.validateForm()
+      if (!errors.length) {
+        this.props.addProduct({
+          ...this.state,
+          price: Math.floor(this.state.price * 100)
+        })
+        this.setState({
+          name: '',
+          imageUrl: '',
+          category: '',
+          quantity: 0,
+          price: 0.0,
+          description: '',
+          submittedForm: 1,
+          errors: []
+        })
+      } else {
+        this.setState({
+          errors: [...errors],
+          submittedForm: 1
+        })
+      }
     } catch (error) {
       console.log('Unable to create new product', error)
     }
@@ -35,6 +56,21 @@ class AddProduct extends React.Component {
     this.setState({
       [event.target.name]: event.target.value
     })
+  }
+
+  validateForm() {
+    const errors = []
+    const {name, price, quantity} = this.state
+    if (name === '' || name === null) {
+      errors.push('You must include a product name.')
+    }
+    if (price < 0.01 || price > 21474836.47 || !price) {
+      errors.push('Price must be between $0.01 and $21,474,836.47.')
+    }
+    if (quantity < 0 || !quantity) {
+      errors.push('Quantity must be 0 or greater.')
+    }
+    return errors
   }
 
   render() {

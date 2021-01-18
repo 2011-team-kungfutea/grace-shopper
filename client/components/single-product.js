@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
 import {fetchCart} from '../store/cart-reducer'
+import {thunkAddToCart} from '../store/cart-reducer'
 
 class SingleProduct extends React.Component {
   componentDidMount() {
@@ -12,6 +13,7 @@ class SingleProduct extends React.Component {
     const product = this.props.product
     const description = product.description || ''
     const quantity = product.quantity || 0
+    const price = product.price || 0
 
     return (
       <div>
@@ -19,10 +21,17 @@ class SingleProduct extends React.Component {
         <img src={product.imageUrl} />
         <p>{description}</p>
         <p>Quantity: {quantity}</p>
+        <p>${price / 100}</p>
         <Link to="/products">
           <div className="ui two bottom attached buttons">
             <div className="ui violet button">Back to All Pets</div>
-            <div className="ui purple button">Adopt</div>
+
+            <div
+              onClick={() => this.props.addToCart(product, this.props.cart.id)}
+              className="ui purple button"
+            >
+              Add to Cart
+            </div>
           </div>
         </Link>
       </div>
@@ -33,6 +42,7 @@ class SingleProduct extends React.Component {
 const mapStateToProps = state => {
   return {
     product: state.singleProduct,
+    cartItems: state.cartItems,
     cart: state.cart,
     user: state.user
   }
@@ -41,7 +51,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchSingleProduct: id => dispatch(thunkfetchSingleProduct(id)),
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    addToCart: (product, orderId) => dispatch(thunkAddToCart(product, orderId))
   }
 }
 

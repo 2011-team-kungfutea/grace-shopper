@@ -48,10 +48,10 @@ async function seed() {
       quantity: 14,
       imageUrl:
         'https://i.pinimg.com/originals/fc/a3/49/fca349944fe6daa3ddaa80ac6cce5065.jpg'
-    })
-    // Product.create({name: 'Frederigo', price: 70135632.13, quantity: 17}),
-    // Product.create({name: 'Christie', price: 98763936.04, quantity: 25}),
-    // Product.create({name: 'Natty', price: 67346099.64, quantity: 24}),
+    }),
+    Product.create({name: 'Frederigo', price: 70135632, quantity: 17}),
+    Product.create({name: 'Christie', price: 9876393, quantity: 25}),
+    Product.create({name: 'Natty', price: 67346099, quantity: 24})
     // Product.create({name: 'Ddene', price: 25584206.64, quantity: 31}),
     // Product.create({name: 'Zacherie', price: 65096094.27, quantity: 14}),
     // Product.create({name: 'Melloney', price: 64430233.31, quantity: 14}),

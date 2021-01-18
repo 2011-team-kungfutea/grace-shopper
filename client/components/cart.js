@@ -1,12 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, removeCartThunk} from '../store/cart-reducer'
+import {
+  editQuantityInCart,
+  fetchCart,
+  removeCartThunk,
+  INCREASE_CART_ITEM,
+  DECREASE_CART_ITEM
+} from '../store/cart-reducer'
 import {CartProducts} from './cart-products'
 
 export class Cart extends React.Component {
   constructor() {
     super()
     this.deleteProduct = this.deleteProduct.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
 
   componentDidMount() {
@@ -15,50 +22,48 @@ export class Cart extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps){
-  //   if(prevProps.cart !== )
-  // }
-
   deleteProduct(productId) {
     this.props.removeCartThunk(productId)
   }
 
-  render() {
-    const products = this.props.cart.products || []
+  handleEdit(event, productId) {
+    const name = event.target.name
+    const changeType =
+      name === INCREASE_CART_ITEM ? INCREASE_CART_ITEM : DECREASE_CART_ITEM
+    this.props.editCart(changeType, productId, this.props.cart.id)
+  }
 
+  render() {
+    const cartItems = this.props.cart.order_details || []
     return (
       <div>
-        <h3 className="ui center aligned header">YOUR CART</h3>
-        {products.length === 0 ? (
-          <h5 className="cart-header">Cart is Empty!</h5>
+        {cartItems.length === 0 ? (
+          <div className="cart-header">Cart is Empty!</div>
         ) : (
           <div className="cart-header">
-            You have {products.length} in the cart.
+            You have {cartItems.length} in the cart.
           </div>
         )}
-        <div>
-          {products.map(product => {
-            const cartItem = product.order_detail
-            return (
-              <div key={product.id}>
-                <CartProducts
-                  name={product.name}
-                  price={product.price}
-                  imageUrl={product.imageUrl}
-                  quantityOrdered={cartItem.quantity}
-                />
-                <button
-                  className="trash alternate outline icon"
-                  type="button"
-                  onClick={() => this.deleteProduct(product.id)}
-                >
-                  Delete Pet
-                </button>
-                {/* <i class="trash alternate outline icon"></i> */}
-              </div>
-            )
-          })}
-        </div>
+
+        {cartItems.map(item => {
+          return (
+            <div key={item.productId}>
+              <CartProducts
+                {...item.product}
+                quantityOrdered={item.quantity}
+                handleEdit={this.handleEdit}
+                increaseName={INCREASE_CART_ITEM}
+                decreaseName={DECREASE_CART_ITEM}
+              />
+              <button
+                type="button"
+                onClick={() => this.deleteProduct(item.productId)}
+              >
+                Delete Pet
+              </button>
+            </div>
+          )
+        })}
 
         <div className="cart">
           <div className="subTotal">
@@ -87,7 +92,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeCartThunk: productId => dispatch(removeCartThunk(productId)),
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    editCart: (isIncreased, productId, orderId) =>
+      dispatch(editQuantityInCart(isIncreased, productId, orderId))
   }
 }
 
