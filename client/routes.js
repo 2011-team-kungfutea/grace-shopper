@@ -11,10 +11,12 @@ import {
   AddProduct,
   Cart,
   EditProduct,
-  AllUsers
+  AllUsers,
+  CheckoutForm
 } from './components'
 import {me} from './store'
 import {fetchCart} from './store/cart-reducer'
+import checkoutForm from './components/checkout-form'
 
 /**
  * COMPONENT
@@ -47,6 +49,7 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={UserHome} />
             <Route path="/cart" component={Cart} />
+            <Route path="/checkout-form" component={CheckoutForm} />
             {user.isAdministrator && (
               <Switch>
                 <Route
