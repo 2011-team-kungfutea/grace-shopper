@@ -2,22 +2,28 @@ import React from 'react'
 
 export const CartProducts = props => {
   const {
+    id,
     name,
     price,
     imageUrl,
     quantityOrdered,
-    handleIncreaseQuantity,
-    handleDecreaseQuantity
+    handleEdit,
+    increaseName,
+    decreaseName
   } = props
   return (
     <div>
       <h1>{name}</h1>
-      <h4>{price}</h4>
+      <h4>{price / 100}</h4>
       <img src={imageUrl} />
       <div className="edit-cart-button-row">
-        <button onClick={handleIncreaseQuantity}>+</button>
+        <button name={increaseName} onClick={e => handleEdit(e, id)}>
+          +
+        </button>
         <p>{quantityOrdered}</p>
-        <button onClick={handleDecreaseQuantity}>-</button>
+        <button name={decreaseName} onClick={e => handleEdit(e, id)}>
+          -
+        </button>
       </div>
 
       {/* <button>{RemoveButton}</button> */}

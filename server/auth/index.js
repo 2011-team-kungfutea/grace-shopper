@@ -38,7 +38,7 @@ router.post('/logout', (req, res) => {
   res.redirect('/')
 })
 
-router.get('/me', (req, res) => {
+router.get('/me', async (req, res) => {
   res.json(req.user)
 })
 
