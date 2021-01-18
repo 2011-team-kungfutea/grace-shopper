@@ -141,11 +141,20 @@ export default function getCartReducer(state = initialState, action) {
       }
 
     case ADD_TO_GUEST_CART:
-      // let found = false;
-      // const newOrderDetails =
+      let found = false
+      const newOrderDetails = state.order_details.map(item => {
+        if (item.productId === action.cartItem.productId) {
+          item.quantity = item.quantity + 1
+          found = true
+        }
+        return item
+      })
+      if (!found) {
+        newOrderDetails.push(action.cartItem)
+      }
       return {
         ...state,
-        order_details: [...state.order_details, action.cartItem]
+        order_details: newOrderDetails
       }
 
     case EMPTY_CART:
