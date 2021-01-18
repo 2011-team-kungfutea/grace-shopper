@@ -40,6 +40,7 @@ class AllProducts extends React.Component {
                 <Link to={`/products/${product.id}`}>
                   <img className="ui medium image" src={product.imageUrl} />
                 </Link>
+                <div>${product.price / 100}</div>
                 {user.isAdministrator && (
                   <div className="admin-buttons">
                     <Link to={`/admin/products/${product.id}/edit`}>
