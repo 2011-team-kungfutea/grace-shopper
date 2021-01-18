@@ -46,7 +46,6 @@ export class Cart extends React.Component {
         )}
 
         {cartItems.map(item => {
-          // const cartItem = product.order_detail
           return (
             <div key={item.productId}>
               <CartProducts
@@ -73,11 +72,9 @@ export class Cart extends React.Component {
         </div>
 
         <div>
-          <ul>
-            <button className="ui inverted purple button" type="submit">
-              Checkout
-            </button>
-          </ul>
+          <button className="ui inverted purple button" type="submit">
+            Checkout
+          </button>
         </div>
       </div>
     )
