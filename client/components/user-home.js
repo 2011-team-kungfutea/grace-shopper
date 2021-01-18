@@ -10,7 +10,12 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>
+        <div>
+          Welcome, {email} <i className="hand spock icon" />
+        </div>
+      </h3>
+      <h4>Great Seeing You Here!</h4>
     </div>
   )
 }

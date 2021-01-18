@@ -18,10 +18,10 @@ export const CartProducts = props => {
   console.log('asdfasdf', props)
   const {name, price, imageUrl, quantityOrdered} = props
   return (
-    <div>
-      <h1>{name}</h1>
+    <div className="ui horizontal list">
+      <h1 className="header">{name}</h1>
       <h4>{price}</h4>
-      <img src={imageUrl} />
+      <img className="ui avatar image" src={imageUrl} />
       <h4>{quantityOrdered}</h4>
       {/* <button>{RemoveButton}</button> */}
     </div>

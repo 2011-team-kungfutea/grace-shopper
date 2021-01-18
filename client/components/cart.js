@@ -28,19 +28,19 @@ export class Cart extends React.Component {
 
     return (
       <div>
+        <h3 className="ui center aligned header">YOUR CART</h3>
         {products.length === 0 ? (
-          <div className="cart-header">Cart is Empty!</div>
+          <h5 className="cart-header">Cart is Empty!</h5>
         ) : (
           <div className="cart-header">
             You have {products.length} in the cart.
           </div>
         )}
-
-        {products.map(product => {
-          const cartItem = product.order_detail
-          return (
-            <ul key={product.id}>
-              <li>
+        <div>
+          {products.map(product => {
+            const cartItem = product.order_detail
+            return (
+              <div key={product.id}>
                 <CartProducts
                   name={product.name}
                   price={product.price}
@@ -48,16 +48,17 @@ export class Cart extends React.Component {
                   quantityOrdered={cartItem.quantity}
                 />
                 <button
+                  className="trash alternate outline icon"
                   type="button"
                   onClick={() => this.deleteProduct(product.id)}
                 >
                   Delete Pet
                 </button>
                 {/* <i class="trash alternate outline icon"></i> */}
-              </li>
-            </ul>
-          )
-        })}
+              </div>
+            )
+          })}
+        </div>
 
         <div className="cart">
           <div className="subTotal">
@@ -66,11 +67,9 @@ export class Cart extends React.Component {
         </div>
 
         <div>
-          <ul>
-            <button className="ui inverted purple button" type="submit">
-              Checkout
-            </button>
-          </ul>
+          <button className="ui inverted purple button" type="submit">
+            Checkout
+          </button>
         </div>
       </div>
     )
