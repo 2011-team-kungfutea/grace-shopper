@@ -71,7 +71,7 @@ export class Cart extends React.Component {
             <div>
               $
               {cartItems.reduce((total, elm) => {
-                return total + elm.price * elm.quantity
+                return (total + elm.price * elm.quantity)/100
               }, 0)}
             </div>
           </h3>
