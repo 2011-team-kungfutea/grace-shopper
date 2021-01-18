@@ -13,10 +13,10 @@ router.get('/:userId', async (req, res, next) => {
       include: [{model: Order_Detail, include: [{model: Product}]}],
       defaults: {
         isOrdered: false,
-        userId: req.session.passport.user.id
+        userId: req.session.passport.user
       }
     })
-    if (created) order.order_details = []
+    // if (created) order.order_details = []
     res.send(order)
   } catch (error) {
     next(error)
@@ -26,6 +26,7 @@ router.get('/:userId', async (req, res, next) => {
 // PUT /:orderId/add/:productId
 router.put('/:orderId/add/:productId', async (req, res, next) => {
   try {
+    console.log('sta;sdijflaskdf', req.body)
     let newItem = await Order_Detail.findOrCreate({
       where: {
         orderId: req.params.orderId,
