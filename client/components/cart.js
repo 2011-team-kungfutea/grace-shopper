@@ -34,31 +34,31 @@ export class Cart extends React.Component {
   }
 
   render() {
-    const products = this.props.cart.products || []
+    const cartItems = this.props.cart.order_details || []
     return (
       <div>
-        {products.length === 0 ? (
+        {cartItems.length === 0 ? (
           <div className="cart-header">Cart is Empty!</div>
         ) : (
           <div className="cart-header">
-            You have {products.length} in the cart.
+            You have {cartItems.length} in the cart.
           </div>
         )}
 
-        {products.map(product => {
-          const cartItem = product.order_detail
+        {cartItems.map(item => {
+          // const cartItem = product.order_detail
           return (
-            <div key={product.id}>
+            <div key={item.productId}>
               <CartProducts
-                {...product}
-                quantityOrdered={cartItem.quantity}
+                {...item.product}
+                quantityOrdered={item.quantity}
                 handleEdit={this.handleEdit}
                 increaseName={INCREASE_CART_ITEM}
                 decreaseName={DECREASE_CART_ITEM}
               />
               <button
                 type="button"
-                onClick={() => this.deleteProduct(product.id)}
+                onClick={() => this.deleteProduct(item.productId)}
               >
                 Delete Pet
               </button>

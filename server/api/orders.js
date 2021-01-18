@@ -2,6 +2,7 @@ const router = require('express').Router()
 const {Product, Order, Order_Detail} = require('../db/models')
 module.exports = router
 
+// GET /:userId
 router.get('/:userId', async (req, res, next) => {
   try {
     const order = await Order.findOne({
@@ -9,7 +10,7 @@ router.get('/:userId', async (req, res, next) => {
         userId: req.session.passport.user,
         isOrdered: false
       },
-      include: [{model: Order_Detail}, {model: Product}]
+      include: [{model: Order_Detail, include: [{model: Product}]}]
     })
     res.send(order)
   } catch (error) {
@@ -17,7 +18,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-//PUT /:orderId/add/:productId
+// PUT /:orderId/add/:productId
 router.put('/:orderId/add/:productId', async (req, res, next) => {
   try {
     let newItem = await Order_Detail.findOrCreate({
@@ -25,6 +26,7 @@ router.put('/:orderId/add/:productId', async (req, res, next) => {
         orderId: req.params.orderId,
         productId: req.params.productId
       },
+      include: [{model: Product}],
       defaults: {
         orderId: req.params.orderId,
         productId: req.params.productId,
@@ -41,8 +43,29 @@ router.put('/:orderId/add/:productId', async (req, res, next) => {
     next(err)
   }
 })
-  
-//DELETE /:orderId/delete/:productId
+
+// PUT /:orderId/edit/:productId
+router.put('/:orderId/edit/:productId', async (req, res, next) => {
+  try {
+    const quantityChange = req.body.hasOwnProperty('INCREASE_CART_ITEM')
+      ? 1
+      : -1
+    let updatedCartItem = await Order_Detail.findOne({
+      where: {
+        productId: req.params.productId,
+        orderId: req.params.orderId
+      },
+      include: [{model: Product}]
+    })
+    updatedCartItem.quantity = updatedCartItem.quantity + quantityChange
+    updatedCartItem = await updatedCartItem.save()
+    res.send(updatedCartItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// DELETE /:orderId/delete/:productId
 router.delete('/:productId', async (req, res, next) => {
   try {
     if (req.user) {

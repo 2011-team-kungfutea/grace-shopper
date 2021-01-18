@@ -70,7 +70,7 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(
-        `api/orders/${orderId}/products/${productId}`,
+        `api/orders/${orderId}/edit/${productId}`,
         changeType
       )
       dispatch(editCartItem(data))
@@ -87,6 +87,7 @@ export default function getCartReducer(state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
       return action.cart
+
     case ADD_TO_CART:
       const addedOrderDetails = state.order_details.filter(
         item => item.productId !== action.newItem.productId
@@ -96,14 +97,15 @@ export default function getCartReducer(state = initialState, action) {
         ...state,
         order_details: addedOrderDetails
       }
+
     case DELETE_CART_ITEMS:
       return {
         ...state,
         order_details: state.order_details.filter(
           item => item.productId !== action.productId
-        ),
-        products: state.products.filter(item => item.id !== action.productId)
+        )
       }
+
     case EDIT_CART_ITEM:
       const editedOrderDetails = state.order_details.filter(
         item => item.productId !== action.cartItem.productId
@@ -113,6 +115,7 @@ export default function getCartReducer(state = initialState, action) {
         ...state,
         order_details: editedOrderDetails
       }
+
     default:
       return state
   }
