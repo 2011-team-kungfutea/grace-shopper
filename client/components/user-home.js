@@ -12,7 +12,7 @@ export const UserHome = props => {
     <div>
       <h3>
         <div>
-          Welcome, {email} <i className="hand spock icon" />
+          Welcome, {email} <i className="hand spock purple icon spacepurple" />
         </div>
       </h3>
       <h4>Great Seeing You Here!</h4>
