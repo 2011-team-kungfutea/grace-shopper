@@ -66,11 +66,16 @@ export class Cart extends React.Component {
         })}
 
         <div className="cart">
-          <div className="subTotal">
-            {/* <div>{CartProducts.reduce(total, currentVal) => total +}</div> */}
-          </div>
+          <h1 className="subTotal">
+            Subtotal
+            <div>
+              $
+              {cartItems.reduce((total, elm) => {
+                return total + elm.price * elm.quantity
+              }, 0)}
+            </div>
+          </h1>
         </div>
-
         <div>
           <button className="ui inverted purple button" type="submit">
             Checkout
