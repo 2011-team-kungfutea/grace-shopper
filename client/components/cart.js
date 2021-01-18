@@ -66,7 +66,7 @@ export class Cart extends React.Component {
         })}
 
         <div className="cart">
-          <h1 className="subTotal">
+          <h3 className="subTotal">
             Subtotal
             <div>
               $
@@ -74,7 +74,7 @@ export class Cart extends React.Component {
                 return total + elm.price * elm.quantity
               }, 0)}
             </div>
-          </h1>
+          </h3>
         </div>
         <div>
           <button className="ui inverted purple button" type="submit">
