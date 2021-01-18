@@ -1,12 +1,19 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {fetchCart, removeCartThunk} from '../store/cart-reducer'
+import {
+  editQuantityInCart,
+  fetchCart,
+  removeCartThunk,
+  INCREASE_CART_ITEM,
+  DECREASE_CART_ITEM
+} from '../store/cart-reducer'
 import {CartProducts} from './cart-products'
 
 export class Cart extends React.Component {
   constructor() {
     super()
     this.deleteProduct = this.deleteProduct.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
 
   componentDidMount() {
@@ -15,12 +22,15 @@ export class Cart extends React.Component {
     }
   }
 
-  // componentDidUpdate(prevProps){
-  //   if(prevProps.cart !== )
-  // }
-
   deleteProduct(productId) {
     this.props.removeCartThunk(productId)
+  }
+
+  handleEdit(event, productId) {
+    const name = event.target.name
+    const changeType =
+      name === INCREASE_CART_ITEM ? INCREASE_CART_ITEM : DECREASE_CART_ITEM
+    this.props.editCart(changeType, productId, this.props.cart.id)
   }
 
   render() {
@@ -38,23 +48,21 @@ export class Cart extends React.Component {
         {products.map(product => {
           const cartItem = product.order_detail
           return (
-            <ul key={product.id}>
-              <li>
-                <CartProducts
-                  name={product.name}
-                  price={product.price}
-                  imageUrl={product.imageUrl}
-                  quantityOrdered={cartItem.quantity}
-                />
-                <button
-                  type="button"
-                  onClick={() => this.deleteProduct(product.id)}
-                >
-                  Delete Pet
-                </button>
-                {/* <i class="trash alternate outline icon"></i> */}
-              </li>
-            </ul>
+            <div key={product.id}>
+              <CartProducts
+                {...product}
+                quantityOrdered={cartItem.quantity}
+                handleEdit={this.handleEdit}
+                increaseName={INCREASE_CART_ITEM}
+                decreaseName={DECREASE_CART_ITEM}
+              />
+              <button
+                type="button"
+                onClick={() => this.deleteProduct(product.id)}
+              >
+                Delete Pet
+              </button>
+            </div>
           )
         })}
 
@@ -87,7 +95,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     removeCartThunk: productId => dispatch(removeCartThunk(productId)),
-    fetchCart: userId => dispatch(fetchCart(userId))
+    fetchCart: userId => dispatch(fetchCart(userId)),
+    editCart: (isIncreased, productId, orderId) =>
+      dispatch(editQuantityInCart(isIncreased, productId, orderId))
   }
 }
 
