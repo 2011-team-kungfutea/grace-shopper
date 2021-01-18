@@ -11,17 +11,26 @@ export const CartProducts = props => {
     increaseName,
     decreaseName
   } = props
+
   return (
     <div>
       <h1>{name}</h1>
-      <h4>{price / 100}</h4>
+      <h4>{parseInt(price || 0) / 100}</h4>
       <img src={imageUrl} />
       <div className="edit-cart-button-row">
-        <button name={increaseName} onClick={e => handleEdit(e, id)}>
+        <button
+          type="button"
+          name={increaseName}
+          onClick={e => handleEdit(e, id)}
+        >
           +
         </button>
         <p>{quantityOrdered}</p>
-        <button name={decreaseName} onClick={e => handleEdit(e, id)}>
+        <button
+          type="button"
+          name={decreaseName}
+          onClick={e => handleEdit(e, id)}
+        >
           -
         </button>
       </div>

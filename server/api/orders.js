@@ -5,13 +5,18 @@ module.exports = router
 // GET /:userId
 router.get('/:userId', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
+    const [order, created] = await Order.findOrCreate({
       where: {
         userId: req.session.passport.user,
         isOrdered: false
       },
-      include: [{model: Order_Detail, include: [{model: Product}]}]
+      include: [{model: Order_Detail, include: [{model: Product}]}],
+      defaults: {
+        isOrdered: false,
+        userId: req.session.passport.user.id
+      }
     })
+    if (created) order.order_details = []
     res.send(order)
   } catch (error) {
     next(error)
@@ -66,6 +71,24 @@ router.put('/:orderId/edit/:productId', async (req, res, next) => {
 })
 
 // DELETE /:orderId/delete/:productId
+router.delete('/:orderId/delete/:productId', async (req, res, next) => {
+  try {
+    const orderDetail = await Order_Detail.findOne({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      }
+    })
+    if (orderDetail) {
+      await orderDetail.destroy()
+    }
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// DELETE /:productId
 router.delete('/:productId', async (req, res, next) => {
   try {
     if (req.user) {
