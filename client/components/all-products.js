@@ -35,21 +35,23 @@ class AllProducts extends React.Component {
         <div>
           {products.map(product => {
             return (
-              <div key={product.id}>
-                <h1>{product.name}</h1>
-                <Link to={`/products/${product.id}`}>
-                  <img src={product.imageUrl} />
-                </Link>
-                {user.isAdministrator && (
-                  <div className="admin-buttons">
-                    <Link to={`/admin/products/${product.id}/edit`}>
-                      <Button>Edit</Button>
-                    </Link>
-                    <Button onClick={() => this.handleDelete(product.id)}>
-                      Delete
-                    </Button>
-                  </div>
-                )}
+              <div role="list" className="ui horizontal list" key={product.id}>
+                <div className="ui teal segment">
+                  <h1>{product.name}</h1>
+                  <Link to={`/products/${product.id}`}>
+                    <img className="ui medium image" src={product.imageUrl} />
+                  </Link>
+                  {user.isAdministrator && (
+                    <div className="admin-buttons">
+                      <Link to={`/admin/products/${product.id}/edit`}>
+                        <Button>Edit</Button>
+                      </Link>
+                      <Button onClick={() => this.handleDelete(product.id)}>
+                        Delete
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             )
           })}
