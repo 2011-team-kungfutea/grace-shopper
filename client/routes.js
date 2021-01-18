@@ -15,8 +15,7 @@ import {
   CheckoutForm
 } from './components'
 import {me} from './store'
-import {fetchCart} from './store/cart-reducer'
-import checkoutForm from './components/checkout-form'
+import {fetchCart, emptyCart} from './store/cart-reducer'
 
 /**
  * COMPONENT
@@ -26,10 +25,14 @@ class Routes extends Component {
     this.props.loadInitialData()
   }
   componentDidUpdate(prevProps) {
-    const {user, fetchCart} = this.props
+    const {user, fetchCart, resetCart} = this.props
     try {
-      if (user !== prevProps.user && user.id) {
-        fetchCart(this.props.user.id)
+      if (user !== prevProps.user) {
+        if (user.id) {
+          fetchCart(this.props.user.id)
+        } else {
+          resetCart()
+        }
       }
     } catch (error) {
       console.log(error)
@@ -45,11 +48,11 @@ class Routes extends Component {
         <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
+        <Route path="/checkout-form" component={CheckoutForm} />
+        <Route path="/cart" component={Cart} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
-            <Route path="/cart" component={Cart} />
-            <Route path="/checkout-form" component={CheckoutForm} />
             {user.isAdministrator && (
               <Switch>
                 <Route
@@ -93,6 +96,9 @@ const mapDispatch = dispatch => {
     },
     fetchCart(userId) {
       dispatch(fetchCart(userId))
+    },
+    resetCart() {
+      dispatch(emptyCart())
     }
   }
 }

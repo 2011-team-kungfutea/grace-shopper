@@ -6,6 +6,8 @@ export const DELETE_CART_ITEMS = 'DELETE_CART_ITEMS'
 export const EDIT_CART_ITEM = 'EDIT_CART_ITEM'
 export const INCREASE_CART_ITEM = 'INCREASE_CART_ITEM'
 export const DECREASE_CART_ITEM = 'DECREASE_CART_ITEM'
+export const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
+export const EMPTY_CART = 'EMPTY_CART'
 
 //action creators
 export const getCartItems = cart => ({
@@ -28,16 +30,36 @@ export const editCartItem = cartItem => ({
   cartItem
 })
 
+export const addToGuestCart = cartItem => ({
+  type: ADD_TO_GUEST_CART,
+  cartItem
+})
+
+export const emptyCart = () => ({
+  type: EMPTY_CART
+})
+
 //thunks
 
 export const thunkAddToCart = (product, orderId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(
-        `/api/orders/${orderId}/add/${product.id}`,
-        product
-      )
-      dispatch(addToCart(data))
+      if (!orderId) {
+        const addedProduct = {
+          orderId: null,
+          productId: product.id,
+          quantity: 1,
+          price: product.price,
+          product: product
+        }
+        dispatch(addToGuestCart(addedProduct))
+      } else {
+        const {data} = await axios.put(
+          `/api/orders/${orderId}/add/${product.id}`,
+          product
+        )
+        dispatch(addToCart(data))
+      }
     } catch (err) {
       console.error(err)
     }
@@ -81,7 +103,9 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
 }
 
 //reducer
-const initialState = {}
+const initialState = {
+  order_details: []
+}
 
 export default function getCartReducer(state = initialState, action) {
   switch (action.type) {
@@ -115,6 +139,17 @@ export default function getCartReducer(state = initialState, action) {
         ...state,
         order_details: editedOrderDetails
       }
+
+    case ADD_TO_GUEST_CART:
+      // let found = false;
+      // const newOrderDetails =
+      return {
+        ...state,
+        order_details: [...state.order_details, action.cartItem]
+      }
+
+    case EMPTY_CART:
+      return initialState
 
     default:
       return state

@@ -16,12 +16,6 @@ export class Cart extends React.Component {
     this.handleEdit = this.handleEdit.bind(this)
   }
 
-  componentDidMount() {
-    if (this.props.user.id) {
-      this.props.fetchCart(this.props.user.id)
-    }
-  }
-
   deleteProduct(productId) {
     this.props.removeCartThunk(productId)
   }
