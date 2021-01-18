@@ -8,6 +8,7 @@ import {
   DECREASE_CART_ITEM
 } from '../store/cart-reducer'
 import {CartProducts} from './cart-products'
+import {Link} from 'react-router-dom'
 
 export class Cart extends React.Component {
   constructor() {
@@ -75,9 +76,11 @@ export class Cart extends React.Component {
           </h3>
         </div>
         <div>
-          <button className="ui inverted purple button" type="submit">
-            Checkout
-          </button>
+          <Link to="/checkout-form">
+            <button className="ui inverted purple button" type="submit">
+              Checkout
+            </button>
+          </Link>
         </div>
       </div>
     )
