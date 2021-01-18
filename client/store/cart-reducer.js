@@ -70,6 +70,9 @@ export const fetchCart = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/orders/${userId}`)
+      if (!data.order_details) {
+        data.order_details = []
+      }
       dispatch(getCartItems(data))
     } catch (error) {
       console.log(error)
