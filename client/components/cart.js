@@ -21,7 +21,7 @@ export class Cart extends React.Component {
   }
 
   deleteProduct(productId) {
-    this.props.removeCartThunk(productId)
+    this.props.removeCartThunk(productId, this.props.cart.id)
   }
 
   handleEdit(event, productId) {
@@ -94,7 +94,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeCartThunk: productId => dispatch(removeCartThunk(productId)),
+    removeCartThunk: (productId, orderId) =>
+      dispatch(removeCartThunk(productId, orderId)),
     fetchCart: userId => dispatch(fetchCart(userId)),
     editCart: (isIncreased, productId, orderId) =>
       dispatch(editQuantityInCart(isIncreased, productId, orderId))

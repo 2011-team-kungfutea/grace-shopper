@@ -26,7 +26,6 @@ router.get('/:userId', async (req, res, next) => {
 // PUT /:orderId/add/:productId
 router.put('/:orderId/add/:productId', async (req, res, next) => {
   try {
-    console.log('sta;sdijflaskdf', req.body)
     let newItem = await Order_Detail.findOrCreate({
       where: {
         orderId: req.params.orderId,

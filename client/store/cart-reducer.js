@@ -8,6 +8,7 @@ export const INCREASE_CART_ITEM = 'INCREASE_CART_ITEM'
 export const DECREASE_CART_ITEM = 'DECREASE_CART_ITEM'
 export const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 export const EMPTY_CART = 'EMPTY_CART'
+export const EDIT_GUEST_CART = 'EDIT_GUEST_CART'
 
 //action creators
 export const getCartItems = cart => ({
@@ -37,6 +38,12 @@ export const addToGuestCart = cartItem => ({
 
 export const emptyCart = () => ({
   type: EMPTY_CART
+})
+
+export const editGuestCart = (changeType, productId) => ({
+  type: EDIT_GUEST_CART,
+  changeType,
+  productId
 })
 
 //thunks
@@ -80,10 +87,12 @@ export const fetchCart = userId => {
   }
 }
 
-export const removeCartThunk = productId => {
+export const removeCartThunk = (productId, orderId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.delete(`/api/orders/${productId}`)
+      if (orderId) {
+        await axios.delete(`/api/orders/${productId}`)
+      }
       dispatch(deleteCartItems(productId))
     } catch (error) {
       console.log(error)
@@ -94,11 +103,15 @@ export const removeCartThunk = productId => {
 export const editQuantityInCart = (changeType, productId, orderId) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(
-        `api/orders/${orderId}/edit/${productId}`,
-        changeType
-      )
-      dispatch(editCartItem(data))
+      if (orderId) {
+        const {data} = await axios.put(
+          `api/orders/${orderId}/edit/${productId}`,
+          changeType
+        )
+        dispatch(editCartItem(data))
+      } else {
+        dispatch(editGuestCart(changeType, productId))
+      }
     } catch (error) {
       console.log(error)
     }
@@ -162,6 +175,18 @@ export default function getCartReducer(state = initialState, action) {
 
     case EMPTY_CART:
       return initialState
+
+    case EDIT_GUEST_CART:
+      const newGuestOrderDetails = state.order_details.map(item => {
+        if (item.productId === action.productId) {
+          item.quantity += action.changeType === INCREASE_CART_ITEM ? 1 : -1
+        }
+        return item
+      })
+      return {
+        ...state,
+        order_details: newGuestOrderDetails
+      }
 
     default:
       return state
