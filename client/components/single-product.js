@@ -30,6 +30,7 @@ class SingleProduct extends React.Component {
               onClick={() => this.props.addToCart(product, this.props.cart.id)}
               className="ui purple button"
             >
+              {' '}
               Add to Cart
             </div>
           </div>

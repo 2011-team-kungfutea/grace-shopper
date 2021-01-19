@@ -2,6 +2,7 @@
 
 import {expect} from 'chai'
 import {me, logout} from './user'
+import {fetchUsers} from './all-users-reducer'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -45,6 +46,17 @@ describe('thunk creators', () => {
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('REMOVE_USER')
       expect(history.location.pathname).to.be.equal('/login')
+    })
+  })
+
+  describe('fetchUsers', () => {
+    it('going to Users view as admin dispatches the FETCH_USERS action', async () => {
+      const afakeUser = {email: 'Cody'}
+      mockAxios.onGet('/api/users').replyOnce(200, afakeUser)
+      await store.dispatch(fetchUsers())
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('GET_USERS')
+      // expect(history.location.pathname).to.be.equal('/login')
     })
   })
 })
