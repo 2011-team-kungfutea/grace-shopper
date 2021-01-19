@@ -9,6 +9,7 @@ export const DECREASE_CART_ITEM = 'DECREASE_CART_ITEM'
 export const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 export const EMPTY_CART = 'EMPTY_CART'
 export const EDIT_GUEST_CART = 'EDIT_GUEST_CART'
+export const CHECKOUT_CART = 'CHECKOUT_CART'
 
 //action creators
 export const getCartItems = cart => ({
@@ -44,6 +45,12 @@ export const editGuestCart = (changeType, productId) => ({
   type: EDIT_GUEST_CART,
   changeType,
   productId
+})
+
+export const checkoutCart = (orderId, formData) => ({
+  type: CHECKOUT_CART,
+  orderId,
+  formData
 })
 
 //thunks
@@ -112,6 +119,25 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
       } else {
         dispatch(editGuestCart(changeType, productId))
       }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+
+export const checkoutThunk = (orderId, formData) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/orders/${orderId}`, formData)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}
+export const guestCheckoutThunk = (orderId, formData) => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.put(`/api/orders/${orderId}`, formData)
     } catch (error) {
       console.log(error)
     }
