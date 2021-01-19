@@ -35,18 +35,19 @@ export class Cart extends React.Component {
   render() {
     const cartItems = this.props.cart.order_details || []
     return (
-      <div>
-        {cartItems.length === 0 ? (
-          <div className="cart-header">Cart is Empty!</div>
-        ) : (
-          <div className="cart-header">
-            You have {cartItems.length} in the cart.
-          </div>
-        )}
-
+      <div className="grid-container">
+        <div>
+          {cartItems.length === 0 ? (
+            <div className="cart-header">Cart is Empty!</div>
+          ) : (
+            <div className="cart-header">
+              You have {cartItems.length} in the cart.
+            </div>
+          )}
+        </div>
         {cartItems.map(item => {
           return (
-            <div key={item.productId}>
+            <div key={item.productId} className="ui teal segment">
               <CartProducts
                 {...item.product}
                 quantityOrdered={item.quantity}
@@ -54,12 +55,19 @@ export class Cart extends React.Component {
                 increaseName={INCREASE_CART_ITEM}
                 decreaseName={DECREASE_CART_ITEM}
               />
-              <button
-                type="button"
-                onClick={() => this.deleteProduct(item.productId)}
-              >
-                Delete Pet
-              </button>
+              <div>
+                <button
+                  className="ui vertical animated button"
+                  tabIndex="0"
+                  type="button"
+                  onClick={() => this.deleteProduct(item.productId)}
+                >
+                  <div className="visible content">Delete Pet</div>
+                  <div className="hidden content">
+                    <i aria-hidden="true" className="frown spacegreen icon" />
+                  </div>
+                </button>
+              </div>
             </div>
           )
         })}
