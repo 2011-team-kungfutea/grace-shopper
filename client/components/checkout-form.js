@@ -146,7 +146,7 @@ class CheckoutForm extends React.Component {
           header={
             errors.length
               ? 'There were some errors with your submission'
-              : 'Product was added successfully'
+              : 'Checkout completed successfully.'
           }
           list={errors}
         />
