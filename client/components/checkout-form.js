@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Form, Input, Image, Button, TextArea, Message} from 'semantic-ui-react'
+import {Form, Input, Button, Message, Header} from 'semantic-ui-react'
 import {CartProducts} from './cart-products'
 import {
   INCREASE_CART_ITEM,
@@ -19,7 +19,7 @@ class CheckoutForm extends React.Component {
       firstName: '',
       lastName: '',
       address: '',
-      phoneNumber: 0,
+      phoneNumber: '',
       email: '',
       errors: [],
       submittedForm: 0
@@ -56,8 +56,16 @@ class CheckoutForm extends React.Component {
       if (!errors.length) {
         this.props.checkout(
           {
-            formData: {...this.state},
-            cart: {...this.props.cart}
+            formData: {
+              ...this.state,
+              phoneNumber: this.state.phoneNumber.toString()
+            },
+            cart: {
+              ...this.props.cart,
+              subtotal: this.props.cart.order_details.reduce((total, elm) => {
+                return total + elm.price * elm.quantity
+              }, 0)
+            }
           },
           this.props.cart.id
         )
@@ -65,7 +73,7 @@ class CheckoutForm extends React.Component {
           firstName: '',
           lastName: '',
           address: '',
-          phoneNumber: 0,
+          phoneNumber: '',
           email: '',
           errors: [],
           submittedForm: 1
@@ -93,8 +101,12 @@ class CheckoutForm extends React.Component {
     if (address === '' || address === null) {
       errors.push('You must include an address.')
     }
-    if (phoneNumber === '' || phoneNumber === null) {
-      errors.push('You must include a phone number.')
+    if (
+      phoneNumber === '' ||
+      phoneNumber === null ||
+      phoneNumber.length !== 10
+    ) {
+      errors.push('You must include a valid phone number.')
     }
     if (email === '' || email === null) {
       errors.push('You must include an email address.')
@@ -120,7 +132,6 @@ class CheckoutForm extends React.Component {
   }
   render() {
     const order_details = this.props.cart.order_details || []
-    // let userEmail = this.props.user.email || '';
     const {
       firstName,
       lastName,
@@ -140,10 +151,11 @@ class CheckoutForm extends React.Component {
           header={
             errors.length
               ? 'There were some errors with your submission'
-              : 'Product was added successfully'
+              : 'Checkout completed successfully.'
           }
           list={errors}
         />
+        <Header as="h2">Checkout</Header>
         <div className="checkout">
           <Form className="checkout-form" onSubmit={this.handleSubmit}>
             <Form.Field>
@@ -180,7 +192,7 @@ class CheckoutForm extends React.Component {
               <Input
                 type="number"
                 name="phoneNumber"
-                value={phoneNumber || 1234567890}
+                value={phoneNumber || ''}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -194,6 +206,22 @@ class CheckoutForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
+            <div className="cart">
+              <h3 className="subTotal">
+                Subtotal
+                <div>
+                  $
+                  {this.props.cart.order_details.reduce((total, elm) => {
+                    return total + elm.price * elm.quantity
+                  }, 0) / 100}
+                </div>
+              </h3>
+            </div>
+            <Button className="spacepurple" type="submit">
+              Submit
+            </Button>
+          </Form>
+          <div className="checkout-cart">
             {order_details.map(item => {
               // const cartItem = product.order_detail
               return (
@@ -214,10 +242,7 @@ class CheckoutForm extends React.Component {
                 </div>
               )
             })}
-            <Button className="spacepurple" type="submit">
-              Submit
-            </Button>
-          </Form>
+          </div>
         </div>
       </div>
     )

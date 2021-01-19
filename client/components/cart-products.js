@@ -15,8 +15,9 @@ export const CartProducts = props => {
   return (
     <div>
       <h1>{name}</h1>
-      <h4>{parseInt(price || 0) / 100}</h4>
-      <img src={imageUrl} />
+      {/* <h4>{parseInt(price || 0) / 100}</h4> */}
+      <img src={imageUrl} width="320" height="320" />
+      <h3>${parseInt(price || 0) / 100}</h3>
       <div className="edit-cart-button-row">
         <button
           type="button"
