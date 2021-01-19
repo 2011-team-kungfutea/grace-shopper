@@ -19,7 +19,7 @@ class CheckoutForm extends React.Component {
       firstName: '',
       lastName: '',
       address: '',
-      phoneNumber: 0,
+      phoneNumber: '',
       email: '',
       errors: [],
       submittedForm: 0
@@ -56,7 +56,10 @@ class CheckoutForm extends React.Component {
       if (!errors.length) {
         this.props.checkout(
           {
-            formData: {...this.state},
+            formData: {
+              ...this.state,
+              phoneNumber: this.state.phoneNumber.toString()
+            },
             cart: {...this.props.cart}
           },
           this.props.cart.id
@@ -65,7 +68,7 @@ class CheckoutForm extends React.Component {
           firstName: '',
           lastName: '',
           address: '',
-          phoneNumber: 0,
+          phoneNumber: '',
           email: '',
           errors: [],
           submittedForm: 1
@@ -93,8 +96,12 @@ class CheckoutForm extends React.Component {
     if (address === '' || address === null) {
       errors.push('You must include an address.')
     }
-    if (phoneNumber === '' || phoneNumber === null) {
-      errors.push('You must include a phone number.')
+    if (
+      phoneNumber === '' ||
+      phoneNumber === null ||
+      phoneNumber.length !== 10
+    ) {
+      errors.push('You must include a valid phone number.')
     }
     if (email === '' || email === null) {
       errors.push('You must include an email address.')
@@ -120,7 +127,6 @@ class CheckoutForm extends React.Component {
   }
   render() {
     const order_details = this.props.cart.order_details || []
-    // let userEmail = this.props.user.email || '';
     const {
       firstName,
       lastName,
@@ -180,7 +186,7 @@ class CheckoutForm extends React.Component {
               <Input
                 type="number"
                 name="phoneNumber"
-                value={phoneNumber || 1234567890}
+                value={phoneNumber || ''}
                 onChange={this.handleChange}
               />
             </Form.Field>
