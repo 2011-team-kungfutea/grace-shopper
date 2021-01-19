@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Form, Input, Image, Button, TextArea, Message} from 'semantic-ui-react'
+import {Form, Input, Button, Message, Header} from 'semantic-ui-react'
 import {CartProducts} from './cart-products'
 import {
   INCREASE_CART_ITEM,
@@ -150,6 +150,7 @@ class CheckoutForm extends React.Component {
           }
           list={errors}
         />
+        <Header as="h2">Checkout</Header>
         <div className="checkout">
           <Form className="checkout-form" onSubmit={this.handleSubmit}>
             <Form.Field>
@@ -200,6 +201,11 @@ class CheckoutForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
+            <Button className="spacepurple" type="submit">
+              Submit
+            </Button>
+          </Form>
+          <div className="checkout-cart">
             {order_details.map(item => {
               // const cartItem = product.order_detail
               return (
@@ -220,10 +226,7 @@ class CheckoutForm extends React.Component {
                 </div>
               )
             })}
-            <Button className="spacepurple" type="submit">
-              Submit
-            </Button>
-          </Form>
+          </div>
         </div>
       </div>
     )
