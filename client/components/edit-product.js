@@ -13,7 +13,6 @@ class EditProduct extends React.Component {
     this.state = {
       name: '',
       imageUrl: '',
-      category: '',
       quantity: 0,
       price: 0.0,
       description: '',

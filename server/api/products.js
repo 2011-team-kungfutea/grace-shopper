@@ -15,13 +15,12 @@ router.get('/', async (req, res, next) => {
 //POST one product
 router.post('/', async (req, res, next) => {
   try {
-    const {name, imageUrl, category, description, price, quantity} = req.body
+    const {name, imageUrl, description, price, quantity} = req.body
     const newProduct = await Product.create({
       name,
       imageUrl,
       price,
       quantity,
-      category,
       description
     })
     res.send(newProduct)
@@ -76,12 +75,11 @@ router.post('/:productId', async (req, res, next) => {
 //PUT one product
 router.put('/:productId', async (req, res, next) => {
   try {
-    const {name, imageUrl, category, quantity, price, description} = req.body
+    const {name, imageUrl, quantity, price, description} = req.body
     const updatedProduct = await Product.update(
       {
         name,
         imageUrl,
-        category,
         quantity,
         price,
         description
