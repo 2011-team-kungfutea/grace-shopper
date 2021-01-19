@@ -10,7 +10,19 @@ export const UserHome = props => {
 
   return (
     <div>
-      <h3>Welcome, {email}</h3>
+      <h3>
+        <div>
+          <h1>
+            Welcome, {email}{' '}
+            <i className="hand spock purple icon spacepurple" />
+          </h1>
+        </div>
+      </h3>
+      <h4>Great Seeing You Here!</h4>
+
+      {/* <div className="footer-container">
+        <footer>Terms Of Use</footer>
+      </div> */}
     </div>
   )
 }
