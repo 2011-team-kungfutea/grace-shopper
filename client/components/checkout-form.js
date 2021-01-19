@@ -12,6 +12,16 @@ import {
 class CheckoutForm extends React.Component {
   constructor() {
     super()
+
+    this.state = {
+      firstName: '',
+      lastName: '',
+      address: '',
+      phoneNumber: '',
+      errors: [],
+      submittedForm: 0
+    }
+
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleChange = this.handleChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
@@ -24,19 +34,17 @@ class CheckoutForm extends React.Component {
     try {
       const errors = this.validateForm()
       if (!errors.length) {
-        this.props.addProduct({
-          ...this.state,
-          price: Math.floor(this.state.price * 100)
+        this.props.checkout({
+          ...this.state
+          // price: Math.floor(this.state.price * 100)
         })
         this.setState({
-          name: '',
-          imageUrl: '',
-          category: '',
-          quantity: 0,
-          price: 0.0,
-          description: '',
-          submittedForm: 1,
-          errors: []
+          firstName: '',
+          lastName: '',
+          address: '',
+          phoneNumber: '',
+          errors: [],
+          submittedForm: 1
         })
       } else {
         this.setState({
@@ -45,21 +53,24 @@ class CheckoutForm extends React.Component {
         })
       }
     } catch (error) {
-      console.log('Unable to create new product', error)
+      console.log('Unable to checkout', error)
     }
   }
 
   validateForm() {
     const errors = []
-    const {name, price, quantity} = this.state
-    if (name === '' || name === null) {
-      errors.push('You must include a product name.')
+    const {firstName, lastName, address, phoneNumber} = this.state
+    if (firstName === '' || firstName === null) {
+      errors.push('You must include a first name.')
     }
-    if (price < 0.01 || price > 21474836.47 || !price) {
-      errors.push('Price must be between $0.01 and $21,474,836.47.')
+    if (lastName === '' || lastName === null) {
+      errors.push('You must include a last name.')
     }
-    if (quantity < 0 || !quantity) {
-      errors.push('Quantity must be 0 or greater.')
+    if (address === '' || address === null) {
+      errors.push('You must include an address.')
+    }
+    if (phoneNumber === '' || phoneNumber === null) {
+      errors.push('You must include a phone number.')
     }
     return errors
   }
@@ -82,20 +93,21 @@ class CheckoutForm extends React.Component {
   }
   render() {
     const order_details = this.props.cart.order_details || []
+    const {submittedForm, errors} = this.state
     return (
       <div className="checkout-form-page">
-        {/* <Message
-            className="checkout-message"
-            hidden={submittedForm === 0}
-            error={errors.length !== 0}
-            success={errors.length === 0}
-            header={
+        <Message
+          className="checkout-message"
+          hidden={submittedForm === 0}
+          error={errors.length !== 0}
+          success={errors.length === 0}
+          header={
             errors.length
-                ? 'There were some errors with your submission'
-                : 'Product was added successfully'
-            }
-            list={errors}
-        /> */}
+              ? 'There were some errors with your submission'
+              : 'Product was added successfully'
+          }
+          list={errors}
+        />
         <div className="checkout">
           <Form className="checkout-form" onSubmit={this.handleSubmit}>
             <Form.Field>
