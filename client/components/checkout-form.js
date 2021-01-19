@@ -60,7 +60,13 @@ class CheckoutForm extends React.Component {
               ...this.state,
               phoneNumber: this.state.phoneNumber.toString()
             },
-            cart: {...this.props.cart}
+            cart: {
+              ...this.props.cart,
+              subtotal:
+                this.props.cart.order_details.reduce((total, elm) => {
+                  return total + elm.price * elm.quantity
+                }, 0) / 100
+            }
           },
           this.props.cart.id
         )
@@ -201,6 +207,17 @@ class CheckoutForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
+            <div className="cart">
+              <h3 className="subTotal">
+                Subtotal
+                <div>
+                  $
+                  {this.props.cart.order_details.reduce((total, elm) => {
+                    return total + elm.price * elm.quantity
+                  }, 0) / 100}
+                </div>
+              </h3>
+            </div>
             <Button className="spacepurple" type="submit">
               Submit
             </Button>
