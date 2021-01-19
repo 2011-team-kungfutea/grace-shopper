@@ -1,5 +1,6 @@
 const crypto = require('crypto')
 const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 const db = require('../db')
 
 const User = db.define('user', {
@@ -26,7 +27,10 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   phoneNumber: {
-    type: Sequelize.INTEGER // PHONE NUMBERRRRR
+    type: Sequelize.STRING,
+    validate: {
+      [Op.regexp]: '^[0-9]{10}'
+    }
   },
   firstName: {
     type: Sequelize.STRING
@@ -77,7 +81,15 @@ const setSaltAndPassword = user => {
   }
 }
 
+const checkPhoneNumber = user => {
+  if (user.phoneNumber && !user.phoneNumber.match(/[0-9]{10}/g)) {
+    const err = new Error('Invalid Phone Number')
+    throw err
+  }
+}
+
 User.beforeCreate(setSaltAndPassword)
+User.beforeCreate(checkPhoneNumber)
 User.beforeUpdate(setSaltAndPassword)
 User.beforeBulkCreate(users => {
   users.forEach(setSaltAndPassword)
