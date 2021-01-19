@@ -26,7 +26,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   phoneNumber: {
-    type: Sequelize.INTEGER // PHONE NUMBERRRRR
+    type: Sequelize.BIGINT
   },
   firstName: {
     type: Sequelize.STRING

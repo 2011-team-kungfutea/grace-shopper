@@ -9,14 +9,11 @@ const Product = db.define('product', {
       notEmpty: true
     }
   },
-  category: {
-    type: Sequelize.STRING
-  },
   description: {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
       min: 1
