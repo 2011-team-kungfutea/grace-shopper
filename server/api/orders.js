@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Order, Order_Detail} = require('../db/models')
+const {Product, Order, Order_Detail, User} = require('../db/models')
 module.exports = router
 
 // GET /:userId
@@ -7,17 +7,30 @@ router.get('/:userId', async (req, res, next) => {
   try {
     const [order, created] = await Order.findOrCreate({
       where: {
-        userId: req.session.passport.user,
+        userId: req.params.userId,
         isOrdered: false
       },
       include: [{model: Order_Detail, include: [{model: Product}]}],
       defaults: {
         isOrdered: false,
-        userId: req.session.passport.user
+        userId: req.params.userId
       }
     })
-    // if (created) order.order_details = []
     res.send(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body.formData)
+    const newOrderCreated = await Order.create({
+      ...req.body.cart,
+      isOrdered: true,
+      userId: newUser.id
+    })
+    res.send(newOrderCreated)
   } catch (error) {
     next(error)
   }
@@ -65,6 +78,32 @@ router.put('/:orderId/edit/:productId', async (req, res, next) => {
     updatedCartItem.quantity = updatedCartItem.quantity + quantityChange
     updatedCartItem = await updatedCartItem.save()
     res.send(updatedCartItem)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const updatedOrder = await Order.update(
+      {
+        isOrdered: true
+      },
+      {
+        where: {id: req.params.orderId},
+        returning: true,
+        plain: true
+      }
+    )
+    if (updatedOrder[1]) {
+      const newOrder = await Order.create({
+        isOrdered: false,
+        userId: updatedOrder[1].getDataValue('userId')
+      })
+      res.send(newOrder)
+    } else {
+      res.send(updatedOrder[1])
+    }
   } catch (error) {
     next(error)
   }

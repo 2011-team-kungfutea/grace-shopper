@@ -6,7 +6,9 @@ import {
   INCREASE_CART_ITEM,
   DECREASE_CART_ITEM,
   editQuantityInCart,
-  removeCartThunk
+  removeCartThunk,
+  checkoutThunk,
+  guestCheckoutThunk
 } from '../store/cart-reducer'
 
 class CheckoutForm extends React.Component {
@@ -17,7 +19,8 @@ class CheckoutForm extends React.Component {
       firstName: '',
       lastName: '',
       address: '',
-      phoneNumber: '',
+      phoneNumber: 0,
+      email: '',
       errors: [],
       submittedForm: 0
     }
@@ -29,20 +32,41 @@ class CheckoutForm extends React.Component {
     this.deleteProduct = this.deleteProduct.bind(this)
   }
 
+  componentDidMount() {
+    if (this.props.user.id) {
+      this.setState({...this.props.user})
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const {user} = this.props
+    if (prevProps.user !== user) {
+      if (this.props.user.id) {
+        this.setState({
+          ...this.props.user
+        })
+      }
+    }
+  }
+
   handleSubmit(event) {
     event.preventDefault()
     try {
       const errors = this.validateForm()
       if (!errors.length) {
-        this.props.checkout({
-          ...this.state
-          // price: Math.floor(this.state.price * 100)
-        })
+        this.props.checkout(
+          {
+            formData: {...this.state},
+            cart: {...this.props.cart}
+          },
+          this.props.cart.id
+        )
         this.setState({
           firstName: '',
           lastName: '',
           address: '',
-          phoneNumber: '',
+          phoneNumber: 0,
+          email: '',
           errors: [],
           submittedForm: 1
         })
@@ -59,7 +83,7 @@ class CheckoutForm extends React.Component {
 
   validateForm() {
     const errors = []
-    const {firstName, lastName, address, phoneNumber} = this.state
+    const {firstName, lastName, address, phoneNumber, email} = this.state
     if (firstName === '' || firstName === null) {
       errors.push('You must include a first name.')
     }
@@ -71,6 +95,9 @@ class CheckoutForm extends React.Component {
     }
     if (phoneNumber === '' || phoneNumber === null) {
       errors.push('You must include a phone number.')
+    }
+    if (email === '' || email === null) {
+      errors.push('You must include an email address.')
     }
     return errors
   }
@@ -93,7 +120,16 @@ class CheckoutForm extends React.Component {
   }
   render() {
     const order_details = this.props.cart.order_details || []
-    const {submittedForm, errors} = this.state
+    // let userEmail = this.props.user.email || '';
+    const {
+      firstName,
+      lastName,
+      email,
+      phoneNumber,
+      address,
+      submittedForm,
+      errors
+    } = this.state
     return (
       <div className="checkout-form-page">
         <Message
@@ -115,7 +151,8 @@ class CheckoutForm extends React.Component {
               <Input
                 type="text"
                 name="firstName"
-                //value={firstName || ''}
+                value={firstName || ''}
+                // readOnly={!!firstName}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -124,7 +161,8 @@ class CheckoutForm extends React.Component {
               <Input
                 type="text"
                 name="lastName"
-                //value={lastName || ''}
+                value={lastName || ''}
+                // readOnly={!!lastName}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -133,7 +171,7 @@ class CheckoutForm extends React.Component {
               <Input
                 type="text"
                 name="address"
-                //value={address}
+                value={address || ''}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -142,7 +180,17 @@ class CheckoutForm extends React.Component {
               <Input
                 type="number"
                 name="phoneNumber"
-                //value={phoneNumber}
+                value={phoneNumber || 1234567890}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <label>Email</label>
+              <Input
+                value={email || ''}
+                type="email"
+                name="email"
+                // readOnly={userEmail.length > 0}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -177,14 +225,22 @@ class CheckoutForm extends React.Component {
 }
 
 const mapState = state => ({
-  cart: state.cart
+  cart: state.cart,
+  user: state.user
 })
 
 const mapDispatch = dispatch => ({
   editCart: (changeType, productId, orderId) =>
     dispatch(editQuantityInCart(changeType, productId, orderId)),
   removeCartThunk: (productId, orderId) =>
-    dispatch(removeCartThunk(productId, orderId))
+    dispatch(removeCartThunk(productId, orderId)),
+  checkout: (checkoutData, orderId) => {
+    if (orderId) {
+      dispatch(checkoutThunk(orderId, checkoutData))
+    } else {
+      dispatch(guestCheckoutThunk(checkoutData))
+    }
+  }
 })
 
 export default connect(mapState, mapDispatch)(CheckoutForm)
