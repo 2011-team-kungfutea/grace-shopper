@@ -125,19 +125,21 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
   }
 }
 
-export const checkoutThunk = (orderId, formData) => {
+export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/orders/${orderId}`, formData)
+      const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
+      dispatch(getCartItems(data))
     } catch (error) {
       console.log(error)
     }
   }
 }
-export const guestCheckoutThunk = (orderId, formData) => {
+export const guestCheckoutThunk = checkoutData => {
   return async dispatch => {
     try {
-      const {data} = await axios.put(`/api/orders/${orderId}`, formData)
+      const {data} = await axios.post(`/api/orders/`, checkoutData)
+      dispatch(emptyCart())
     } catch (error) {
       console.log(error)
     }
