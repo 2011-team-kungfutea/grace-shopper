@@ -8,6 +8,7 @@ import {
   DECREASE_CART_ITEM
 } from '../store/cart-reducer'
 import {CartProducts} from './cart-products'
+import {Link} from 'react-router-dom'
 
 export class Cart extends React.Component {
   constructor() {
@@ -17,13 +18,11 @@ export class Cart extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.user.id) {
-      this.props.fetchCart(this.props.user.id)
-    }
+    if (this.props.user.id) this.props.fetchCart(this.props.user.id)
   }
 
   deleteProduct(productId) {
-    this.props.removeCartThunk(productId)
+    this.props.removeCartThunk(productId, this.props.cart.id)
   }
 
   handleEdit(event, productId) {
@@ -66,15 +65,22 @@ export class Cart extends React.Component {
         })}
 
         <div className="cart">
-          <div className="subTotal">
-            {/* <div>{CartProducts.reduce(total, currentVal) => total +}</div> */}
-          </div>
+          <h3 className="subTotal">
+            Subtotal
+            <div>
+              $
+              {cartItems.reduce((total, elm) => {
+                return total + elm.price * elm.quantity
+              }, 0) / 100}
+            </div>
+          </h3>
         </div>
-
         <div>
-          <button className="ui inverted purple button" type="submit">
-            Checkout
-          </button>
+          <Link to="/checkout-form">
+            <button className="ui inverted purple button" type="submit">
+              Checkout
+            </button>
+          </Link>
         </div>
       </div>
     )
@@ -91,7 +97,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeCartThunk: productId => dispatch(removeCartThunk(productId)),
+    removeCartThunk: (productId, orderId) =>
+      dispatch(removeCartThunk(productId, orderId)),
     fetchCart: userId => dispatch(fetchCart(userId)),
     editCart: (isIncreased, productId, orderId) =>
       dispatch(editQuantityInCart(isIncreased, productId, orderId))

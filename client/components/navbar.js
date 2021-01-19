@@ -28,20 +28,24 @@ class Navbar extends React.Component {
                   <a href="#" onClick={this.props.handleClick}>
                     Logout
                   </a>
-                  <Link to="/cart">
-                    <i className="shopping cart purple icon spacepurple" />
-                  </Link>
-                  <a>{TotalItems(this.props.cart)}</a>
                 </div>
               ) : (
                 <div>
                   {/* The navbar will show these links before you log in */}
                   <Link to="/login">Login</Link>
                   <Link to="/signup">Sign Up</Link>
-                  <i className="shopping cart purple icon spacepurple" />
-                  <a>number</a>
+                  {/* <i className="shopping cart purple icon spacepurple" />
+                  <a>number</a> */}
                 </div>
               )}
+            </li>
+            <li style={{float: 'right'}}>
+              <Link to="/cart">
+                <div style={{display: 'flex'}}>
+                  <i className="shopping cart purple icon spacepurple" />
+                  <p>{TotalItems(this.props.cart)}</p>
+                </div>
+              </Link>
             </li>
           </ul>
         </nav>

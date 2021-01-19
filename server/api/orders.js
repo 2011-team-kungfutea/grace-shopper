@@ -1,18 +1,36 @@
 const router = require('express').Router()
-const {Product, Order, Order_Detail} = require('../db/models')
+const {Product, Order, Order_Detail, User} = require('../db/models')
 module.exports = router
 
 // GET /:userId
 router.get('/:userId', async (req, res, next) => {
   try {
-    const order = await Order.findOne({
+    const [order, created] = await Order.findOrCreate({
       where: {
-        userId: req.session.passport.user,
+        userId: req.params.userId,
         isOrdered: false
       },
-      include: [{model: Order_Detail, include: [{model: Product}]}]
+      include: [{model: Order_Detail, include: [{model: Product}]}],
+      defaults: {
+        isOrdered: false,
+        userId: req.params.userId
+      }
     })
     res.send(order)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.post('/', async (req, res, next) => {
+  try {
+    const newUser = await User.create(req.body.formData)
+    const newOrderCreated = await Order.create({
+      ...req.body.cart,
+      isOrdered: true,
+      userId: newUser.id
+    })
+    res.send(newOrderCreated)
   } catch (error) {
     next(error)
   }
@@ -65,7 +83,51 @@ router.put('/:orderId/edit/:productId', async (req, res, next) => {
   }
 })
 
+router.put('/:orderId', async (req, res, next) => {
+  try {
+    const updatedOrder = await Order.update(
+      {
+        isOrdered: true
+      },
+      {
+        where: {id: req.params.orderId},
+        returning: true,
+        plain: true
+      }
+    )
+    if (updatedOrder[1]) {
+      const newOrder = await Order.create({
+        isOrdered: false,
+        userId: updatedOrder[1].getDataValue('userId')
+      })
+      res.send(newOrder)
+    } else {
+      res.send(updatedOrder[1])
+    }
+  } catch (error) {
+    next(error)
+  }
+})
+
 // DELETE /:orderId/delete/:productId
+router.delete('/:orderId/delete/:productId', async (req, res, next) => {
+  try {
+    const orderDetail = await Order_Detail.findOne({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      }
+    })
+    if (orderDetail) {
+      await orderDetail.destroy()
+    }
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+// DELETE /:productId
 router.delete('/:productId', async (req, res, next) => {
   try {
     if (req.user) {
