@@ -62,10 +62,9 @@ class CheckoutForm extends React.Component {
             },
             cart: {
               ...this.props.cart,
-              subtotal:
-                this.props.cart.order_details.reduce((total, elm) => {
-                  return total + elm.price * elm.quantity
-                }, 0) / 100
+              subtotal: this.props.cart.order_details.reduce((total, elm) => {
+                return total + elm.price * elm.quantity
+              }, 0)
             }
           },
           this.props.cart.id
