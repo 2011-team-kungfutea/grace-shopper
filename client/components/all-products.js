@@ -38,7 +38,7 @@ class AllProducts extends React.Component {
               <div role="list" className="ui horizontal list" key={product.id}>
                 <div className="ui teal segment">
                   <h1>{product.name}</h1>
-                  <Link to={`/products/${product.id}`}>
+                  <Link to={`/products/${product.id}`} width="320" height="320">
                     <img className="ui medium image" src={product.imageUrl} />
                   </Link>
                   <div>${product.price / 100}</div>
