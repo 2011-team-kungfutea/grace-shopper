@@ -122,6 +122,23 @@ cart
   font-size: 2em;
 } */
 
+.list-of-products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3%;
+}
+
+.product-in-product-list {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+}
+
+.product-image {
+  max-width: 1%;
+  max-height: 1%;
+}
+
 .checkout-form-page {
   display: flex;
   flex-direction: column;

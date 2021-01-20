@@ -9,6 +9,7 @@ import {
 } from '../store/cart-reducer'
 import {CartProducts} from './cart-products'
 import {Link} from 'react-router-dom'
+import {Segment} from 'semantic-ui-react'
 
 export class Cart extends React.Component {
   constructor() {
@@ -38,7 +39,9 @@ export class Cart extends React.Component {
       <div className="grid-container">
         <div>
           {cartItems.length === 0 ? (
-            <div className="cart-header">Cart is Empty!</div>
+            <h2 className="cart-header" centered>
+              Your Cart is Empty!
+            </h2>
           ) : (
             <div className="cart-header">
               You have {cartItems.length} in the cart.
@@ -84,11 +87,13 @@ export class Cart extends React.Component {
           </h3>
         </div>
         <div>
-          <Link to="/checkout-form">
-            <button className="ui inverted purple button" type="submit">
-              Checkout
-            </button>
-          </Link>
+          <Segment>
+            <Link to="/checkout-form">
+              <button className="ui inverted purple button" type="submit">
+                Checkout
+              </button>
+            </Link>
+          </Segment>
         </div>
       </div>
     )

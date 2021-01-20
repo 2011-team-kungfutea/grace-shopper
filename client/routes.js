@@ -72,7 +72,8 @@ class Routes extends Component {
             )}
           </Switch>
         )}
-        <Route component={Login} />
+        {/* <Route component={Login} /> */}
+        <Route exact path="/home" component={Home} />
       </Switch>
     )
   }

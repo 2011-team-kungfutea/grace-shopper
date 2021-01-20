@@ -93,6 +93,7 @@ class EditProduct extends React.Component {
         </Container>
         <ProductForm
           {...this.state}
+          formType="edited"
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />
