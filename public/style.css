@@ -137,6 +137,13 @@ cart
   margin-right: 5%;
 }
 
+.card-exp {
+  flex-direction: row;
+  display: block;
+  width: 100px;
+  height: 100px;
+}
+
 /* .checkout-cart{
   display: flex;
   flex-wrap: wrap;
