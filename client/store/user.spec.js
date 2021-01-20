@@ -3,6 +3,7 @@
 import {expect} from 'chai'
 import {me, logout} from './user'
 import {fetchUsers} from './all-users-reducer'
+import {emptyCart} from './cart-reducer'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -48,6 +49,18 @@ describe('thunk creators', () => {
       expect(history.location.pathname).to.be.equal('/login')
     })
   })
+
+  // describe('logout', () => {
+  //   it('logout: dispatches the EMPTY_CART action to create an empty cart in state for a guest user', async () => {
+  //     mockAxios.onPost('/auth/logout').replyOnce(204) //redirects to /login
+  //     await store.dispatch(logout())
+  //     const actions = store.getActions()
+  //     console.log('ACTIONS', actions)
+  //     expect(actions[0].type).to.be.equal('EMPTY_CART')
+
+  //     expect(history.location.pathname).to.be.equal('/login')
+  //   })
+  // })
 
   describe('fetchUsers', () => {
     it('going to Users view as admin dispatches the FETCH_USERS action', async () => {
