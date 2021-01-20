@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 //action constants
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
 export const ADD_TO_CART = 'ADD_TO_CART'
@@ -67,12 +68,14 @@ export const thunkAddToCart = (product, orderId) => {
           product: product
         }
         dispatch(addToGuestCart(addedProduct))
+        history.push('/home')
       } else {
         const {data} = await axios.put(
           `/api/orders/${orderId}/add/${product.id}`,
           product
         )
         dispatch(addToCart(data))
+        history.push('/home')
       }
     } catch (err) {
       console.error(err)
@@ -130,6 +133,7 @@ export const checkoutThunk = (orderId, checkoutData) => {
     try {
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
       dispatch(getCartItems(data))
+      history.push('/home')
     } catch (error) {
       console.log(error)
     }
@@ -140,6 +144,7 @@ export const guestCheckoutThunk = checkoutData => {
     try {
       const {data} = await axios.post(`/api/orders/`, checkoutData)
       dispatch(emptyCart())
+      history.push('/home')
     } catch (error) {
       console.log(error)
     }
