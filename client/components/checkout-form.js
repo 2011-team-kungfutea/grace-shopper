@@ -126,11 +126,7 @@ class CheckoutForm extends React.Component {
     if (payment === '' || payment === null || payment.length !== 16) {
       errors.push('You must include a valid visa, mastercard, or discover card')
     }
-    if (
-      paymentYear === '' ||
-      paymentYear === null ||
-      paymentYear.length !== 4
-    ) {
+    if (paymentYear === '' || paymentYear.length !== 4) {
       errors.push('You must include a valid payment expiration year')
     }
     return errors
