@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
@@ -9,18 +9,20 @@ import {Form, Message, Input, Button} from 'semantic-ui-react'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
+  const [errors, setErrors] = useState([])
 
   return (
     <div>
       <Form onSubmit={handleSubmit} name={name}>
-        {error && error.response && <div>{error.response.data}</div> //&&
-        // <Message
-        //   className='product-message'
-        //   error
-        //   header='There were some errors with your submissions'
-        //   content={}
-        // />
-        }
+        {error &&
+          error.response && <div>{error.response.data}</div> && (
+            <Message
+              className="product-message"
+              error
+              header="There were some errors with your submissions"
+              content="gu"
+            />
+          )}
         <Form.Field>
           <label htmlFor="email">
             <small>Email</small>

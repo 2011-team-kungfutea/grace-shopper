@@ -70,7 +70,7 @@ export const ProductForm = props => {
               type="number"
               name="price"
               min="0.01"
-              max="21474836.47"
+              max="9223372036854775806"
               step="0.01"
               value={price === null ? 0.0 : price}
               onChange={handleChange}

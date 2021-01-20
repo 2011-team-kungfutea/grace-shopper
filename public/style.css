@@ -143,3 +143,15 @@ cart
   margin: 2%;
   width: fit-content;
 } */
+
+.list-of-products {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 3%;
+}
+
+.product-in-product-list {
+  margin-left: 1%;
+  margin-right: 1%;
+  margin-top: 1%;
+}
