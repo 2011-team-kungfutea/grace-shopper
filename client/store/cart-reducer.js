@@ -136,7 +136,7 @@ export const checkoutThunk = (orderId, checkoutData) => {
         data.order_details = []
       }
       dispatch(getCartItems(data))
-      history.push('/home')
+      history.push('/checkout-landing')
     } catch (error) {
       console.log(error)
     }
@@ -147,7 +147,7 @@ export const guestCheckoutThunk = checkoutData => {
     try {
       const {data} = await axios.post(`/api/orders/`, checkoutData)
       dispatch(emptyCart())
-      history.push('/home')
+      history.push('/checkout-landing')
     } catch (error) {
       console.log(error)
     }
