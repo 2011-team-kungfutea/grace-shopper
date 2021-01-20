@@ -22,6 +22,8 @@ class CheckoutForm extends React.Component {
       phoneNumber: '',
       email: '',
       payment: '',
+      paymentMonth: '',
+      paymentYear: '',
       errors: [],
       submittedForm: 0
     }
@@ -77,6 +79,8 @@ class CheckoutForm extends React.Component {
           phoneNumber: '',
           email: '',
           payment: '',
+          paymentMonth: '',
+          paymentYear: '',
           errors: [],
           submittedForm: 1
         })
@@ -99,7 +103,9 @@ class CheckoutForm extends React.Component {
       address,
       phoneNumber,
       email,
-      payment
+      payment,
+      paymentMonth,
+      paymentYear
     } = this.state
     if (firstName === '' || firstName === null) {
       errors.push('You must include a first name.')
@@ -122,6 +128,16 @@ class CheckoutForm extends React.Component {
     }
     if (payment === '' || payment === null || payment.length !== 16) {
       errors.push('You must include a valid visa, mastercard, or discover card')
+    }
+    if (paymentMonth === '') {
+      errors.push('You must include a valid payment expiration month')
+    }
+    if (
+      paymentYear === '' ||
+      paymentYear === null ||
+      paymentYear.length !== 4
+    ) {
+      errors.push('You must include a valid payment expiration year')
     }
     return errors
   }
@@ -151,6 +167,8 @@ class CheckoutForm extends React.Component {
       phoneNumber,
       address,
       payment,
+      paymentMonth,
+      paymentYear,
       submittedForm,
       errors
     } = this.state
@@ -206,6 +224,7 @@ class CheckoutForm extends React.Component {
                 type="number"
                 name="phoneNumber"
                 value={phoneNumber || ''}
+                placeholder="Intergalactic ext."
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -224,18 +243,56 @@ class CheckoutForm extends React.Component {
               <Input
                 type="number"
                 name="payment"
+                placeholder="Card #"
                 value={payment || ''}
                 onChange={this.handleChange}
               />
             </Form.Field>
-            <div className="card-exp" flex-direction="row">
+            {/* <div className="card-exp" flex-direction="row">
               <Form.Field>
                 <label>exp Date</label>
                 <Input type="number" />
                 <Input type="number" />
               </Form.Field>
               <Form.Field />
-            </div>
+            </div> */}
+            <Form.Field>
+              <div className="fourteen wide field">
+                <label>Expiration</label>
+                <div className="two fields">
+                  <div className="field">
+                    <select
+                      className="ui fluid search dropdown"
+                      name="paymentMonth"
+                    >
+                      <option value="">Month</option>
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="paymentYear"
+                      maxLength="4"
+                      placeholder="Year"
+                      value={paymentYear || ''}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Form.Field>
             <div className="cart">
               <h3 className="subTotal">
                 Subtotal
