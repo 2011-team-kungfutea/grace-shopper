@@ -66,7 +66,8 @@ export const thunkAddToCart = (product, orderId) => {
           price: product.price,
           product: product
         }
-        dispatch(addToGuestCart(addedProduct))
+        // dispatch(addToGuestCart(addedProduct))
+        localStorage.setItem()
       } else {
         const {data} = await axios.put(
           `/api/orders/${orderId}/add/${product.id}`,
@@ -84,7 +85,7 @@ export const fetchCart = userId => {
   return async dispatch => {
     try {
       const {data} = await axios.get(`/api/orders/${userId}`)
-      if (!data.order_details) {
+      if (!data.order_details && !localStorage.getItem(savedCart)) {
         data.order_details = []
       }
       dispatch(getCartItems(data))
