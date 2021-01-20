@@ -22,7 +22,6 @@ class CheckoutForm extends React.Component {
       phoneNumber: '',
       email: '',
       payment: '',
-      paymentMonth: '',
       paymentYear: '',
       errors: [],
       submittedForm: 0
@@ -79,7 +78,6 @@ class CheckoutForm extends React.Component {
           phoneNumber: '',
           email: '',
           payment: '',
-          paymentMonth: '',
           paymentYear: '',
           errors: [],
           submittedForm: 1
@@ -104,7 +102,6 @@ class CheckoutForm extends React.Component {
       phoneNumber,
       email,
       payment,
-      paymentMonth,
       paymentYear
     } = this.state
     if (firstName === '' || firstName === null) {
@@ -128,9 +125,6 @@ class CheckoutForm extends React.Component {
     }
     if (payment === '' || payment === null || payment.length !== 16) {
       errors.push('You must include a valid visa, mastercard, or discover card')
-    }
-    if (paymentMonth === '') {
-      errors.push('You must include a valid payment expiration month')
     }
     if (
       paymentYear === '' ||
@@ -167,7 +161,6 @@ class CheckoutForm extends React.Component {
       phoneNumber,
       address,
       payment,
-      paymentMonth,
       paymentYear,
       submittedForm,
       errors
@@ -248,14 +241,6 @@ class CheckoutForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
-            {/* <div className="card-exp" flex-direction="row">
-              <Form.Field>
-                <label>exp Date</label>
-                <Input type="number" />
-                <Input type="number" />
-              </Form.Field>
-              <Form.Field />
-            </div> */}
             <Form.Field>
               <div className="fourteen wide field">
                 <label>Expiration</label>
@@ -265,7 +250,6 @@ class CheckoutForm extends React.Component {
                       className="ui fluid search dropdown"
                       name="paymentMonth"
                     >
-                      <option value="">Month</option>
                       <option value="1">January</option>
                       <option value="2">February</option>
                       <option value="3">March</option>
