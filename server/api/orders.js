@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const {ItemHeader} = require('semantic-ui-react')
 const {Product, Order, Order_Detail, User} = require('../db/models')
 module.exports = router
 
@@ -96,6 +97,27 @@ router.put('/:orderId/edit/:productId', async (req, res, next) => {
 
 router.put('/:orderId', async (req, res, next) => {
   try {
+    // let error = false;
+    // const {cart} = req.body;
+    // let orderDetails = cart.order_details.map(async item => {
+    //   try {
+    //     const product = await Product.findByPk(item.product.id)
+    //     if(item.quantity > product.quantity){
+    //       error=true;
+    //       console.log('inside of wuantiy fail')
+    //       const err = new Error(`Unable to checkout: ${product.name} is soldout`);
+    //       err.name = 'UnavailableProduct'
+    //       throw err;
+    //     }
+    //     product.quantity = product.quantity - item.quantity;
+    //     await product.save();
+    //   } catch(err){
+    //     res.status(401).send('ERROR')
+    //     next(err)
+    //   }
+    // })
+    // if(!error){
+    //   console.log('ERROR:',error)
     const updatedOrder = await Order.update(
       {
         isOrdered: true

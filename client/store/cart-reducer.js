@@ -127,7 +127,16 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
 
 export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
+    // try{
+
+    // } catch(error){
+    //   dispatch(getCartItems(checkoutData.cart))
+    //   console.error(error);
+    // }
+
     try {
+      console.log('INSIDE CHECKOUT THUNK')
+      const res = await axios.put(`/api/products/checkout`, checkoutData)
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
       if (!data.order_details) data.order_details = []
       dispatch(getCartItems(data))

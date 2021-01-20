@@ -73,6 +73,26 @@ router.post('/:productId', async (req, res, next) => {
   }
 })
 
+//PUT all products in checkout
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const {order_details} = req.body.cart
+    for (let i = 0; i < order_details.length; i++) {
+      const product = await Product.findByPk(order_details[i].productId)
+      product.quantity -= order_details[i].quantity
+      if (product.quantity < 0) {
+        throw new Error(`Insufficient Inventory of ${product.name}`)
+      } else {
+        await product.save()
+      }
+    }
+    res.sendStatus(200)
+    console.log(product)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //PUT one product
 router.put('/:productId', async (req, res, next) => {
   try {

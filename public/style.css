@@ -113,14 +113,18 @@ cart
   list-style-type: none;
 }
 
+.edit-cart-button-row {
+  display: flex;
+}
+
 .edit-cart-button-row button {
   width: min-content;
   height: min-content;
 }
 
-/* .edit-cart-button-row p {
-  font-size: 2em;
-} */
+.edit-cart-button-row p {
+  font-size: 20px;
+}
 
 .checkout-form-page {
   display: flex;

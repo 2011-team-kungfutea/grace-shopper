@@ -25,7 +25,7 @@ const Order_Detail = db.define('order_detail', {
 //   }
 // }
 
-// Order_Detail.beforeCreate(checkQuantity)
+// // Order_Detail.beforeCreate(checkQuantity)
 // Order_Detail.beforeUpdate(checkQuantity)
 
 module.exports = Order_Detail
