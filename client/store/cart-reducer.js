@@ -11,7 +11,6 @@ export const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 export const EMPTY_CART = 'EMPTY_CART'
 export const EDIT_GUEST_CART = 'EDIT_GUEST_CART'
 export const CHECKOUT_CART = 'CHECKOUT_CART'
-const ERRORS = 'ERRORS'
 
 //action creators
 export const getCartItems = cart => ({
@@ -53,11 +52,6 @@ export const checkoutCart = (orderId, formData) => ({
   type: CHECKOUT_CART,
   orderId,
   formData
-})
-
-export const errors = errors => ({
-  type: ERRORS,
-  errors
 })
 
 //thunks
