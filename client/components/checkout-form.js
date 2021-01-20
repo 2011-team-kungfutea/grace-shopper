@@ -184,6 +184,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="firstName"
                 value={firstName || ''}
+                placeholder="Given name"
                 // readOnly={!!firstName}
                 onChange={this.handleChange}
               />
@@ -194,6 +195,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="lastName"
                 value={lastName || ''}
+                placeholder="Surname"
                 // readOnly={!!lastName}
                 onChange={this.handleChange}
               />
@@ -204,6 +206,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="address"
                 value={address || ''}
+                placeholder="Inlcude galactic region"
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -223,6 +226,7 @@ class CheckoutForm extends React.Component {
                 value={email || ''}
                 type="email"
                 name="email"
+                placeholder="Electronic-mail"
                 // readOnly={userEmail.length > 0}
                 onChange={this.handleChange}
               />
