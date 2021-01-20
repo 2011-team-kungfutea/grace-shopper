@@ -12,7 +12,8 @@ import {
   Cart,
   EditProduct,
   AllUsers,
-  CheckoutForm
+  CheckoutForm,
+  Home
 } from './components'
 import {me} from './store'
 import {fetchCart, emptyCart} from './store/cart-reducer'
@@ -70,7 +71,8 @@ class Routes extends Component {
             )}
           </Switch>
         )}
-        <Route component={Login} />
+        {/* <Route component={Login} /> */}
+        <Route exact path="/home" component={Home} />
       </Switch>
     )
   }

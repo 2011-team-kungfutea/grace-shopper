@@ -1,4 +1,5 @@
 import React from 'react'
+import {Card, Icon, Image} from 'semantic-ui-react'
 
 export const CartProducts = props => {
   const {
@@ -15,9 +16,19 @@ export const CartProducts = props => {
   return (
     <div>
       <h1>{name}</h1>
+      <Card>
+        <Image src={imageUrl} wrapped ui={false} />
+        <Card.Content>
+          <Card.Header>{name}</Card.Header>
+          <Card.Meta>
+            <span>${parseInt(price || 0) / 100}</span>
+          </Card.Meta>
+          {/* <Card.Description>THIS IS TEXT</Card.Description> */}
+        </Card.Content>
+      </Card>
       {/* <h4>{parseInt(price || 0) / 100}</h4> */}
-      <img src={imageUrl} width="320" height="320" />
-      <h3>${parseInt(price || 0) / 100}</h3>
+      {/* <img src={imageUrl} width="320" height="320" /> */}
+      {/* <h3>${parseInt(price || 0) / 100}</h3> */}
       <div className="edit-cart-button-row">
         <button
           type="button"

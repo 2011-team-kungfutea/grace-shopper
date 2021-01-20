@@ -13,10 +13,14 @@ class Navbar extends React.Component {
         <nav>
           <ul>
             <li>
-              <Link to="/home">Home</Link>
+              <Link to="/home" font="Open Sans">
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/products">Adopt</Link>
+              <Link to="/products" font="Open Sans">
+                Adopt
+              </Link>
             </li>
             <li style={{float: 'right'}}>
               {this.props.isLoggedIn ? (
@@ -25,15 +29,19 @@ class Navbar extends React.Component {
                     <Link to="/admin/users">Users </Link>
                   )}
                   {/* The navbar will show these links after you log in */}
-                  <a href="#" onClick={this.props.handleClick}>
+                  <a href="#" onClick={this.props.handleClick} font="Open Sans">
                     Logout
                   </a>
                 </div>
               ) : (
                 <div>
                   {/* The navbar will show these links before you log in */}
-                  <Link to="/login">Login</Link>
-                  <Link to="/signup">Sign Up</Link>
+                  <Link to="/login" font="Open Sans">
+                    Login
+                  </Link>
+                  <Link to="/signup" font="Open Sans">
+                    Sign Up
+                  </Link>
                   {/* <i className="shopping cart purple icon spacepurple" />
                   <a>number</a> */}
                 </div>
@@ -49,8 +57,6 @@ class Navbar extends React.Component {
             </li>
           </ul>
         </nav>
-        <h1>UFO Tofu</h1>
-        <hr />
       </div>
     )
   }
