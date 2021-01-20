@@ -69,6 +69,7 @@ class CheckoutForm extends React.Component {
           },
           this.props.cart.id
         )
+
         this.setState({
           firstName: '',
           lastName: '',

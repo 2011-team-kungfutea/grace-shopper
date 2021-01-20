@@ -56,7 +56,7 @@ describe('thunk creators', () => {
       await store.dispatch(fetchUsers())
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_USERS')
-      // expect(history.location.pathname).to.be.equal('/login')
+      expect(history.location.pathname).to.be.equal('/login')
     })
   })
 })
