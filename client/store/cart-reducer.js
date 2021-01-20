@@ -129,6 +129,7 @@ export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
+      if (!data.order_details) data.order_details = []
       dispatch(getCartItems(data))
     } catch (error) {
       console.log(error)
