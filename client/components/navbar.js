@@ -11,7 +11,7 @@ class Navbar extends React.Component {
     return (
       <div>
         <nav>
-          <ul>
+          <ul className="navbar">
             <li>
               <Link to="/home" font="Open Sans">
                 Home
