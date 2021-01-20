@@ -21,6 +21,7 @@ class CheckoutForm extends React.Component {
       address: '',
       phoneNumber: '',
       email: '',
+      payment: '',
       errors: [],
       submittedForm: 0
     }
@@ -75,6 +76,7 @@ class CheckoutForm extends React.Component {
           address: '',
           phoneNumber: '',
           email: '',
+          payment: '',
           errors: [],
           submittedForm: 1
         })
@@ -91,7 +93,14 @@ class CheckoutForm extends React.Component {
 
   validateForm() {
     const errors = []
-    const {firstName, lastName, address, phoneNumber, email} = this.state
+    const {
+      firstName,
+      lastName,
+      address,
+      phoneNumber,
+      email,
+      payment
+    } = this.state
     if (firstName === '' || firstName === null) {
       errors.push('You must include a first name.')
     }
@@ -113,6 +122,9 @@ class CheckoutForm extends React.Component {
     }
     if (this.props.cart.order_details.length <= 0) {
       errors.push('You cannot checkout with an empty cart.')
+    }
+    if (payment === '' || payment === null || payment.length !== 16) {
+      errors.push('You must include a valid visa, mastercard, or discover card')
     }
     return errors
   }
@@ -141,6 +153,7 @@ class CheckoutForm extends React.Component {
       email,
       phoneNumber,
       address,
+      payment,
       submittedForm,
       errors
     } = this.state
@@ -209,6 +222,23 @@ class CheckoutForm extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Field>
+            <Form.Field>
+              <label>Credit Card</label>
+              <Input
+                type="number"
+                name="payment"
+                value={payment || ''}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <div className="card-exp" flex-direction="row">
+              <Form.Field>
+                <label>exp Date</label>
+                <Input type="number" />
+                <Input type="number" />
+              </Form.Field>
+              <Form.Field />
+            </div>
             <div className="cart">
               <h3 className="subTotal">
                 Subtotal
