@@ -129,6 +129,9 @@ export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
     try {
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
+      if (!data.order_details) {
+        data.order_details = []
+      }
       dispatch(getCartItems(data))
     } catch (error) {
       console.log(error)
@@ -206,8 +209,9 @@ export default function getCartReducer(state = initialState, action) {
 
     case EDIT_GUEST_CART:
       const newGuestOrderDetails = state.order_details.map(item => {
-        if (item.productId === action.productId) {
+        if (item.productId === action.productId && item.quantity > 0) {
           item.quantity += action.changeType === INCREASE_CART_ITEM ? 1 : -1
+          if (item.quantity === 0) item.quantity = 1
         }
         return item
       })

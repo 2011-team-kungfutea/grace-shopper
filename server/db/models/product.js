@@ -9,14 +9,11 @@ const Product = db.define('product', {
       notEmpty: true
     }
   },
-  category: {
-    type: Sequelize.STRING
-  },
   description: {
     type: Sequelize.TEXT
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
       min: 1
@@ -33,13 +30,13 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     defaultValue:
       'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
-    // set(val) {
-    //   if (val === null)
-    //     this.setDataValue(
-    //       'imageUrl',
-    //       'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
-    //     )
-    // }
+  }
+})
+
+Product.beforeCreate(product => {
+  if (product.imageUrl === '') {
+    product.imageUrl =
+      'https://i.pinimg.com/originals/d8/08/44/d8084458b3565a675f244e432e9d8d7f.jpg'
   }
 })
 
