@@ -81,6 +81,7 @@ class AddProduct extends React.Component {
         </Container>
         <ProductForm
           {...this.state}
+          formType="added"
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />

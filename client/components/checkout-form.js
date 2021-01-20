@@ -111,6 +111,9 @@ class CheckoutForm extends React.Component {
     if (email === '' || email === null) {
       errors.push('You must include an email address.')
     }
+    if (this.props.cart.order_details.length <= 0) {
+      errors.push('You cannot checkout with an empty cart.')
+    }
     return errors
   }
 
@@ -144,7 +147,7 @@ class CheckoutForm extends React.Component {
     return (
       <div className="checkout-form-page">
         <Message
-          className="checkout-message"
+          className="checkout-message product-message"
           hidden={submittedForm === 0}
           error={errors.length !== 0}
           success={errors.length === 0}

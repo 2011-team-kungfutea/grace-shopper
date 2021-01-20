@@ -12,7 +12,8 @@ export const ProductForm = props => {
     price,
     description,
     submittedForm,
-    errors
+    errors,
+    formType
   } = props
 
   return (
@@ -25,7 +26,7 @@ export const ProductForm = props => {
         header={
           errors.length
             ? 'There were some errors with your submission'
-            : 'Product was added successfully'
+            : `Pet was ${formType} successfully`
         }
         list={errors}
       />
