@@ -39,7 +39,7 @@ class CheckoutForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {user} = this.props
+    const {user, cart} = this.props
     if (prevProps.user !== user) {
       if (this.props.user.id) {
         this.setState({
@@ -167,7 +167,6 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="firstName"
                 value={firstName || ''}
-                // readOnly={!!firstName}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -177,7 +176,6 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="lastName"
                 value={lastName || ''}
-                // readOnly={!!lastName}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -205,7 +203,6 @@ class CheckoutForm extends React.Component {
                 value={email || ''}
                 type="email"
                 name="email"
-                // readOnly={userEmail.length > 0}
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -226,7 +223,6 @@ class CheckoutForm extends React.Component {
           </Form>
           <div className="checkout-cart">
             {order_details.map(item => {
-              // const cartItem = product.order_detail
               return (
                 <div key={item.productId}>
                   <CartProducts

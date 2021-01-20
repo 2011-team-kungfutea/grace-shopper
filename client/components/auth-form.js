@@ -9,37 +9,26 @@ import {Form, Message, Input, Button} from 'semantic-ui-react'
  */
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
-  const [errors, setErrors] = useState([])
 
   return (
-    <div>
-      <Form onSubmit={handleSubmit} name={name}>
-        {error &&
-          error.response && <div>{error.response.data}</div> && (
-            <Message
-              className="product-message"
-              error
-              header="There were some errors with your submissions"
-              content="gu"
-            />
-          )}
+    <div className="auth">
+      <Form onSubmit={handleSubmit} name={name} className="auth-form">
+        {error && error.response && <div>{error.response.data}</div>}
         <Form.Field>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
+          <label htmlFor="email">Email</label>
           <Input name="email" type="text" />
         </Form.Field>
         <Form.Field>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
+          <label htmlFor="password">Password</label>
           <Input name="password" type="password" />
         </Form.Field>
         <Form.Field>
           <Button type="submit">{displayName}</Button>
         </Form.Field>
       </Form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <a href="/auth/google" id="google-link">
+        {displayName} with Google
+      </a>
     </div>
   )
 }

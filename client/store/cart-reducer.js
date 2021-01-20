@@ -1,4 +1,5 @@
 import axios from 'axios'
+
 //action constants
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
 export const ADD_TO_CART = 'ADD_TO_CART'
@@ -10,6 +11,7 @@ export const ADD_TO_GUEST_CART = 'ADD_TO_GUEST_CART'
 export const EMPTY_CART = 'EMPTY_CART'
 export const EDIT_GUEST_CART = 'EDIT_GUEST_CART'
 export const CHECKOUT_CART = 'CHECKOUT_CART'
+const ERRORS = 'ERRORS'
 
 //action creators
 export const getCartItems = cart => ({
@@ -51,6 +53,11 @@ export const checkoutCart = (orderId, formData) => ({
   type: CHECKOUT_CART,
   orderId,
   formData
+})
+
+export const errors = errors => ({
+  type: ERRORS,
+  errors
 })
 
 //thunks
@@ -127,31 +134,24 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
 
 export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
-    // try{
-
-    // } catch(error){
-    //   dispatch(getCartItems(checkoutData.cart))
-    //   console.error(error);
-    // }
-
     try {
-      console.log('INSIDE CHECKOUT THUNK')
       const res = await axios.put(`/api/products/checkout`, checkoutData)
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
       if (!data.order_details) data.order_details = []
       dispatch(getCartItems(data))
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }
 export const guestCheckoutThunk = checkoutData => {
   return async dispatch => {
     try {
+      const res = await axios.put('/api/products/checkout', checkoutData)
       const {data} = await axios.post(`/api/orders/`, checkoutData)
       dispatch(emptyCart())
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }
@@ -225,7 +225,6 @@ export default function getCartReducer(state = initialState, action) {
         ...state,
         order_details: newGuestOrderDetails
       }
-
     default:
       return state
   }

@@ -81,13 +81,14 @@ router.put('/checkout', async (req, res, next) => {
       const product = await Product.findByPk(order_details[i].productId)
       product.quantity -= order_details[i].quantity
       if (product.quantity < 0) {
-        throw new Error(`Insufficient Inventory of ${product.name}`)
+        const err = new Error(`Insufficient Inventory of ${product.name}`)
+        err.name = 'UnavailableProduct'
+        throw err
       } else {
         await product.save()
       }
     }
     res.sendStatus(200)
-    console.log(product)
   } catch (error) {
     next(error)
   }
