@@ -7,7 +7,6 @@ export const ProductForm = props => {
     handleSubmit,
     imageUrl,
     name,
-    category,
     quantity,
     price,
     description,
@@ -44,15 +43,6 @@ export const ProductForm = props => {
           <Form.Field>
             <label>Image URL</label>
             <Input name="imageUrl" value={imageUrl} onChange={handleChange} />
-          </Form.Field>
-          <Form.Field>
-            <label>Category</label>
-            <Input
-              type="text"
-              name="category"
-              value={category === null ? '' : category}
-              onChange={handleChange}
-            />
           </Form.Field>
           <Form.Field>
             <label>Quantity</label>

@@ -10,7 +10,6 @@ class AddProduct extends React.Component {
     this.state = {
       name: '',
       imageUrl: '',
-      category: '',
       quantity: 0,
       price: 0.0,
       description: '',
@@ -34,7 +33,6 @@ class AddProduct extends React.Component {
         this.setState({
           name: '',
           imageUrl: '',
-          category: '',
           quantity: 0,
           price: 0.0,
           description: '',
