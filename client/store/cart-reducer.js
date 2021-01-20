@@ -68,14 +68,14 @@ export const thunkAddToCart = (product, orderId) => {
           product: product
         }
         dispatch(addToGuestCart(addedProduct))
-        history.push('/home')
+        // history.push('/products')
       } else {
         const {data} = await axios.put(
           `/api/orders/${orderId}/add/${product.id}`,
           product
         )
         dispatch(addToCart(data))
-        history.push('/home')
+        // history.push('/products')
       }
     } catch (err) {
       console.error(err)
