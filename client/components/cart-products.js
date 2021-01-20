@@ -24,6 +24,7 @@ export const CartProducts = props => {
           </Card.Meta>
         </Card.Content>
       </Card>
+
       <div className="edit-cart-button-row">
         <Button
           type="button"

@@ -22,18 +22,18 @@ class SingleProduct extends React.Component {
         <p>{description}</p>
         <p>Quantity: {quantity}</p>
         <p>${price / 100}</p>
-        <Link to="/products">
-          <div className="ui two bottom attached buttons">
-            <div className="ui violet button">Back to All Pets</div>
 
-            <div
-              onClick={() => this.props.addToCart(product, this.props.cart.id)}
-              className="ui purple button"
-            >
-              Add to Cart
-            </div>
+        <div className="ui two bottom attached buttons">
+          <Link to="/products">
+            <div className="ui violet button">Back to All Pets</div>
+          </Link>
+          <div
+            onClick={() => this.props.addToCart(product, this.props.cart.id)}
+            className="ui purple button"
+          >
+            Add to Cart
           </div>
-        </Link>
+        </div>
       </div>
     )
   }

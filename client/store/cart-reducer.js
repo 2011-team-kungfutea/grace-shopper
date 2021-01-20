@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../history'
 
 //action constants
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
@@ -68,12 +69,14 @@ export const thunkAddToCart = (product, orderId) => {
           product: product
         }
         dispatch(addToGuestCart(addedProduct))
+        // history.push('/products')
       } else {
         const {data} = await axios.put(
           `/api/orders/${orderId}/add/${product.id}`,
           product
         )
         dispatch(addToCart(data))
+        // history.push('/products')
       }
     } catch (err) {
       console.error(err)
@@ -133,6 +136,7 @@ export const checkoutThunk = (orderId, checkoutData) => {
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
       if (!data.order_details) data.order_details = []
       dispatch(getCartItems(data))
+      history.push('/checkout-landing')
     } catch (error) {
       console.error(error)
     }
@@ -144,6 +148,7 @@ export const guestCheckoutThunk = checkoutData => {
       const res = await axios.put('/api/products/checkout', checkoutData)
       const {data} = await axios.post(`/api/orders/`, checkoutData)
       dispatch(emptyCart())
+      history.push('/checkout-landing')
     } catch (error) {
       console.error(error)
     }
@@ -210,8 +215,9 @@ export default function getCartReducer(state = initialState, action) {
 
     case EDIT_GUEST_CART:
       const newGuestOrderDetails = state.order_details.map(item => {
-        if (item.productId === action.productId) {
+        if (item.productId === action.productId && item.quantity > 0) {
           item.quantity += action.changeType === INCREASE_CART_ITEM ? 1 : -1
+          if (item.quantity === 0) item.quantity = 1
         }
         return item
       })

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {fetchProducts, removeProduct} from '../store/all-products-reducer'
 import {Link} from 'react-router-dom'
 import {Button, Card, Image} from 'semantic-ui-react'
-//wrapped ui={true}
+
 class AllProducts extends React.Component {
   constructor() {
     super()
