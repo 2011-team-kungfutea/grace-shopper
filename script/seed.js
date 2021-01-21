@@ -12,9 +12,66 @@ async function seed() {
     User.create({
       email: 'cody@email.com',
       password: '123',
+      firstName: 'Cody',
+      lastName: 'Pug',
+      address: '123 Imadog street, New York, NY 10034, USA',
+      phoneNumber: '2672773204',
       isAdministrator: true
     }),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      email: 'murphy@email.com',
+      password: '123',
+      firstName: 'Murphy',
+      lastName: 'Human',
+      address: '5 Hanover Square 11th floor, New York, NY 10004',
+      phoneNumber: '6469050991',
+      isAdministrator: false
+    }),
+    User.create({
+      email: 'dba@company.com',
+      password: 'abc',
+      firstName: 'Addison',
+      lastName: 'Ministrator',
+      address: '27 Badopsec drive, Lithuania',
+      phoneNumber: '2128675309',
+      isAdministrator: true
+    }),
+    User.create({
+      email: 'missinglink@premail.com',
+      password: '123',
+      firstName: 'Eve',
+      lastName: 'Mitochondria',
+      address: 'East Africa Lane',
+      phoneNumber: '0123456789',
+      isAdministrator: false
+    }),
+    User.create({
+      email: 'grimeyemerald@tesla.com',
+      password: '123',
+      firstName: 'Elon',
+      lastName: 'Musk',
+      address: '1 Mars street',
+      phoneNumber: '6762393204',
+      isAdministrator: false
+    }),
+    User.create({
+      email: 'turingsucks@COBOL.com',
+      password: '123',
+      firstName: 'Grace',
+      lastName: 'Hopper',
+      address: 'Arlington National Cemetery Arlington, Section 59, Grave 973',
+      phoneNumber: '8082474340',
+      isAdministrator: false
+    }),
+    User.create({
+      email: 'GWZoo@exotic.com',
+      password: '123',
+      firstName: 'Joeseph',
+      lastName: 'Maldonado-Passage',
+      address: '25803 N County Road 3250, Wynnewood, OK 73098, USA',
+      phoneNumber: '2272393204',
+      isAdministrator: false
+    })
   ])
 
   console.log(`seeded ${users.length} users`)
