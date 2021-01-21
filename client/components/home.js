@@ -22,7 +22,7 @@ const Home = () => {
       <div className="footer">
         <Container textAlign="center">
           <Header as="h4" style={{color: '#FFFFFF'}}>
-            CopyRight
+            UFO TOFU
           </Header>
           <List horizontal relaxed>
             <List.Item>

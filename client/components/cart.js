@@ -39,9 +39,7 @@ export class Cart extends React.Component {
       <div className="grid-container">
         <div>
           {cartItems.length === 0 ? (
-            <h2 className="cart-header" centered>
-              Your Cart is Empty!
-            </h2>
+            <h2 className="cart-header">Your Cart is Empty!</h2>
           ) : (
             <div className="cart-header">
               You have {cartItems.length} in the cart.
