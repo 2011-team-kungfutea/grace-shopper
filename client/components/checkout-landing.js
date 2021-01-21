@@ -21,7 +21,12 @@ export const CheckoutLanding = props => {
         </div>
       </h3>
       <Link to="/products">
-        <div className="ui purple button">Adopt Another?</div>
+        <div className="ui animated fade massive purple button" tabIndex="0">
+          <div className="visible content">Adopt Another?</div>
+          <div className="hidden content">
+            <i className="rocket icon" />
+          </div>
+        </div>
       </Link>
 
       {/* <div className="footer-container">
