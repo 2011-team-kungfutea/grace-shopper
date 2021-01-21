@@ -25,15 +25,13 @@ async function seed() {
       name: 'Edamame',
       price: 2,
       quantity: 47,
-      imageUrl:
-        'https://i.pinimg.com/originals/48/ff/49/48ff49ec8efcd32837cde9b177b5d6ca.jpg'
+      imageUrl: '/images/48ff49ec8efcd32837cde9b177b5d6ca.jpg'
     }),
     Product.create({
       name: 'Peadar',
       price: 22867461,
       quantity: 92,
-      imageUrl:
-        'https://i.pinimg.com/originals/ab/60/1b/ab601b463643d39d2546261e280168b8.jpg'
+      imageUrl: '/images/ab601b463643d39d2546261e280168b8.jpg'
     }),
     Product.create({
       name: 'Lesli',

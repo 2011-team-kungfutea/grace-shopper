@@ -41,7 +41,7 @@ class AllProducts extends React.Component {
                     to={`/products/${product.id}`}
                     style={{textDecoration: 'none'}}
                   >
-                    <Image src={product.imageUrl} style={{height: '210px'}} />
+                    <Image src={product.imageUrl} className="ui fluid image" />
                   </Link>
                   <Card.Content>
                     <Card.Header>{product.name}</Card.Header>
