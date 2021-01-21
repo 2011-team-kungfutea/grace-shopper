@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Form, Input, Button, Message, Header} from 'semantic-ui-react'
 import PropTypes from 'prop-types'
+import {Link} from 'react-router-dom'
 
 export const CheckoutLanding = props => {
   const {email} = props
@@ -10,7 +11,8 @@ export const CheckoutLanding = props => {
     <div>
       <h3>
         <div>
-          <h1 className="ui aligned centered">
+          <img src="/images/thankyou.png" className="ui centered image" />
+          <h1 className="ui center aligned header">
             Tofu thanks you for your order,{' '}
             {email ? email : 'new intergalatic pet owner'}!{' '}
             <i className="hand spock purple icon spacepurple" />
@@ -18,7 +20,9 @@ export const CheckoutLanding = props => {
           <img className="ui centered image" src="/images/tofu2.jpg" />
         </div>
       </h3>
-      <h4>Adopt Another?</h4>
+      <Link to="/products">
+        <div className="ui purple button">Adopt Another?</div>
+      </Link>
 
       {/* <div className="footer-container">
           <footer>Terms Of Use</footer>
