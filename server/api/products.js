@@ -15,13 +15,12 @@ router.get('/', async (req, res, next) => {
 //POST one product
 router.post('/', async (req, res, next) => {
   try {
-    const {name, imageUrl, category, description, price, quantity} = req.body
+    const {name, imageUrl, description, price, quantity} = req.body
     const newProduct = await Product.create({
       name,
       imageUrl,
       price,
       quantity,
-      category,
       description
     })
     res.send(newProduct)
@@ -73,15 +72,35 @@ router.post('/:productId', async (req, res, next) => {
   }
 })
 
+//PUT all products in checkout
+router.put('/checkout', async (req, res, next) => {
+  try {
+    const {order_details} = req.body.cart
+    for (let i = 0; i < order_details.length; i++) {
+      const product = await Product.findByPk(order_details[i].productId)
+      product.quantity -= order_details[i].quantity
+      if (product.quantity < 0) {
+        const err = new Error(`Insufficient Inventory of ${product.name}`)
+        err.name = 'UnavailableProduct'
+        throw err
+      } else {
+        await product.save()
+      }
+    }
+    res.sendStatus(200)
+  } catch (error) {
+    next(error)
+  }
+})
+
 //PUT one product
 router.put('/:productId', async (req, res, next) => {
   try {
-    const {name, imageUrl, category, quantity, price, description} = req.body
+    const {name, imageUrl, quantity, price, description} = req.body
     const updatedProduct = await Product.update(
       {
         name,
         imageUrl,
-        category,
         quantity,
         price,
         description

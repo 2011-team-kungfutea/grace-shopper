@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Form, Input, Image, Button, TextArea, Message} from 'semantic-ui-react'
+import {Form, Input, Button, Message, Header} from 'semantic-ui-react'
 import {CartProducts} from './cart-products'
 import {
   INCREASE_CART_ITEM,
@@ -19,8 +19,10 @@ class CheckoutForm extends React.Component {
       firstName: '',
       lastName: '',
       address: '',
-      phoneNumber: 0,
+      phoneNumber: '',
       email: '',
+      payment: '',
+      paymentYear: '',
       errors: [],
       submittedForm: 0
     }
@@ -39,7 +41,7 @@ class CheckoutForm extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {user} = this.props
+    const {user, cart} = this.props
     if (prevProps.user !== user) {
       if (this.props.user.id) {
         this.setState({
@@ -56,8 +58,16 @@ class CheckoutForm extends React.Component {
       if (!errors.length) {
         this.props.checkout(
           {
-            formData: {...this.state},
-            cart: {...this.props.cart}
+            formData: {
+              ...this.state,
+              phoneNumber: this.state.phoneNumber.toString()
+            },
+            cart: {
+              ...this.props.cart,
+              subtotal: this.props.cart.order_details.reduce((total, elm) => {
+                return total + elm.price * elm.quantity
+              }, 0)
+            }
           },
           this.props.cart.id
         )
@@ -65,8 +75,10 @@ class CheckoutForm extends React.Component {
           firstName: '',
           lastName: '',
           address: '',
-          phoneNumber: 0,
+          phoneNumber: '',
           email: '',
+          payment: '',
+          paymentYear: '',
           errors: [],
           submittedForm: 1
         })
@@ -83,7 +95,15 @@ class CheckoutForm extends React.Component {
 
   validateForm() {
     const errors = []
-    const {firstName, lastName, address, phoneNumber, email} = this.state
+    const {
+      firstName,
+      lastName,
+      address,
+      phoneNumber,
+      email,
+      payment,
+      paymentYear
+    } = this.state
     if (firstName === '' || firstName === null) {
       errors.push('You must include a first name.')
     }
@@ -93,11 +113,24 @@ class CheckoutForm extends React.Component {
     if (address === '' || address === null) {
       errors.push('You must include an address.')
     }
-    if (phoneNumber === '' || phoneNumber === null) {
-      errors.push('You must include a phone number.')
+    if (
+      phoneNumber === '' ||
+      phoneNumber === null ||
+      phoneNumber.length !== 10
+    ) {
+      errors.push('You must include a valid phone number.')
     }
     if (email === '' || email === null) {
       errors.push('You must include an email address.')
+    }
+    if (this.props.cart.order_details.length <= 0) {
+      errors.push('You cannot checkout with an empty cart.')
+    }
+    if (payment === '' || payment === null || payment.length !== 16) {
+      errors.push('You must include a valid visa, mastercard, or discover card')
+    }
+    if (paymentYear === '' || paymentYear.length !== 4) {
+      errors.push('You must include a valid payment expiration year')
     }
     return errors
   }
@@ -120,30 +153,32 @@ class CheckoutForm extends React.Component {
   }
   render() {
     const order_details = this.props.cart.order_details || []
-    // let userEmail = this.props.user.email || '';
     const {
       firstName,
       lastName,
       email,
       phoneNumber,
       address,
+      payment,
+      paymentYear,
       submittedForm,
       errors
     } = this.state
     return (
       <div className="checkout-form-page">
         <Message
-          className="checkout-message"
+          className="checkout-message product-message"
           hidden={submittedForm === 0}
           error={errors.length !== 0}
           success={errors.length === 0}
           header={
             errors.length
               ? 'There were some errors with your submission'
-              : 'Product was added successfully'
+              : 'Checkout completed successfully.'
           }
           list={errors}
         />
+        <Header as="h2">Checkout</Header>
         <div className="checkout">
           <Form className="checkout-form" onSubmit={this.handleSubmit}>
             <Form.Field>
@@ -152,7 +187,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="firstName"
                 value={firstName || ''}
-                // readOnly={!!firstName}
+                placeholder="Given name"
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -162,7 +197,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="lastName"
                 value={lastName || ''}
-                // readOnly={!!lastName}
+                placeholder="Surname"
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -172,6 +207,7 @@ class CheckoutForm extends React.Component {
                 type="text"
                 name="address"
                 value={address || ''}
+                placeholder="Inlcude galactic region"
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -180,7 +216,8 @@ class CheckoutForm extends React.Component {
               <Input
                 type="number"
                 name="phoneNumber"
-                value={phoneNumber || 1234567890}
+                value={phoneNumber || ''}
+                placeholder="Intergalactic ext."
                 onChange={this.handleChange}
               />
             </Form.Field>
@@ -190,12 +227,73 @@ class CheckoutForm extends React.Component {
                 value={email || ''}
                 type="email"
                 name="email"
-                // readOnly={userEmail.length > 0}
+                placeholder="Electronic-mail"
                 onChange={this.handleChange}
               />
             </Form.Field>
+            <Form.Field>
+              <label>Credit Card</label>
+              <Input
+                type="number"
+                name="payment"
+                placeholder="Card #"
+                value={payment || ''}
+                onChange={this.handleChange}
+              />
+            </Form.Field>
+            <Form.Field>
+              <div className="fourteen wide field">
+                <label>Expiration</label>
+                <div className="two fields">
+                  <div className="field">
+                    <select
+                      className="ui fluid search dropdown"
+                      name="paymentMonth"
+                    >
+                      <option value="1">January</option>
+                      <option value="2">February</option>
+                      <option value="3">March</option>
+                      <option value="4">April</option>
+                      <option value="5">May</option>
+                      <option value="6">June</option>
+                      <option value="7">July</option>
+                      <option value="8">August</option>
+                      <option value="9">September</option>
+                      <option value="10">October</option>
+                      <option value="11">November</option>
+                      <option value="12">December</option>
+                    </select>
+                  </div>
+                  <div className="field">
+                    <input
+                      type="text"
+                      name="paymentYear"
+                      maxLength="4"
+                      placeholder="Year"
+                      value={paymentYear || ''}
+                      onChange={this.handleChange}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Form.Field>
+            <div className="cart">
+              <h3 className="subTotal">
+                Subtotal
+                <div>
+                  $
+                  {this.props.cart.order_details.reduce((total, elm) => {
+                    return total + elm.price * elm.quantity
+                  }, 0) / 100}
+                </div>
+              </h3>
+            </div>
+            <Button className="spacepurple" type="submit">
+              Submit
+            </Button>
+          </Form>
+          <div className="checkout-cart">
             {order_details.map(item => {
-              // const cartItem = product.order_detail
               return (
                 <div key={item.productId}>
                   <CartProducts
@@ -214,10 +312,7 @@ class CheckoutForm extends React.Component {
                 </div>
               )
             })}
-            <Button className="spacepurple" type="submit">
-              Submit
-            </Button>
-          </Form>
+          </div>
         </div>
       </div>
     )

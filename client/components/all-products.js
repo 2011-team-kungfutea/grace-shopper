@@ -41,19 +41,8 @@ class AllProducts extends React.Component {
                     to={`/products/${product.id}`}
                     style={{textDecoration: 'none'}}
                   >
-                    <Image src={product.imageUrl} className="product-image" />
+                    <Image src={product.imageUrl} style={{height: '210px'}} />
                   </Link>
-
-                  {/* <h1>{product.name}</h1> */}
-                  {/* <Link to={`/products/${product.id}`}>
-                    <img
-                      className="ui medium image"
-                      src={product.imageUrl}
-                      width="320"
-                      height="320"
-                    />
-                  </Link> */}
-
                   <Card.Content>
                     <Card.Header>{product.name}</Card.Header>
                     <Card.Meta>
@@ -73,17 +62,6 @@ class AllProducts extends React.Component {
                       </div>
                     )}
                   </Card.Content>
-                  {/* <div>${product.price / 100}</div>
-                  {user.isAdministrator && (
-                    <div className="admin-buttons">
-                      <Link to={`/admin/products/${product.id}/edit`}>
-                        <Button>Edit</Button>
-                      </Link>
-                      <Button onClick={() => this.handleDelete(product.id)}>
-                        Delete
-                      </Button>
-                    </div>
-                  )} */}
                 </Card>
               </div>
             )

@@ -13,6 +13,7 @@ import {
   EditProduct,
   AllUsers,
   CheckoutForm,
+  CheckoutLanding,
   Home
 } from './components'
 import {me} from './store'
@@ -45,12 +46,14 @@ class Routes extends Component {
 
     return (
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
-        <Route path="/checkout-form" component={CheckoutForm} />
-        <Route path="/cart" component={Cart} />
+        <Route exact path="/checkout-form" component={CheckoutForm} />
+        <Route exact path="/cart" component={Cart} />
+        <Route exact path="/checkout-landing" component={CheckoutLanding} />
+        <Route exact path="/" component={Home} />
         {isLoggedIn && (
           <Switch>
             <Route path="/home" component={UserHome} />
@@ -73,6 +76,7 @@ class Routes extends Component {
         )}
         {/* <Route component={Login} /> */}
         <Route exact path="/" component={Home} />
+        <Route exact path="/home" component={Home} />
       </Switch>
     )
   }

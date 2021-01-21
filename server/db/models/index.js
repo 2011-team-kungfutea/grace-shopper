@@ -16,7 +16,7 @@ Order.belongsTo(User)
 Order.hasMany(Order_Detail)
 Order_Detail.belongsTo(Order)
 
-Product.hasMany(Order_Detail)
+Product.hasMany(Order_Detail, {onDelete: 'CASCADE'})
 Order_Detail.belongsTo(Product)
 
 Order.belongsToMany(Product, {
