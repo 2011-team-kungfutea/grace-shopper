@@ -23,7 +23,17 @@ class AllProducts extends React.Component {
     return (
       <div>
         <div className="all-products-header">
-          <h1>Products</h1>
+          <br />
+          <h1 className="ui center aligned icon header">
+            <i className="circular paw icon" />
+          </h1>
+          <Image src="/images/meetourpetsheader.png" className="ui center" />
+          <br />
+          {!user.isAdministrator ? (
+            <h6> 'Ready for a new home and not held captive!'</h6>
+          ) : (
+            ''
+          )}
           {user.isAdministrator && (
             <Link to="/admin/products/add">
               <Button className="spacepink-background-color">
@@ -36,19 +46,23 @@ class AllProducts extends React.Component {
           {products.map(product => {
             return (
               <div key={product.id} className="product-in-product-list">
-                <Card>
+                <Card color="pink" className="ui raised link card">
                   <Link
                     to={`/products/${product.id}`}
                     style={{textDecoration: 'none'}}
                   >
-                    <Image src={product.imageUrl} style={{height: '210px'}} />
+                    <Image src={product.imageUrl} className="ui fluid image" />
                   </Link>
                   <Card.Content>
-                    <Card.Header>{product.name}</Card.Header>
-                    <Card.Meta>
-                      <span>${parseInt(product.price || 0) / 100}</span>
-                    </Card.Meta>
-                    <Card.Description>{product.description}</Card.Description>
+                    <Card.Header className="ui center aligned header">
+                      {product.name}
+                    </Card.Header>
+                    <Card.Description className="ui center aligned">
+                      {product.description}
+                    </Card.Description>
+                    <Card.Meta>price</Card.Meta>
+                    <span>${parseInt(product.price || 0) / 100}</span>
+                    {/* </Card.Meta> */}
                   </Card.Content>
                   <Card.Content extra>
                     {user.isAdministrator && (
