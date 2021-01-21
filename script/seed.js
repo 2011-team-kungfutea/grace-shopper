@@ -47,24 +47,94 @@ async function seed() {
       imageUrl:
         'https://i.pinimg.com/originals/fc/a3/49/fca349944fe6daa3ddaa80ac6cce5065.jpg'
     }),
-    Product.create({name: 'Frederigo', price: 70135632, quantity: 17}),
-    Product.create({name: 'Christie', price: 9876393, quantity: 25}),
-    Product.create({name: 'Natty', price: 67346099, quantity: 24}),
-    Product.create({name: 'Ddene', price: 25580664, quantity: 31}),
-    Product.create({name: 'Zacherie', price: 65009427, quantity: 14}),
-    Product.create({name: 'Melloney', price: 64433331, quantity: 14}),
-    Product.create({name: 'Mitchell', price: 295374, quantity: 69}),
-    Product.create({name: 'Netti', price: 32102514, quantity: 63}),
-    Product.create({name: 'Tamqrah', price: 30517859, quantity: 45}),
-    Product.create({name: 'Gayle', price: 71842008, quantity: 28}),
-    Product.create({name: 'Lon', price: 98562476, quantity: 80}),
-    Product.create({name: 'Chere', price: 8952708, quantity: 75}),
-    Product.create({name: 'Jedd', price: 85539773, quantity: 76}),
-    Product.create({name: 'Killie', price: 14492332, quantity: 89}),
+    Product.create({
+      name: 'Frederigo',
+      price: 70135632,
+      quantity: 17,
+      imageUrl: '/images/il_794xN.1177821522_93of.jpg'
+    }),
+    Product.create({
+      name: 'Bobette',
+      price: 9876393,
+      quantity: 25,
+      imageUrl: '/images/d7vsqzo-a61e250a-fd35-4faf-8f48-86bc31703e17.jpg'
+    }),
+    Product.create({
+      name: 'Natty',
+      price: 67346099,
+      quantity: 24,
+      imageUrl: '/images/kris-turvey-sidekick-final-01.jpg'
+    }),
+    Product.create({
+      name: 'Dumplin',
+      price: 25580664,
+      quantity: 31,
+      imageUrl: '/images/Screen_shot_2012-06-25_at_7.07.04_PM.png'
+    }),
+    Product.create({
+      name: 'Georgrie',
+      price: 65009427,
+      quantity: 14,
+      imageUrl: '/images/jia-hao-2014-08-up.jpg'
+    }),
+    Product.create({
+      name: 'Killie',
+      price: 14492332,
+      quantity: 89,
+      imageUrl: '/images/wugu_final_5___terrorizer_by_twodd-d6e7kd6.jpg'
+    }),
+    Product.create({
+      name: 'Melloney',
+      price: 64433331,
+      quantity: 14,
+      imageUrl: '/images/db4xws8-66a4522c-2055-4277-9d2f-c052deca168e.jpg'
+    }),
+    Product.create({
+      name: 'Mitchell',
+      price: 295374,
+      quantity: 69,
+      imageUrl: '/images/il_794xN.1384740934_rcof.jpg'
+    }),
+    Product.create({
+      name: 'Lawrence',
+      price: 32102514,
+      quantity: 63,
+      imageUrl: '/images/horizontal.jpeg'
+    }),
+    Product.create({
+      name: 'Tamqrah',
+      price: 30517859,
+      quantity: 45,
+      imageUrl: '/images/8-59533c9b56a16__700.jpg'
+    }),
+    Product.create({
+      name: 'Gayle',
+      price: 71842008,
+      quantity: 28,
+      imageUrl: '/images/il_1588xN.1754692340_iwae.jpg'
+    }),
+    Product.create({
+      name: 'Lon',
+      price: 98562476,
+      quantity: 80,
+      imageUrl: '/images/d879nsw-b3cebf18-6353-4668-bf3a-efa195f2c64e.jpg'
+    }),
+    Product.create({
+      name: 'Chere',
+      price: 8952708,
+      quantity: 75,
+      imageUrl: '/images/sexiedamame.png'
+    }),
+    Product.create({
+      name: 'Jedd',
+      price: 85539773,
+      quantity: 76,
+      imageUrl: '/images/il_794xN.2141834527_itaw.jpg'
+    }),
     Product.create({name: 'Virgil', price: 7425416, quantity: 97}),
     Product.create({name: 'Miller', price: 88366482, quantity: 72}),
     Product.create({name: 'Elsy', price: 11211392, quantity: 14}),
-    Product.create({name: 'Bobette', price: 72226303, quantity: 7}),
+    Product.create({name: 'Nooj', price: 72226303, quantity: 7}),
     Product.create({name: 'Wendie', price: 37260243, quantity: 58}),
     Product.create({name: 'Xavier', price: 46219059, quantity: 73}),
     Product.create({name: 'Feliza', price: 39192115, quantity: 71}),

@@ -23,7 +23,13 @@ class AllProducts extends React.Component {
     return (
       <div>
         <div className="all-products-header">
-          <h1>Products</h1>
+          <br />
+          <h1 className="ui center aligned icon header">
+            <i className="circular paw icon" />
+          </h1>
+          <Image src="/images/meetourpetsheader.png" className="ui center" />
+          <br />
+          <h6>Ready for a new home and not held captive!</h6>
           {user.isAdministrator && (
             <Link to="/admin/products/add">
               <Button className="spacepink-background-color">
@@ -44,10 +50,12 @@ class AllProducts extends React.Component {
                     <Image src={product.imageUrl} className="ui fluid image" />
                   </Link>
                   <Card.Content>
-                    <Card.Header>{product.name}</Card.Header>
-                    <Card.Meta>
-                      <span>${parseInt(product.price || 0) / 100}</span>
-                    </Card.Meta>
+                    <Card.Header className="ui center aligned header">
+                      {product.name}
+                    </Card.Header>
+                    <Card.Meta>price</Card.Meta>
+                    <span>${parseInt(product.price || 0) / 100}</span>
+                    {/* </Card.Meta> */}
                     <Card.Description>{product.description}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
