@@ -2,6 +2,10 @@ body {
   font-family: sans-serif;
 }
 
+p {
+  margin: 0;
+}
+
 a {
   text-decoration: none;
 }
@@ -21,42 +25,11 @@ navbar
   display: flex;
   align-items: center;
 }
-/* .navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: rgb(0, 0, 0);
-} */
-
-/* .navItem {
-  float: left;
-} */
-
-/* li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-
-li a:hover:not(.active) {
-  background-color: #333;
-}
-
-.active {
-  background-color: #4CAF50;
-} */
-/* form div {
-  margin: 1em;
-  display: inline-block;
-} */
 
 /*
-footer
+footer""
 */
-footer-container {
+.footer-container {
   grid-area: footer;
   background-color: white;
   color: black;
@@ -81,6 +54,10 @@ main page
   display: flex;
   flex-direction: column;
   margin: 2%;
+}
+
+.ui.button.single-pets-button {
+  display: inline-block;
 }
 
 .image-preview {
@@ -229,4 +206,31 @@ cart
 #google-link {
   padding-top: 1%;
   text-align: center;
+}
+
+#not-found-page {
+  display: flex;
+  justify-content: center;
+}
+
+#not-found-text {
+  position: absolute;
+  top: 420px;
+
+.padding {
+  padding: 30px;
+}
+
+.textSize {
+  padding: 15px;
+  font-size: 25px;
+}
+
+.footer {
+  padding: 20px;
+  background-color: black;
+  position: relative;
+  width: 100%;
+  height: 150px;
+  bottom: 0;
 }
