@@ -20,9 +20,9 @@ const Home = () => {
         </div>
       </Segment>
       <div className="footer">
-        <Container textAlign="center">
+        <Container textAlign="center" style={{color: 'black'}}>
           <Header as="h4" style={{color: '#FFFFFF'}}>
-            CopyRight
+            UFO Tofu
           </Header>
           <List horizontal relaxed>
             <List.Item>
