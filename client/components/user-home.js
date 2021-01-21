@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Segment, Image, Container} from 'semantic-ui-react'
+import {Segment, Image} from 'semantic-ui-react'
 
 /**
  * COMPONENT
@@ -28,9 +28,6 @@ export const UserHome = props => {
 
         <Image centered size="massive" src="signinpage.png" />
       </Segment>
-      {/* <div className="footer-container">
-        <footer>Terms Of Use</footer>
-      </div> */}
     </div>
   )
 }
