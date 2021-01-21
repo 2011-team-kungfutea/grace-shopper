@@ -1,37 +1,65 @@
 import React from 'react'
-//import '../style/style.css'
-import {Image, Segment} from 'semantic-ui-react'
-//import {Link} from 'react-router-dom'
-//import {Navbar} from '/navbar.js'
+import {
+  Image,
+  Segment,
+  List,
+  Header,
+  Button,
+  Container
+} from 'semantic-ui-react'
 
 const Home = () => {
-  //console.log('what is this')
   return (
     <div>
-      {/* <div className="message">
-        <h5 centered>
-          Ready to WELCOME the love of an alien pet into your home? We're
-          committed to matching wonderful, adoptable alien pets with loving
-          families. And we can help you find just the right alien pet, too.
-        </h5>
-      </div> */}
-
       <Segment padded="very">
         <div>
-          {/* <Header as="h1" size="huge">
-          UFO TOFU
-        </Header> */}
-          {/* <h3>{'Pet Out Of This World'}</h3> */}
-          {/* <a target="/products" className="ui large image">
-          <img src="homepage1.png" />
-        </a> */}
           <Image centered size="medium" src="homepage1.png" />
-          {/* <Link as={Image} to="/products" /> */}
           <Segment>
             <Image centered size="massive" src="aboutus2.png" />
           </Segment>
         </div>
       </Segment>
+      <div className="footer">
+        <Container textAlign="center">
+          <Header as="h4" style={{color: '#FFFFFF'}}>
+            CopyRight
+          </Header>
+          <List horizontal relaxed>
+            <List.Item>
+              <Button circular color="linkedin" icon="linkedin" />
+              <List.Content>
+                <List.Header style={{color: '#FFFFFF'}}>
+                  Kirstie Rodriguez
+                </List.Header>
+              </List.Content>
+            </List.Item>
+            <List.Item>
+              <Button circular color="linkedin" icon="linkedin" />
+              <List.Content>
+                <List.Header style={{color: '#FFFFFF'}}>
+                  Goncagul Ay
+                </List.Header>
+              </List.Content>
+            </List.Item>
+            <List.Item>
+              <Button circular color="linkedin" icon="linkedin" />
+              <List.Content>
+                <List.Header style={{color: '#FFFFFF'}}>
+                  Veronica Tomchak
+                </List.Header>
+              </List.Content>
+            </List.Item>
+            <List.Item>
+              <Button circular color="linkedin" icon="linkedin" />
+              <List.Content>
+                <List.Header style={{color: '#FFFFFF'}}>
+                  Teofilo Callanaupa
+                </List.Header>
+              </List.Content>
+            </List.Item>
+          </List>
+        </Container>
+      </div>
     </div>
   )
 }
