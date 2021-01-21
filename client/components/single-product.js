@@ -19,67 +19,67 @@ class SingleProduct extends React.Component {
     if (!product.id) {
       return <NotFound />
     } else {
-    return (
-      <div>
-        <Container>
-          <div className="padding">
+      return (
+        <div>
+          <Container>
+            <div className="padding">
+              <Container textAlign="center">
+                <Header as="h1">{product.name}</Header>
+              </Container>
+            </div>
+            <div className="ui divider" />
             <Container textAlign="center">
-              <Header as="h1">{product.name}</Header>
-            </Container>
-          </div>
-          <div className="ui divider" />
-          <Container textAlign="center">
-            <Image src={product.imageUrl} size="medium" centered />
-            {quantity === 0 ? (
-              <p className="textSize">This cutie is out of stock!</p>
-            ) : (
-              <p className="textSize">Quantity: {quantity}</p>
-            )}
-            <p className="textSize">${price / 100}</p>
-          </Container>
-
-          <Container textAlign="center">
-            <div>
-              <Button
-                floated="center"
-                basic
-                color="purple"
-                size="huge"
-                className="single-pets-button"
-              >
-                <Link to="/products" style={{color: '#7943E7'}}>
-                  <div>Back to All Pets</div>
-                </Link>
-              </Button>
+              <Image src={product.imageUrl} size="medium" centered />
               {quantity === 0 ? (
-                <Button disabled size="huge" className="single-pets-button">
-                  Add to Cart
-                </Button>
+                <p className="textSize">This cutie is out of stock!</p>
               ) : (
+                <p className="textSize">Quantity: {quantity}</p>
+              )}
+              <p className="textSize">${price / 100}</p>
+            </Container>
+
+            <Container textAlign="center">
+              <div>
                 <Button
                   floated="center"
                   basic
-                  color="pink"
+                  color="purple"
                   size="huge"
                   className="single-pets-button"
                 >
-                  <div
-                    onClick={() =>
-                      this.props.addToCart(product, this.props.cart.id)
-                    }
-                  >
-                    Add to Cart
-                  </div>
+                  <Link to="/products" style={{color: '#7943E7'}}>
+                    <div>Back to All Pets</div>
+                  </Link>
                 </Button>
-              )}
-            </div>
+                {quantity === 0 ? (
+                  <Button disabled size="huge" className="single-pets-button">
+                    Add to Cart
+                  </Button>
+                ) : (
+                  <Button
+                    floated="center"
+                    basic
+                    color="pink"
+                    size="huge"
+                    className="single-pets-button"
+                  >
+                    <div
+                      onClick={() =>
+                        this.props.addToCart(product, this.props.cart.id)
+                      }
+                    >
+                      Add to Cart
+                    </div>
+                  </Button>
+                )}
+              </div>
+            </Container>
           </Container>
-        </Container>
-      </div>
-    )
+        </div>
+      )
+    }
   }
 }
-
 const mapStateToProps = state => {
   return {
     product: state.singleProduct,
