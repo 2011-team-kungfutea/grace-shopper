@@ -31,7 +31,7 @@ footer""
 */
 .footer-container {
   grid-area: footer;
-  background-color: white;
+  background-color: black;
   color: black;
   display: flex;
   justify-content: center;
@@ -216,6 +216,7 @@ cart
 #not-found-text {
   position: absolute;
   top: 420px;
+}
 
 .padding {
   padding: 30px;
