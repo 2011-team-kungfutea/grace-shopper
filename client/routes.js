@@ -14,7 +14,8 @@ import {
   AllUsers,
   CheckoutForm,
   CheckoutLanding,
-  Home
+  Home,
+  NotFound
 } from './components'
 import {me} from './store'
 import {fetchCart, emptyCart} from './store/cart-reducer'
@@ -46,13 +47,13 @@ class Routes extends Component {
 
     return (
       <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         <Route exact path="/products" component={AllProducts} />
         <Route exact path="/products/:productId" component={SingleProduct} />
-        <Route exact path="/checkout-form" component={CheckoutForm} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/checkout-landing" component={CheckoutLanding} />
+        <Route path="/checkout-form" component={CheckoutForm} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/checkout-landing" component={CheckoutLanding} />
         <Route exact path="/" component={Home} />
         {isLoggedIn && (
           <Switch>
@@ -74,9 +75,9 @@ class Routes extends Component {
             )}
           </Switch>
         )}
-        {/* <Route component={Login} /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
+        <Route component={NotFound} />
       </Switch>
     )
   }
