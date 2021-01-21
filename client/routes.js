@@ -14,7 +14,8 @@ import {
   AllUsers,
   CheckoutForm,
   CheckoutLanding,
-  Home
+  Home,
+  NotFound
 } from './components'
 import {me} from './store'
 import {fetchCart, emptyCart} from './store/cart-reducer'
@@ -74,9 +75,9 @@ class Routes extends Component {
             )}
           </Switch>
         )}
-        {/* <Route component={Login} /> */}
         <Route exact path="/" component={Home} />
         <Route exact path="/home" component={Home} />
+        <Route component={NotFound} />
       </Switch>
     )
   }

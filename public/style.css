@@ -211,6 +211,15 @@ cart
   text-align: center;
 }
 
+#not-found-page {
+  display: flex;
+  justify-content: center;
+}
+
+#not-found-text {
+  position: absolute;
+  top: 420px;
+
 .padding {
   padding: 30px;
 }

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 import {thunkfetchSingleProduct} from '../store/single-product-reducer'
 import {fetchCart} from '../store/cart-reducer'
 import {thunkAddToCart} from '../store/cart-reducer'
+import {NotFound} from './not-found'
 import {Container, Header, Image, Button, Divider} from 'semantic-ui-react'
 
 class SingleProduct extends React.Component {
@@ -11,11 +12,13 @@ class SingleProduct extends React.Component {
     this.props.fetchSingleProduct(this.props.match.params.productId)
   }
   render() {
-    const product = this.props.product
+    const product = this.props.product || {}
     const description = product.description || ''
     const quantity = product.quantity || 0
     const price = product.price || 0
-
+    if (!product.id) {
+      return <NotFound />
+    } else {
     return (
       <div>
         <Container>
