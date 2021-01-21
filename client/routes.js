@@ -14,7 +14,8 @@ import {
   AllUsers,
   CheckoutForm,
   CheckoutLanding,
-  Home
+  Home,
+  EditUser
 } from './components'
 import {me} from './store'
 import {fetchCart, emptyCart} from './store/cart-reducer'
@@ -53,6 +54,7 @@ class Routes extends Component {
         <Route exact path="/checkout-form" component={CheckoutForm} />
         <Route exact path="/cart" component={Cart} />
         <Route exact path="/checkout-landing" component={CheckoutLanding} />
+        <Route exact path="/users/:userId" component={EditUser} />
         <Route exact path="/" component={Home} />
         {isLoggedIn && (
           <Switch>

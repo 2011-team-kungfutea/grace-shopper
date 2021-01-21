@@ -60,6 +60,15 @@ class Navbar extends React.Component {
                   Logout
                   {/* </a> */}
                 </Menu.Item>
+                <Link to={`/users/${this.props.user.id}`}>
+                  <Menu.Item
+                    name="editUser"
+                    activate={activeItem === 'editUser'}
+                    onClick={this.handleItemClick}
+                  >
+                    Edit Account
+                  </Menu.Item>
+                </Link>
               </div>
             ) : (
               <div className="conditionals">
