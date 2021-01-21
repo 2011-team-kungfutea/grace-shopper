@@ -5,59 +5,107 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 import {TotalItems} from './total-items'
 import {fetchCart} from '../store/cart-reducer'
+import {Menu, Segment} from 'semantic-ui-react'
 
 class Navbar extends React.Component {
+  state = {activeItem: 'home'}
+  handleItemClick = (e, {name}) => this.setState({activeItem: name})
   render() {
+    const {activeItem} = this.state
     return (
-      <div>
-        <nav>
-          <ul className="navbar">
-            <li>
-              <Link to="/home" font="Open Sans">
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/products" font="Open Sans">
-                Adopt
-              </Link>
-            </li>
-            <li style={{float: 'right'}}>
-              {this.props.isLoggedIn ? (
-                <div>
-                  {this.props.user.isAdministrator && (
-                    <Link to="/admin/users">Users </Link>
-                  )}
-                  {/* The navbar will show these links after you log in */}
+      <Segment inverted>
+        <Menu inverted secondary>
+          {/* <ul className="navbar"> */}
+          <Link to="/home" font="Open Sans">
+            <Menu.Item
+              className="navItem"
+              name="home"
+              activate={activeItem === 'home'}
+              onClick={this.handleItemClick}
+            >
+              Home
+            </Menu.Item>
+          </Link>
+          <Link to="/products" font="Open Sans">
+            <Menu.Item
+              className="navItem"
+              name="adopt"
+              activate={activeItem === 'adopt'}
+              onClick={this.handleItemClick}
+            >
+              Adopt
+            </Menu.Item>
+          </Link>
+          <Menu.Menu className="navItem" position="right">
+            {this.props.isLoggedIn ? (
+              <div>
+                {this.props.user.isAdministrator && (
+                  <Link to="/admin/users">
+                    <Menu.Item
+                      name="users"
+                      activate={activeItem === 'users'}
+                      onClick={this.handleItemClick}
+                    >
+                      Users
+                    </Menu.Item>
+                  </Link>
+                )}
+                {/* The navbar will show these links after you log in */}
+                <Menu.Item
+                  name="logout"
+                  activate={activeItem === 'logout'}
+                  onClick={this.handleItemClick}
+                >
                   <a href="#" onClick={this.props.handleClick} font="Open Sans">
                     Logout
                   </a>
-                </div>
-              ) : (
-                <div>
-                  {/* The navbar will show these links before you log in */}
-                  <Link to="/login" font="Open Sans">
+                </Menu.Item>
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */}
+
+                <Link to="/login" font="Open Sans">
+                  <Menu.Item
+                    name="login"
+                    activate={activeItem === 'login'}
+                    onClick={this.handleItemClick}
+                  >
                     Login
-                  </Link>
-                  <Link to="/signup" font="Open Sans">
+                  </Menu.Item>
+                </Link>
+
+                <Link to="/signup" font="Open Sans">
+                  <Menu.Item
+                    name="signup"
+                    activate={activeItem === 'signup'}
+                    onClick={this.handleItemClick}
+                  >
                     Sign Up
-                  </Link>
-                  {/* <i className="shopping cart purple icon spacepurple" />
+                  </Menu.Item>
+                </Link>
+                {/* <i className="shopping cart purple icon spacepurple" />
                   <a>number</a> */}
-                </div>
-              )}
-            </li>
-            <li style={{float: 'right'}}>
-              <Link to="/cart">
-                <div style={{display: 'flex'}}>
-                  <i className="shopping cart purple icon spacepurple" />
-                  <p>{TotalItems(this.props.cart)}</p>
-                </div>
-              </Link>
-            </li>
-          </ul>
-        </nav>
-      </div>
+              </div>
+            )}
+          </Menu.Menu>
+          <Link to="/cart">
+            <Menu.Item
+              className="navItem"
+              style={{float: 'right'}}
+              name="cart"
+              activate={activeItem === 'cart'}
+              onClick={this.handleItemClick}
+            >
+              <div style={{display: 'flex'}}>
+                <i className="shopping cart purple icon spacepurple" />
+              </div>
+              <p>{TotalItems(this.props.cart)}</p>
+            </Menu.Item>
+          </Link>
+          {/* </ul> */}
+        </Menu>
+      </Segment>
     )
   }
 }
