@@ -3,7 +3,7 @@
 import {expect} from 'chai'
 import {me, logout} from './user'
 import {fetchUsers} from './all-users-reducer'
-import {emptyCart} from './cart-reducer'
+import {emptyCart, fetchCart} from './cart-reducer'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -17,7 +17,9 @@ describe('thunk creators', () => {
   let store
   let mockAxios
 
-  const initialState = {user: {}}
+  const initialState = {
+    order_details: []
+  }
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
@@ -27,6 +29,20 @@ describe('thunk creators', () => {
   afterEach(() => {
     mockAxios.restore()
     store.clearActions()
+  })
+
+  describe('fetchCart', () => {
+    it('eventually dispatches the GET CART ITEMS action', async () => {
+      const fakeUser = {
+        id: 1,
+        email: 'Cody'
+      }
+      mockAxios.onGet(`/api/orders/${fakeUser.id}`).replyOnce(200, fakeUser)
+      await store.dispatch(me())
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('GET_USER')
+      expect(actions[0].user).to.be.deep.equal(fakeUser)
+    })
   })
 
   describe('me', () => {
