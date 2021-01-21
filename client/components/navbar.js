@@ -38,7 +38,7 @@ class Navbar extends React.Component {
           </Link>
           <Menu.Menu className="navItem" position="right">
             {this.props.isLoggedIn ? (
-              <div>
+              <div className="conditionals">
                 {this.props.user.isAdministrator && (
                   <Link to="/admin/users">
                     <Menu.Item
@@ -54,15 +54,15 @@ class Navbar extends React.Component {
                 <Menu.Item
                   name="logout"
                   activate={activeItem === 'logout'}
-                  onClick={this.handleItemClick}
+                  onClick={this.props.handleClick}
                 >
-                  <a href="#" onClick={this.props.handleClick} font="Open Sans">
-                    Logout
-                  </a>
+                  {/* <a href="#" onClick={this.props.handleClick} font="Open Sans"> */}
+                  Logout
+                  {/* </a> */}
                 </Menu.Item>
               </div>
             ) : (
-              <div>
+              <div className="conditionals">
                 {/* The navbar will show these links before you log in */}
 
                 <Link to="/login" font="Open Sans">
