@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts, removeProduct} from '../store/all-products-reducer'
 import {Link} from 'react-router-dom'
-import {Button} from 'semantic-ui-react'
+import {Button, Card, Image} from 'semantic-ui-react'
 
 class AllProducts extends React.Component {
   constructor() {
@@ -32,27 +32,37 @@ class AllProducts extends React.Component {
             </Link>
           )}
         </div>
-        <div>
+        <div className="list-of-products">
           {products.map(product => {
             return (
-              <div role="list" className="ui horizontal list" key={product.id}>
-                <div className="ui teal segment">
-                  <h1>{product.name}</h1>
-                  <Link to={`/products/${product.id}`} width="320" height="320">
-                    <img className="ui medium image" src={product.imageUrl} />
+              <div key={product.id} className="product-in-product-list">
+                <Card>
+                  <Link
+                    to={`/products/${product.id}`}
+                    style={{textDecoration: 'none'}}
+                  >
+                    <Image src={product.imageUrl} style={{height: '210px'}} />
                   </Link>
-                  <div>${product.price / 100}</div>
-                  {user.isAdministrator && (
-                    <div className="admin-buttons">
-                      <Link to={`/admin/products/${product.id}/edit`}>
-                        <Button>Edit</Button>
-                      </Link>
-                      <Button onClick={() => this.handleDelete(product.id)}>
-                        Delete
-                      </Button>
-                    </div>
-                  )}
-                </div>
+                  <Card.Content>
+                    <Card.Header>{product.name}</Card.Header>
+                    <Card.Meta>
+                      <span>${parseInt(product.price || 0) / 100}</span>
+                    </Card.Meta>
+                    <Card.Description>{product.description}</Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    {user.isAdministrator && (
+                      <div className="admin-buttons">
+                        <Link to={`/admin/products/${product.id}/edit`}>
+                          <Button>Edit</Button>
+                        </Link>
+                        <Button onClick={() => this.handleDelete(product.id)}>
+                          Delete
+                        </Button>
+                      </div>
+                    )}
+                  </Card.Content>
+                </Card>
               </div>
             )
           })}

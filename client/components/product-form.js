@@ -7,12 +7,12 @@ export const ProductForm = props => {
     handleSubmit,
     imageUrl,
     name,
-    category,
     quantity,
     price,
     description,
     submittedForm,
-    errors
+    errors,
+    formType
   } = props
 
   return (
@@ -25,7 +25,7 @@ export const ProductForm = props => {
         header={
           errors.length
             ? 'There were some errors with your submission'
-            : 'Product was added successfully'
+            : `Pet was ${formType} successfully`
         }
         list={errors}
       />
@@ -45,15 +45,6 @@ export const ProductForm = props => {
             <Input name="imageUrl" value={imageUrl} onChange={handleChange} />
           </Form.Field>
           <Form.Field>
-            <label>Category</label>
-            <Input
-              type="text"
-              name="category"
-              value={category === null ? '' : category}
-              onChange={handleChange}
-            />
-          </Form.Field>
-          <Form.Field>
             <label>Quantity</label>
             <Input
               type="number"
@@ -69,7 +60,7 @@ export const ProductForm = props => {
               type="number"
               name="price"
               min="0.01"
-              max="21474836.47"
+              max="9223372036854775806"
               step="0.01"
               value={price === null ? 0.0 : price}
               onChange={handleChange}

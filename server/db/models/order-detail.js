@@ -10,7 +10,7 @@ const Order_Detail = db.define('order_detail', {
     }
   },
   price: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.BIGINT,
     allowNull: false,
     validate: {
       min: 1

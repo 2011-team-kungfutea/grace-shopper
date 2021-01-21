@@ -13,7 +13,6 @@ class EditProduct extends React.Component {
     this.state = {
       name: '',
       imageUrl: '',
-      category: '',
       quantity: 0,
       price: 0.0,
       description: '',
@@ -93,6 +92,7 @@ class EditProduct extends React.Component {
         </Container>
         <ProductForm
           {...this.state}
+          formType="edited"
           handleChange={this.handleChange}
           handleSubmit={this.handleSubmit}
         />

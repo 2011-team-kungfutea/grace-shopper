@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const {ItemHeader} = require('semantic-ui-react')
 const {Product, Order, Order_Detail, User} = require('../db/models')
 module.exports = router
 
@@ -22,15 +23,26 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// POST '/'
 router.post('/', async (req, res, next) => {
   try {
-    const newUser = await User.create(req.body.formData)
-    const newOrderCreated = await Order.create({
-      ...req.body.cart,
-      isOrdered: true,
-      userId: newUser.id
-    })
-    res.send(newOrderCreated)
+    const order = await Order.create(
+      {
+        ...req.body.cart,
+        isOrdered: true,
+        user: {...req.body.formData}
+      },
+      {
+        include: [{model: User}]
+      }
+    )
+    const orderDetails = await Order_Detail.bulkCreate(
+      req.body.cart.order_details.map(item => {
+        item.orderId = order.id
+        return item
+      })
+    )
+    res.send(order)
   } catch (error) {
     next(error)
   }
@@ -104,24 +116,6 @@ router.put('/:orderId', async (req, res, next) => {
     } else {
       res.send(updatedOrder[1])
     }
-  } catch (error) {
-    next(error)
-  }
-})
-
-// DELETE /:orderId/delete/:productId
-router.delete('/:orderId/delete/:productId', async (req, res, next) => {
-  try {
-    const orderDetail = await Order_Detail.findOne({
-      where: {
-        orderId: req.params.orderId,
-        productId: req.params.productId
-      }
-    })
-    if (orderDetail) {
-      await orderDetail.destroy()
-    }
-    res.sendStatus(204)
   } catch (error) {
     next(error)
   }

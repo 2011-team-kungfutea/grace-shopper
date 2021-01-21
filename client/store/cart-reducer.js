@@ -1,4 +1,6 @@
 import axios from 'axios'
+import history from '../history'
+
 //action constants
 export const GET_CART_ITEMS = 'GET_CART_ITEMS'
 export const ADD_TO_CART = 'ADD_TO_CART'
@@ -67,12 +69,14 @@ export const thunkAddToCart = (product, orderId) => {
           product: product
         }
         dispatch(addToGuestCart(addedProduct))
+        // history.push('/products')
       } else {
         const {data} = await axios.put(
           `/api/orders/${orderId}/add/${product.id}`,
           product
         )
         dispatch(addToCart(data))
+        // history.push('/products')
       }
     } catch (err) {
       console.error(err)
@@ -128,23 +132,25 @@ export const editQuantityInCart = (changeType, productId, orderId) => {
 export const checkoutThunk = (orderId, checkoutData) => {
   return async dispatch => {
     try {
+      const res = await axios.put(`/api/products/checkout`, checkoutData)
       const {data} = await axios.put(`/api/orders/${orderId}`, checkoutData)
-      if (!data.order_details) {
-        data.order_details = []
-      }
+      if (!data.order_details) data.order_details = []
       dispatch(getCartItems(data))
+      history.push('/checkout-landing')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }
 export const guestCheckoutThunk = checkoutData => {
   return async dispatch => {
     try {
+      const res = await axios.put('/api/products/checkout', checkoutData)
       const {data} = await axios.post(`/api/orders/`, checkoutData)
       dispatch(emptyCart())
+      history.push('/checkout-landing')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }
@@ -219,7 +225,6 @@ export default function getCartReducer(state = initialState, action) {
         ...state,
         order_details: newGuestOrderDetails
       }
-
     default:
       return state
   }
