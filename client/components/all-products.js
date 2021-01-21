@@ -29,7 +29,11 @@ class AllProducts extends React.Component {
           </h1>
           <Image src="/images/meetourpetsheader.png" className="ui center" />
           <br />
-          <h6>Ready for a new home and not held captive!</h6>
+          {!user.isAdministrator ? (
+            <h6> 'Ready for a new home and not held captive!'</h6>
+          ) : (
+            ''
+          )}
           {user.isAdministrator && (
             <Link to="/admin/products/add">
               <Button className="spacepink-background-color">
@@ -42,7 +46,7 @@ class AllProducts extends React.Component {
           {products.map(product => {
             return (
               <div key={product.id} className="product-in-product-list">
-                <Card>
+                <Card color="pink" className="ui raised link card">
                   <Link
                     to={`/products/${product.id}`}
                     style={{textDecoration: 'none'}}
@@ -53,10 +57,12 @@ class AllProducts extends React.Component {
                     <Card.Header className="ui center aligned header">
                       {product.name}
                     </Card.Header>
+                    <Card.Description className="ui center aligned">
+                      {product.description}
+                    </Card.Description>
                     <Card.Meta>price</Card.Meta>
                     <span>${parseInt(product.price || 0) / 100}</span>
                     {/* </Card.Meta> */}
-                    <Card.Description>{product.description}</Card.Description>
                   </Card.Content>
                   <Card.Content extra>
                     {user.isAdministrator && (

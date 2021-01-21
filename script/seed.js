@@ -25,7 +25,9 @@ async function seed() {
       name: 'Edamame',
       price: 2,
       quantity: 47,
-      imageUrl: '/images/48ff49ec8efcd32837cde9b177b5d6ca.jpg'
+      imageUrl: '/images/48ff49ec8efcd32837cde9b177b5d6ca.jpg',
+      description:
+        'Some people say these cute little guys are a dime a dozen, but actually it works out to more like 24 cents for a dozen.'
     }),
     Product.create({
       name: 'Peadar',

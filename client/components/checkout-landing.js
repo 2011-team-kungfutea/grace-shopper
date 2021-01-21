@@ -10,13 +10,15 @@ export const CheckoutLanding = props => {
     <div>
       <h3>
         <div>
-          <h1>
-            Thank you for your order {email ? email : ''}!{' '}
+          <h1 className="ui aligned centered">
+            Tofu thanks you for your order,{' '}
+            {email ? email : 'new intergalatic pet owner'}!{' '}
             <i className="hand spock purple icon spacepurple" />
           </h1>
+          <img className="ui centered image" src="/images/tofu2.jpg" />
         </div>
       </h3>
-      <h4>Great Seeing You Here!</h4>
+      <h4>Adopt Another?</h4>
 
       {/* <div className="footer-container">
           <footer>Terms Of Use</footer>
